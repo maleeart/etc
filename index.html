@@ -41,6 +41,13 @@
                         </svg>
                         จัดการ Affiliate
                     </button>
+                    <button id="nav-cashflow-btn" class="nav-link-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                        เกมกระแสเงินสด
+                    </button>
                 </nav>
                 <!-- Tab Switcher -->
                 <div id="powerplant-tabs" class="tab-group hidden">
@@ -83,6 +90,18 @@
                     <h3>ระบบจัดการ Shopee Affiliate 🛒</h3>
                     <p>เครื่องมือส่วนตัวสำหรับสร้างรายได้นายหน้าออนไลน์! แปลงลิงก์ปกติให้เป็นลิงก์นายหน้าฝัง SubID สะดวกรวดเร็ว สร้างคิวอาร์โค้ดแชร์ลงสื่อสังคมออนไลน์ และจำลองสถิติความสนใจและรายได้จากความเพียรพยายามของคุณ</p>
                     <button class="mode-btn btn-orange">เปิดหน้าจัดการลิงก์ →</button>
+                </div>
+
+                <div class="mode-card" id="mode-cashflow">
+                    <div class="mode-icon-box bg-green-glow">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>เกมกระแสเงินสดจำลอง (Cashflow Game) 💰</h3>
+                    <p>เรียนรู้ทักษะการเงินส่วนบุคคล! ฝึกฝนทักษะการบริหารงบดุล การสร้าง Passive Income และการประเมินดีลการลงทุนเพื่อออกจาก "วงจรหนูถีบจักร" (Rat Race) สู่ความมั่งคั่งทางการเงิน</p>
+                    <button class="mode-btn btn-green">เริ่มเล่นเกมกระแสเงินสด →</button>
                 </div>
             </div>
         </div>
@@ -766,6 +785,247 @@
                 </div>
             </div>
         </div> <!-- End of affiliate-view -->
+        <!-- View 4: Cashflow Game View -->
+        <div id="cashflow-view" class="view-section hidden">
+            <!-- 1. Career Selector -->
+            <div id="cf-career-select" class="cf-container">
+                <div class="cf-welcome-box">
+                    <h2>เลือกอาชีพของคุณเพื่อเริ่มเกม 🎓</h2>
+                    <p>แต่ละอาชีพมีงบการเงินเริ่มต้นที่แตกต่างกัน คนมีรายได้ต่ำจะมียอดเงินเก็บและหนี้สินที่น้อยกว่า ทำให้หลุดพ้นจากวงจรหนูถีบจักรได้ง่ายกว่า แต่คนมีรายได้สูงจะเข้าถึงดีลใหญ่ได้ง่ายกว่าด้วยเงินทุนที่สูงกว่า</p>
+                </div>
+                <div class="career-grid" id="career-options-container">
+                    <!-- Injected dynamically from app.js -->
+                </div>
+            </div>
+
+            <!-- 2. Main Game Board and Dashboard -->
+            <div id="cf-game-board-view" class="cf-container hidden">
+                <div class="cf-game-layout">
+                    <!-- Left: Board Track, Dice Roll, and Event Cards -->
+                    <div class="cf-play-area">
+                        <!-- Rat Race Track Board -->
+                        <div class="board-track-container">
+                            <div class="board-track" id="cf-board-track">
+                                <!-- 24 Spaces generated dynamically by app.js -->
+                            </div>
+                        </div>
+
+                        <!-- Game Controls & Status -->
+                        <div class="cf-game-controls">
+                            <div class="cf-control-card">
+                                <div class="dice-roll-panel">
+                                    <div class="dice-display" id="dice-result">🎲</div>
+                                    <button id="btn-roll-dice" class="btn btn-green-full">ทอยลูกเต๋า 🎲</button>
+                                </div>
+                                <div class="game-turn-info">
+                                    <span>รอบที่: <strong id="game-turn-count">0</strong></span>
+                                    <span>เงินสดในมือ: <strong id="game-cash-on-hand" class="text-green">$-</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="cf-control-card">
+                                <h5>ธุรกรรมการเงินกับธนาคาร</h5>
+                                <div class="bank-action-row">
+                                    <button id="btn-bank-borrow" class="btn btn-action-borrow">กู้เงินธนาคาร (+$1,000)</button>
+                                    <button id="btn-bank-repay" class="btn btn-action-repay">คืนเงินกู้ (-$1,000)</button>
+                                </div>
+                                <div class="bank-action-row margin-top-sm">
+                                    <button id="btn-pay-credit-card" class="btn btn-action-repay-debt">ปิดหนี้บัตรเครดิต</button>
+                                    <button id="btn-pay-car-loan" class="btn btn-action-repay-debt">ปิดหนี้รถยนต์</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Draw Modal Area (Shows the active card drawn) -->
+                        <div class="cf-event-card-container" id="event-card-display">
+                            <div class="event-card empty-state">
+                                <h4>เตรียมตัวทอยลูกเต๋าเพื่อเดินทาง 🎲</h4>
+                                <p>กดปุ่ม "ทอยลูกเต๋า" เพื่อเคลื่อนตำแหน่งหมากของคุณ ตกช่องใดจะเกิดเหตุการณ์ทางการเงินของช่องนั้น ๆ</p>
+                            </div>
+                        </div>
+
+                        <!-- Live Game Logs -->
+                        <div class="cf-log-card">
+                            <h5>บันทึกเหตุการณ์ (Game Logs)</h5>
+                            <div class="cf-log-box" id="cf-game-logs">
+                                <div class="log-entry system-log">เริ่มต้นเกม: เลือกอาชีพแล้วเข้าสู่ลู่แข่งหนูถีบจักร (Rat Race)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Personal Financial Statement Sheet -->
+                    <div class="cf-financial-panel">
+                        <div class="financial-statement-card">
+                            <div class="financial-header">
+                                <h3>งบการเงินส่วนบุคคล (Financial Statement)</h3>
+                                <span class="career-badge-title" id="cf-display-job">อาชีพ: -</span>
+                            </div>
+
+                            <!-- Passive Income vs Expenses Progress Bar -->
+                            <div class="cf-progress-container">
+                                <div class="progress-labels">
+                                    <span>Passive Income: <strong id="progress-val-passive" class="text-green">$0</strong></span>
+                                    <span>รายจ่ายรวม: <strong id="progress-val-expenses" class="text-red">$0</strong></span>
+                                </div>
+                                <div class="cf-progress-bar-bg">
+                                    <div class="cf-progress-bar-fill" id="cf-passive-progress-bar" style="width: 0%;"></div>
+                                </div>
+                                <div class="progress-footer">
+                                    <span id="cf-escape-status">ความคืบหน้าการเป็นอิสระทางการเงิน: 0%</span>
+                                </div>
+                            </div>
+
+                            <!-- Net Monthly Cash Flow Display -->
+                            <div class="net-cash-flow-bar">
+                                <span>กระแสเงินสดรายเดือน (Net Monthly Cash Flow):</span>
+                                <strong id="cf-net-cashflow-val" class="text-green">$0</strong>
+                            </div>
+
+                            <div class="statement-grid">
+                                <!-- Income & Expenses -->
+                                <div class="statement-column">
+                                    <div class="column-title">1. งบรายได้และรายจ่าย (Income & Expenses)</div>
+                                    <div class="ledger-box">
+                                        <div class="ledger-section">
+                                            <h6>รายรับ (Income)</h6>
+                                            <div class="ledger-row">
+                                                <span>เงินเดือน (Salary):</span>
+                                                <span id="cf-salary-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row highlight-green">
+                                                <span>รายได้ดอกเบี้ย/ปันผล:</span>
+                                                <span id="cf-interest-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row highlight-green">
+                                                <span>รายได้อสังหาริมทรัพย์ (ค่าเช่า):</span>
+                                                <span id="cf-realestate-inc-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row highlight-green">
+                                                <span>รายได้จากธุรกิจ:</span>
+                                                <span id="cf-business-inc-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row total-row">
+                                                <span>รายได้รวม (Total Income):</span>
+                                                <span id="cf-total-income-val">$0</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="ledger-section">
+                                            <h6>รายจ่าย (Expenses)</h6>
+                                            <div class="ledger-row">
+                                                <span>ภาษี (Taxes):</span>
+                                                <span id="cf-tax-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>หนี้บ้านกู้ยืม (Mortgage):</span>
+                                                <span id="cf-mortgage-pay-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>หนี้ผ่อนรถยนต์ (Car Loan):</span>
+                                                <span id="cf-car-pay-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>หนี้ผ่อนบัตรเครดิต (Credit Card):</span>
+                                                <span id="cf-cc-pay-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>หนี้สินส่วนตัวอื่น ๆ:</span>
+                                                <span id="cf-retail-pay-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>ค่าเลี้ยงดูลูก (<span id="cf-child-count-lbl">0</span> คน):</span>
+                                                <span id="cf-child-pay-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row highlight-red">
+                                                <span>ดอกเบี้ยเงินกู้ธนาคาร (10%):</span>
+                                                <span id="cf-bank-interest-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row total-row">
+                                                <span>รายจ่ายรวม (Total Expenses):</span>
+                                                <span id="cf-total-expenses-val">$0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Assets & Liabilities -->
+                                <div class="statement-column">
+                                    <div class="column-title">2. งบดุล สินทรัพย์และหนี้สิน (Balance Sheet)</div>
+                                    <div class="ledger-box">
+                                        <div class="ledger-section">
+                                            <h6>สินทรัพย์ (Assets)</h6>
+                                            <div class="ledger-sub-title">หุ้นและกองทุน (Stocks/Funds)</div>
+                                            <div class="ledger-list" id="cf-list-stocks">
+                                                <div class="ledger-empty-msg">ไม่มีหุ้นกู้ในครอบครอง</div>
+                                            </div>
+
+                                            <div class="ledger-sub-title">อสังหาริมทรัพย์ (Real Estate)</div>
+                                            <div class="ledger-list" id="cf-list-realestate">
+                                                <div class="ledger-empty-msg">ไม่มีอสังหาริมทรัพย์ในครอบครอง</div>
+                                            </div>
+
+                                            <div class="ledger-sub-title">ธุรกิจค้างเคียง (Businesses)</div>
+                                            <div class="ledger-list" id="cf-list-businesses">
+                                                <div class="ledger-empty-msg">ไม่มีธุรกิจในครอบครอง</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="ledger-section">
+                                            <h6>หนี้สิน (Liabilities)</h6>
+                                            <div class="ledger-row">
+                                                <span>หนี้บ้านกู้ยืม (Mortgage):</span>
+                                                <span id="cf-mortgage-liab-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>หนี้ผ่อนชำระรถยนต์:</span>
+                                                <span id="cf-car-liab-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>ยอดค้างชำระบัตรเครดิต:</span>
+                                                <span id="cf-cc-liab-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row">
+                                                <span>ยอดค้างชำระอื่น ๆ (Retail):</span>
+                                                <span id="cf-retail-liab-val">$0</span>
+                                            </div>
+                                            <div class="ledger-row highlight-red">
+                                                <span>เงินกู้ยืมธนาคาร (Bank Loan):</span>
+                                                <span id="cf-bank-liab-val">$0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Victory Screen Modal (Celebration) -->
+            <div id="cf-victory-modal" class="cf-modal hidden">
+                <div class="cf-modal-content victory-content">
+                    <div class="confetti-effect">🎉 🏆 🎉</div>
+                    <h2>ยินดีด้วย! คุณเป็นอิสระทางการเงินแล้ว 🌟</h2>
+                    <p class="victory-subtitle">คุณหลุดพ้นจากวงจรหนูถีบจักร (Rat Race) สำเร็จ!</p>
+                    
+                    <div class="victory-stats-box">
+                        <p>อาชีพของคุณ: <strong id="vic-job">-</strong></p>
+                        <p>ใช้เวลาทอยลูกเต๋าไปทั้งหมด: <strong id="vic-turns">-</strong> รอบ</p>
+                        <p>รายได้ Passive Income สุดท้าย: <strong id="vic-passive" class="text-green">$-</strong></p>
+                        <p>รายจ่ายรายเดือนสุดท้าย: <strong id="vic-expenses" class="text-red">$-</strong></p>
+                    </div>
+
+                    <div class="robert-quote">
+                        <blockquote>
+                            "คนจนและคนชั้นกลางทำงานเพื่อเงิน แต่คนรวยให้เงินทำงานให้พวกตน"
+                        </blockquote>
+                        <cite>— Robert Kiyosaki, พ่อรวยสอนลูก (Rich Dad Poor Dad)</cite>
+                    </div>
+
+                    <button id="btn-restart-game" class="btn btn-green-full">เริ่มเกมใหม่อีกครั้ง 🔄</button>
+                </div>
+            </div>
+        </div>
     </div> <!-- End of .dashboard wrapper -->
     
     <script src="app.js"></script>
