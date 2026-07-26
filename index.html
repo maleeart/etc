@@ -40,6 +40,12 @@
         <!-- Main Visualization Panel -->
         <main class="main-panel">
             <div id="canvas-container" class="canvas-container">
+                <!-- Floating HUD overlay for current step info -->
+                <div id="step-hud" class="step-hud">
+                    <span id="hud-step-num" class="hud-step-num">ขั้นตอนที่ 1</span>
+                    <h3 id="hud-step-title" class="hud-step-title">ชื่อขั้นตอน</h3>
+                    <p id="hud-step-desc" class="hud-step-desc">คำอธิบายขั้นตอนการทำงาน...</p>
+                </div>
                 
                 <!-- SVG Diagram 1: HRSG (Combined Cycle) -->
                 <svg id="svg-hrsg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">

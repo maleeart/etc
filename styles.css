@@ -269,8 +269,65 @@ svg {
 .interactive-component.highlighted polygon,
 .interactive-component.highlighted ellipse {
     stroke: #10b981 !important;
-    stroke-width: 2.5px !important;
-    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.9));
+    animation: highlightPulse 1.5s ease-in-out infinite alternate;
+}
+
+/* Spotlight dimming effect */
+svg.has-highlight .interactive-component:not(.highlighted) {
+    opacity: 0.25;
+    filter: saturate(20%) brightness(65%);
+}
+
+@keyframes highlightPulse {
+    0% {
+        filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
+        stroke-width: 3px !important;
+    }
+    100% {
+        filter: drop-shadow(0 0 18px rgba(16, 185, 129, 1));
+        stroke-width: 4.5px !important;
+    }
+}
+
+/* Floating HUD overlay on diagram */
+.step-hud {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    max-width: 320px;
+    pointer-events: none; /* Let click events fall through to SVG behind it */
+    z-index: 20;
+    transition: opacity 0.3s, transform 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hud-step-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hud-step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f3f4f6;
+    margin-top: 0.15rem;
+    margin-bottom: 0.3rem;
+}
+
+.hud-step-desc {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    line-height: 1.4;
 }
 
 /* Flow Path Styling */
@@ -736,6 +793,20 @@ svg {
         height: auto;
         max-height: none;
         padding: 1rem;
+    }
+    
+    .step-hud {
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: none;
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        background: rgba(15, 23, 42, 0.4);
+        padding: 0.75rem;
+        box-shadow: none;
+        border-color: rgba(255, 255, 255, 0.08);
     }
     
     .step-card {

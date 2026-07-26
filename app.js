@@ -536,7 +536,17 @@ function setStep(stepIndex) {
     document.getElementById("current-step-title").innerText = step.title;
     document.getElementById("current-step-desc").innerText = step.desc;
 
-    // Highlight the active component in active SVG
+    // Update floating HUD overlay on diagram
+    document.getElementById("hud-step-num").innerText = step.num;
+    document.getElementById("hud-step-title").innerText = step.title;
+    document.getElementById("hud-step-desc").innerText = step.desc;
+
+    // Highlight the active component in active SVG (Spotlight effect)
+    const svgElem = currentTab === "hrsg" ? document.getElementById("svg-hrsg") : document.getElementById("svg-fgd");
+    const otherSvgElem = currentTab === "hrsg" ? document.getElementById("svg-fgd") : document.getElementById("svg-hrsg");
+    
+    otherSvgElem.classList.remove("has-highlight");
+    
     document.querySelectorAll(".interactive-component").forEach(comp => {
         comp.classList.remove("highlighted");
     });
@@ -545,6 +555,9 @@ function setStep(stepIndex) {
     if (activeComp) {
         activeComp.classList.add("highlighted");
         currentHighlightedElement = activeComp;
+        svgElem.classList.add("has-highlight");
+    } else {
+        svgElem.classList.remove("has-highlight");
     }
 
     // Set active flows in active SVG
@@ -567,6 +580,7 @@ function showComponentDetails(compId, isStepChange = false) {
     if (!details) return;
 
     // Highlight component in SVG
+    const svgElem = currentTab === "hrsg" ? document.getElementById("svg-hrsg") : document.getElementById("svg-fgd");
     if (!isStepChange) {
         document.querySelectorAll(".interactive-component").forEach(comp => {
             comp.classList.remove("highlighted");
@@ -575,6 +589,7 @@ function showComponentDetails(compId, isStepChange = false) {
         if (compElem) {
             compElem.classList.add("highlighted");
             currentHighlightedElement = compElem;
+            svgElem.classList.add("has-highlight");
         }
     }
 
@@ -610,6 +625,10 @@ function showOverview() {
         comp.classList.remove("highlighted");
     });
 
+    // Clear spotlight dimming
+    document.getElementById("svg-hrsg").classList.remove("has-highlight");
+    document.getElementById("svg-fgd").classList.remove("has-highlight");
+
     const overlay = document.getElementById("info-overlay");
     const specContainer = document.getElementById("info-specs");
 
@@ -643,6 +662,11 @@ function showOverview() {
         document.getElementById("current-step-num").innerText = "ภาพรวม";
         document.getElementById("current-step-title").innerText = "Combined Cycle Plant Diagram";
         document.getElementById("current-step-desc").innerText = "ก๊าซร้อน (สีส้ม) เดินทางจากซ้ายไปขวาเพื่อต้มน้ำ (สีน้ำเงิน) ให้เดือดกลายเป็นไอน้ำ (สีชมพู) เข้ากังหันไอน้ำ";
+        
+        // Update floating HUD overlay on diagram
+        document.getElementById("hud-step-num").innerText = "ภาพรวม";
+        document.getElementById("hud-step-title").innerText = "Combined Cycle Plant Diagram";
+        document.getElementById("hud-step-desc").innerText = "ก๊าซร้อน (สีส้ม) เดินทางจากซ้ายไปขวาเพื่อต้มน้ำ (สีน้ำเงิน) ให้เดือดกลายเป็นไอน้ำ (สีชมพู) เข้ากังหันไอน้ำ";
     } else {
         document.getElementById("info-title").innerText = "ภาพรวมระบบกําจัด SO2 โรงไฟฟ้าแม่เมาะ (Wet FGD)";
         document.getElementById("info-desc").innerText = "ระบบกำจัดก๊าซซัลเฟอร์ไดออกไซด์แบบเปียกโดยใช้น้ำปูนหินปูน (Wet Limestone FGD) ขจัดมลพิษแก๊สที่เป็นกรดได้อย่างมีประสิทธิภาพสูงกว่า 96% และผลิตยิปซัมแห้งเป็นวัสดุพลอยได้";
@@ -673,6 +697,11 @@ function showOverview() {
         document.getElementById("current-step-num").innerText = "ภาพรวม";
         document.getElementById("current-step-title").innerText = "Wet FGD Plant Diagram (Mae Moh)";
         document.getElementById("current-step-desc").innerText = "ก๊าซเสีย (สีเทา) วิ่งผ่าน Booster Fan เข้ามาฉีดสเปรย์พ่นหินปูน (สีเทาอ่อน) เกิดปฏิกิริยากลายเป็นยิปซัมป้อนออกก้นถัง (สีเหลือง)";
+        
+        // Update floating HUD overlay on diagram
+        document.getElementById("hud-step-num").innerText = "ภาพรวม";
+        document.getElementById("hud-step-title").innerText = "Wet FGD Plant Diagram (Mae Moh)";
+        document.getElementById("hud-step-desc").innerText = "ก๊าซเสีย (สีเทา) วิ่งผ่าน Booster Fan เข้ามาฉีดสเปรย์พ่นหินปูน (สีเทาอ่อน) เกิดปฏิกิริยากลายเป็นยิปซัมป้อนออกก้นถัง (สีเหลือง)";
     }
 
     overlay.classList.add("active");
