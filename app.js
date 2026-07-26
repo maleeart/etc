@@ -763,9 +763,7 @@ function switchView(viewName) {
     const homeView = document.getElementById("home-view");
     const powerplantView = document.getElementById("powerplant-view");
     const affiliateView = document.getElementById("affiliate-view");
-    const navHomeBtn = document.getElementById("nav-home-btn");
     const powerplantTabs = document.getElementById("powerplant-tabs");
-    const viewTitleBadge = document.getElementById("view-title-badge");
 
     // Pause powerplant autoplay when leaving powerplant view
     if (viewName !== "powerplant" && isPlaying) {
@@ -777,24 +775,24 @@ function switchView(viewName) {
     powerplantView.classList.add("hidden");
     affiliateView.classList.add("hidden");
 
+    // Update active nav button
+    document.querySelectorAll(".nav-link-btn").forEach(btn => btn.classList.remove("active"));
+
     // Show selected view
     if (viewName === "home") {
         homeView.classList.remove("hidden");
-        navHomeBtn.classList.add("hidden");
+        document.getElementById("nav-home-btn").classList.add("active");
         powerplantTabs.classList.add("hidden");
-        viewTitleBadge.innerText = "Playground Dashboard";
     } else if (viewName === "powerplant") {
         powerplantView.classList.remove("hidden");
-        navHomeBtn.classList.remove("hidden");
+        document.getElementById("nav-powerplant-btn").classList.add("active");
         powerplantTabs.classList.remove("hidden");
-        viewTitleBadge.innerText = "Interactive Presentation";
         // Reload system to ensure SVG sizes recalculate nicely
         loadSystem(currentTab);
     } else if (viewName === "affiliate") {
         affiliateView.classList.remove("hidden");
-        navHomeBtn.classList.remove("hidden");
+        document.getElementById("nav-affiliate-btn").classList.add("active");
         powerplantTabs.classList.add("hidden");
-        viewTitleBadge.innerText = "Shopee Affiliate";
         // Render Shopee views
         renderSavedLinks();
         renderAffiliateChart("7d");
@@ -810,8 +808,12 @@ function initNavigation() {
     const cardAffiliate = document.getElementById("mode-affiliate");
     cardAffiliate.addEventListener("click", () => switchView("affiliate"));
 
-    // Header Home Button & Logo
+    // Top Navigation Link Buttons
     document.getElementById("nav-home-btn").addEventListener("click", () => switchView("home"));
+    document.getElementById("nav-powerplant-btn").addEventListener("click", () => switchView("powerplant"));
+    document.getElementById("nav-affiliate-btn").addEventListener("click", () => switchView("affiliate"));
+
+    // Brand Logo Click
     document.getElementById("brand-logo").addEventListener("click", () => switchView("home"));
 }
 
