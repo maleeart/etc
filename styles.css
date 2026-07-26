@@ -7,7 +7,7 @@
     --text-primary: #f3f4f6;
     --text-secondary: #9ca3af;
     
-    /* Flow colors */
+    /* Flow colors (HRSG) */
     --color-gas-hot: #f97316;
     --color-gas-warm: #eab308;
     --color-gas-cold: #6b7280;
@@ -15,6 +15,13 @@
     --color-water-hot: #38bdf8;
     --color-steam: #e2e8f0;
     --color-steam-super: #ec4899;
+    
+    /* Flow colors (FGD) */
+    --color-fgd-gas-raw: #8a7e72;
+    --color-fgd-gas-clean: #10b981;
+    --color-limestone: #94a3b8;
+    --color-gypsum: #eab308;
+    --color-air: #38bdf8;
     
     /* Component status colors */
     --color-active: #10b981;
@@ -24,6 +31,10 @@
     --glow-water: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
     --glow-steam: drop-shadow(0 0 8px rgba(226, 232, 240, 0.7));
     --glow-steam-super: drop-shadow(0 0 8px rgba(236, 72, 153, 0.7));
+    
+    --glow-fgd-raw: drop-shadow(0 0 6px rgba(138, 126, 114, 0.5));
+    --glow-fgd-clean: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+    --glow-limestone: drop-shadow(0 0 6px rgba(148, 163, 184, 0.5));
 }
 
 * {
@@ -67,7 +78,7 @@ header {
 }
 
 header h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
     -webkit-background-clip: text;
@@ -80,17 +91,46 @@ header h1 {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.presentation-badge {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: #60a5fa;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
+/* Tab Switcher */
+.tab-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.25rem;
+    border-radius: 10px;
+    gap: 0.25rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.85rem;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.8rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.tab-btn.active {
+    color: #ffffff;
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Utility Hidden class */
+.hidden {
+    display: none !important;
 }
 
 /* Sidebar Styling */
@@ -209,14 +249,16 @@ svg {
 .interactive-component rect, 
 .interactive-component path,
 .interactive-component circle,
-.interactive-component polygon {
+.interactive-component polygon,
+.interactive-component ellipse {
     transition: stroke 0.3s, fill 0.3s, filter 0.3s, stroke-width 0.3s;
 }
 
 .interactive-component:hover rect,
 .interactive-component:hover path,
 .interactive-component:hover circle,
-.interactive-component:hover polygon {
+.interactive-component:hover polygon,
+.interactive-component:hover ellipse {
     stroke: #60a5fa !important;
     filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
 }
@@ -224,7 +266,8 @@ svg {
 .interactive-component.highlighted rect,
 .interactive-component.highlighted path,
 .interactive-component.highlighted circle,
-.interactive-component.highlighted polygon {
+.interactive-component.highlighted polygon,
+.interactive-component.highlighted ellipse {
     stroke: #10b981 !important;
     stroke-width: 2.5px !important;
     filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));
@@ -243,51 +286,105 @@ svg {
     opacity: 1;
 }
 
-/* Dasharray animations for flows */
+/* Dasharray animations for flows (scaled by JS value) */
 .flow-gas {
     stroke: var(--color-gas-hot);
     stroke-dasharray: 15, 15;
-    animation: flowMove 15s linear infinite;
+    animation: flowMove calc(15s / var(--flow-speed-scale, 1)) linear infinite;
     filter: var(--glow-gas);
 }
 
 .flow-gas-warm {
     stroke: var(--color-gas-warm);
     stroke-dasharray: 15, 15;
-    animation: flowMove 20s linear infinite;
+    animation: flowMove calc(20s / var(--flow-speed-scale, 1)) linear infinite;
 }
 
 .flow-water {
     stroke: var(--color-water);
     stroke-dasharray: 10, 10;
-    animation: flowMove 10s linear infinite;
+    animation: flowMove calc(10s / var(--flow-speed-scale, 1)) linear infinite;
     filter: var(--glow-water);
 }
 
 .flow-water-hot {
     stroke: var(--color-water-hot);
     stroke-dasharray: 10, 10;
-    animation: flowMove 8s linear infinite;
+    animation: flowMove calc(8s / var(--flow-speed-scale, 1)) linear infinite;
     filter: var(--glow-water);
 }
 
 .flow-steam {
     stroke: var(--color-steam);
     stroke-dasharray: 8, 8;
-    animation: flowMove 4s linear infinite;
+    animation: flowMove calc(4s / var(--flow-speed-scale, 1)) linear infinite;
     filter: var(--glow-steam);
 }
 
 .flow-steam-super {
     stroke: var(--color-steam-super);
     stroke-dasharray: 8, 8;
-    animation: flowMove 2s linear infinite;
+    animation: flowMove calc(2s / var(--flow-speed-scale, 1)) linear infinite;
     filter: var(--glow-steam-super);
+}
+
+/* Wet FGD flow classes */
+.flow-fgd-gas {
+    stroke: var(--color-fgd-gas-raw);
+    stroke-dasharray: 16, 16;
+    animation: flowMove calc(16s / var(--flow-speed-scale, 1)) linear infinite;
+    filter: var(--glow-fgd-raw);
+}
+
+.flow-fgd-clean {
+    stroke: var(--color-fgd-gas-clean);
+    stroke-dasharray: 12, 12;
+    animation: flowMove calc(12s / var(--flow-speed-scale, 1)) linear infinite;
+    filter: var(--glow-fgd-clean);
+}
+
+.flow-limestone-slurry {
+    stroke: var(--color-limestone);
+    stroke-dasharray: 8, 8;
+    animation: flowMove calc(10s / var(--flow-speed-scale, 1)) linear infinite;
+    filter: var(--glow-limestone);
+}
+
+.flow-gypsum-slurry {
+    stroke: var(--color-gypsum);
+    stroke-dasharray: 8, 8;
+    animation: flowMove calc(14s / var(--flow-speed-scale, 1)) linear infinite;
+}
+
+.flow-air-bubbles {
+    stroke: var(--color-air);
+    stroke-dasharray: 5, 12;
+    animation: flowMove calc(6s / var(--flow-speed-scale, 1)) linear infinite;
 }
 
 @keyframes flowMove {
     to {
         stroke-dashoffset: -120;
+    }
+}
+
+/* Booster Fan Blade Spin animation */
+.spin-fan {
+    transform-origin: 135px 365px;
+    animation: spin calc(3s / var(--flow-speed-scale, 1)) linear infinite;
+}
+
+.spin-fan-fgd {
+    transform-origin: 135px 365px;
+    animation: spin calc(3s / var(--flow-speed-scale, 1)) linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -362,8 +459,8 @@ svg {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
-    width: 340px;
-    background: rgba(15, 23, 42, 0.85);
+    width: 350px;
+    background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
@@ -508,4 +605,21 @@ svg {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+        height: auto;
+    }
+    .sidebar {
+        grid-column: 1;
+        height: 300px;
+    }
+    .main-panel {
+        grid-column: 1;
+        height: 600px;
+    }
 }
