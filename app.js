@@ -337,7 +337,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initTabs();
     initControls();
     initDiagramInteractions();
-    loadSystem(currentTab);
+    initNavigation();
+    initAffiliateConverter();
+    initAffiliateAnalytics();
+    switchView("home"); // Start at the landing page
 });
 
 function initTabs() {
@@ -751,4 +754,401 @@ function pauseAutoplay() {
         <span>Auto Play</span>
     `;
     playBtn.classList.remove("btn-primary");
+}
+
+// ==========================================
+// VIEW NAVIGATION LOGIC
+// ==========================================
+function switchView(viewName) {
+    const homeView = document.getElementById("home-view");
+    const powerplantView = document.getElementById("powerplant-view");
+    const affiliateView = document.getElementById("affiliate-view");
+    const navHomeBtn = document.getElementById("nav-home-btn");
+    const powerplantTabs = document.getElementById("powerplant-tabs");
+    const viewTitleBadge = document.getElementById("view-title-badge");
+
+    // Pause powerplant autoplay when leaving powerplant view
+    if (viewName !== "powerplant" && isPlaying) {
+        pauseAutoplay();
+    }
+
+    // Hide all views
+    homeView.classList.add("hidden");
+    powerplantView.classList.add("hidden");
+    affiliateView.classList.add("hidden");
+
+    // Show selected view
+    if (viewName === "home") {
+        homeView.classList.remove("hidden");
+        navHomeBtn.classList.add("hidden");
+        powerplantTabs.classList.add("hidden");
+        viewTitleBadge.innerText = "Playground Dashboard";
+    } else if (viewName === "powerplant") {
+        powerplantView.classList.remove("hidden");
+        navHomeBtn.classList.remove("hidden");
+        powerplantTabs.classList.remove("hidden");
+        viewTitleBadge.innerText = "Interactive Presentation";
+        // Reload system to ensure SVG sizes recalculate nicely
+        loadSystem(currentTab);
+    } else if (viewName === "affiliate") {
+        affiliateView.classList.remove("hidden");
+        navHomeBtn.classList.remove("hidden");
+        powerplantTabs.classList.add("hidden");
+        viewTitleBadge.innerText = "Shopee Affiliate";
+        // Render Shopee views
+        renderSavedLinks();
+        renderAffiliateChart("7d");
+    }
+}
+
+function initNavigation() {
+    // Mode Card: Powerplant
+    const cardPowerplant = document.getElementById("mode-powerplant");
+    cardPowerplant.addEventListener("click", () => switchView("powerplant"));
+
+    // Mode Card: Affiliate
+    const cardAffiliate = document.getElementById("mode-affiliate");
+    cardAffiliate.addEventListener("click", () => switchView("affiliate"));
+
+    // Header Home Button & Logo
+    document.getElementById("nav-home-btn").addEventListener("click", () => switchView("home"));
+    document.getElementById("brand-logo").addEventListener("click", () => switchView("home"));
+}
+
+// ==========================================
+// SHOPEE AFFILIATE CONTROLLER LOGIC
+// ==========================================
+
+// Seed default links if empty
+const defaultShopeeLinks = [
+    { id: "1", name: "พัดลมตั้งโต๊ะไร้สายแบบชาร์จไฟมินิมอล 🏠", category: "ของแต่งบ้าน", commission: 10, affUrl: "https://shope.ee/5fL1a91" },
+    { id: "2", name: "ขาตั้งกล้องเซลฟี่ Bluetooth หมุน 360° 💻", category: "อุปกรณ์แต่งคอม", commission: 8, affUrl: "https://shope.ee/3fK2b82" },
+    { id: "3", name: "มาม่าเผ็ดเกาหลี Samyang รสไก่เผ็ดร้อน 🍜", category: "ของกินอร่อย", commission: 5, affUrl: "https://shope.ee/9fO3d93" }
+];
+
+function getSavedLinks() {
+    const data = localStorage.getItem("shopee_aff_links");
+    if (!data) {
+        localStorage.setItem("shopee_aff_links", JSON.stringify(defaultShopeeLinks));
+        return defaultShopeeLinks;
+    }
+    return JSON.parse(data);
+}
+
+function saveLinks(links) {
+    localStorage.setItem("shopee_aff_links", JSON.stringify(links));
+}
+
+// Render product list table
+function renderSavedLinks() {
+    const links = getSavedLinks();
+    const tbody = document.getElementById("saved-links-list");
+    const searchQuery = document.getElementById("search-saved-links").value.toLowerCase();
+    const filterCategory = document.getElementById("filter-saved-category").value;
+
+    tbody.innerHTML = "";
+
+    const filtered = links.filter(link => {
+        const matchSearch = link.name.toLowerCase().includes(searchQuery) || link.affUrl.toLowerCase().includes(searchQuery);
+        const matchCategory = filterCategory === "all" || link.category === filterCategory;
+        return matchSearch && matchCategory;
+    });
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 2rem;">ไม่มีข้อมูลในหมวดหมู่นี้ หรือไม่พบผลลัพธ์การค้นหา</td></tr>`;
+        return;
+    }
+
+    filtered.forEach(link => {
+        const tr = document.createElement("tr");
+        
+        let categoryClass = "badge-home";
+        if (link.category === "อุปกรณ์แต่งคอม") categoryClass = "badge-computer";
+        else if (link.category === "ของกินอร่อย") categoryClass = "badge-food";
+        else if (link.category === "อื่น ๆ") categoryClass = "badge-other";
+
+        tr.innerHTML = `
+            <td data-label="ชื่อสินค้า" style="font-weight: 600;">${link.name}</td>
+            <td data-label="หมวดหมู่"><span class="category-badge ${categoryClass}">${link.category}</span></td>
+            <td data-label="ค่าคอม" style="text-align: center; font-weight: 700; color: #ee4d2d;">${link.commission}%</td>
+            <td data-label="ลิงก์แนะนำ">
+                <div class="copy-input-group" style="max-width: 260px;">
+                    <input type="text" value="${link.affUrl}" readonly style="font-size: 0.75rem; padding: 0.3rem 0.5rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); color: #10b981; border-radius: 4px; width: 100%;">
+                    <button class="btn-action-copy" data-link="${link.affUrl}">คัดลอก</button>
+                </div>
+            </td>
+            <td data-label="การจัดการ" style="text-align: center;">
+                <button class="btn-delete" data-id="${link.id}">&times;</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Bind event listeners to table buttons
+    tbody.querySelectorAll(".btn-action-copy").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const url = e.target.getAttribute("data-link");
+            navigator.clipboard.writeText(url).then(() => {
+                const oldText = e.target.innerText;
+                e.target.innerText = "แล้ว!";
+                e.target.style.background = "#10b981";
+                e.target.style.color = "#fff";
+                setTimeout(() => {
+                    e.target.innerText = oldText;
+                    e.target.style.background = "";
+                    e.target.style.color = "";
+                }, 1500);
+            });
+        });
+    });
+
+    tbody.querySelectorAll(".btn-delete").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("data-id");
+            if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้าแนะนำชิ้นนี้?")) {
+                const links = getSavedLinks();
+                const updated = links.filter(l => l.id !== id);
+                saveLinks(updated);
+                renderSavedLinks();
+            }
+        });
+    });
+}
+
+// Convert normal Shopee link to Affiliate link
+function initAffiliateConverter() {
+    const btnConvert = document.getElementById("btn-convert-link");
+    btnConvert.addEventListener("click", () => {
+        const inputUrl = document.getElementById("input-shopee-url").value.trim();
+        const subid = document.getElementById("input-subid").value.trim();
+
+        if (!inputUrl) {
+            alert("กรุณากรอกลิงก์ Shopee ก่อนกดแปลงลิงก์ครับ");
+            return;
+        }
+
+        // Simulating Shopee Universal Link formatting
+        let targetId = "3fK2b82";
+        if (inputUrl.includes("shopee.co.th")) {
+            // Generate a random-looking short affiliate code
+            const hash = Math.random().toString(36).substring(2, 9);
+            targetId = hash;
+        }
+        
+        let affUrl = `https://shope.ee/${targetId}`;
+        if (subid) {
+            affUrl += `?subid=${encodeURIComponent(subid)}`;
+        }
+
+        // Show result
+        const resultArea = document.getElementById("convert-result-area");
+        resultArea.classList.remove("hidden");
+        document.getElementById("output-affiliate-url").value = affUrl;
+
+        // Load QR Code using standard QR code API
+        const qrImg = document.getElementById("output-qr-image");
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(affUrl)}`;
+
+        // Scroll result into view smoothly
+        resultArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    // Result Copy Button
+    document.getElementById("btn-copy-aff").addEventListener("click", () => {
+        const outputField = document.getElementById("output-affiliate-url");
+        navigator.clipboard.writeText(outputField.value).then(() => {
+            const copyBtn = document.getElementById("btn-copy-aff");
+            copyBtn.innerText = "คัดลอกเรียบร้อย! ✓";
+            copyBtn.style.background = "#059669";
+            setTimeout(() => {
+                copyBtn.innerText = "คัดลอกลิงก์";
+                copyBtn.style.background = "";
+            }, 2000);
+        });
+    });
+
+    // Add custom product to library form
+    const btnAdd = document.getElementById("btn-add-product");
+    btnAdd.addEventListener("click", () => {
+        const name = document.getElementById("prod-name").value.trim();
+        const category = document.getElementById("prod-category").value;
+        const commission = parseInt(document.getElementById("prod-commission").value) || 8;
+        const affUrl = document.getElementById("prod-aff-url").value.trim();
+
+        if (!name || !affUrl) {
+            alert("กรุณากรอกชื่อสินค้าและลิงก์แนะนำนายหน้ารายละเอียดให้ครบถ้วนครับ");
+            return;
+        }
+
+        const newLink = {
+            id: Date.now().toString(),
+            name,
+            category,
+            commission,
+            affUrl
+        };
+
+        const links = getSavedLinks();
+        links.unshift(newLink);
+        saveLinks(links);
+
+        // Reset form
+        document.getElementById("prod-name").value = "";
+        document.getElementById("prod-aff-url").value = "";
+
+        // Re-render
+        renderSavedLinks();
+        alert("เพิ่มสินค้าลงในคลังเรียบร้อยแล้ว!");
+    });
+
+    // Live search & filters
+    document.getElementById("search-saved-links").addEventListener("input", renderSavedLinks);
+    document.getElementById("filter-saved-category").addEventListener("change", renderSavedLinks);
+}
+
+// Render dynamic column chart using SVG
+function renderAffiliateChart(timeframe) {
+    const chartSvg = document.getElementById("aff-chart");
+    chartSvg.innerHTML = "";
+
+    const data7d = [
+        { label: "จ.", value: 120, commission: 96 },
+        { label: "อ.", value: 180, commission: 144 },
+        { label: "พ.", value: 340, commission: 272 },
+        { label: "พฤ.", value: 150, commission: 120 },
+        { label: "ศ.", value: 290, commission: 232 },
+        { label: "ส.", value: 450, commission: 360 },
+        { label: "อา.", value: 390, commission: 312 }
+    ];
+
+    const data30d = [
+        { label: "1-5", value: 840, commission: 672 },
+        { label: "6-10", value: 1100, commission: 880 },
+        { label: "11-15", value: 1650, commission: 1320 },
+        { label: "16-20", value: 920, commission: 736 },
+        { label: "21-25", value: 1980, commission: 1584 },
+        { label: "26-30", value: 2450, commission: 1960 }
+    ];
+
+    const activeData = timeframe === "7d" ? data7d : data30d;
+
+    // Update Stats Summary text based on timeframe
+    if (timeframe === "7d") {
+        document.getElementById("stat-gmv").innerText = "฿24,500";
+        document.getElementById("stat-commission").innerText = "฿1,960";
+        document.getElementById("stat-clicks").innerText = "1,920";
+        document.getElementById("stat-cr").innerText = "2.8%";
+    } else {
+        document.getElementById("stat-gmv").innerText = "฿112,400";
+        document.getElementById("stat-commission").innerText = "฿7,232";
+        document.getElementById("stat-clicks").innerText = "8,940";
+        document.getElementById("stat-cr").innerText = "3.4%";
+    }
+
+    // Chart layouts
+    const width = 600;
+    const height = 200;
+    const paddingLeft = 40;
+    const paddingRight = 20;
+    const paddingTop = 20;
+    const paddingBottom = 30;
+
+    const chartWidth = width - paddingLeft - paddingRight;
+    const chartHeight = height - paddingTop - paddingBottom;
+
+    // Find max value for scale
+    const maxValue = Math.max(...activeData.map(d => d.commission));
+    const scaleY = val => (val / maxValue) * (chartHeight * 0.85);
+
+    // Draw grid horizontal lines
+    for (let i = 0; i <= 4; i++) {
+        const y = paddingTop + chartHeight - (chartHeight / 4) * i;
+        const valueLabel = Math.round((maxValue / 4) * i);
+        
+        // Line
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", paddingLeft);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", width - paddingRight);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", "rgba(255, 255, 255, 0.05)");
+        line.setAttribute("stroke-width", "1");
+        chartSvg.appendChild(line);
+
+        // Value text
+        const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txt.setAttribute("x", paddingLeft - 8);
+        txt.setAttribute("y", y + 4);
+        txt.setAttribute("fill", "var(--text-secondary)");
+        txt.setAttribute("font-size", "9px");
+        txt.setAttribute("text-anchor", "end");
+        txt.textContent = `฿${valueLabel}`;
+        chartSvg.appendChild(txt);
+    }
+
+    // Draw columns
+    const colCount = activeData.length;
+    const colSpacing = chartWidth / colCount;
+    const barWidth = Math.min(colSpacing * 0.5, 40);
+
+    activeData.forEach((d, idx) => {
+        const x = paddingLeft + colSpacing * idx + (colSpacing - barWidth) / 2;
+        const barHeight = scaleY(d.commission);
+        const y = paddingTop + chartHeight - barHeight;
+
+        // Create column bar group
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+        // The Bar rect
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", x);
+        rect.setAttribute("y", y);
+        rect.setAttribute("width", barWidth);
+        rect.setAttribute("height", barHeight);
+        rect.setAttribute("class", "chart-bar");
+        rect.setAttribute("fill", timeframe === "7d" ? "url(#pipe-gas)" : "url(#pipe-water)");
+        rect.setAttribute("rx", "4");
+        g.appendChild(rect);
+
+        // Tooltip hover label value on top of bar
+        const txtVal = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txtVal.setAttribute("x", x + barWidth / 2);
+        txtVal.setAttribute("y", y - 6);
+        txtVal.setAttribute("fill", "var(--text-primary)");
+        txtVal.setAttribute("font-size", "9px");
+        txtVal.setAttribute("font-weight", "700");
+        txtVal.setAttribute("text-anchor", "middle");
+        txtVal.textContent = `฿${d.commission}`;
+        g.appendChild(txtVal);
+
+        // X Axis labels
+        const txtLbl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txtLbl.setAttribute("x", x + barWidth / 2);
+        txtLbl.setAttribute("y", paddingTop + chartHeight + 18);
+        txtLbl.setAttribute("fill", "var(--text-secondary)");
+        txtLbl.setAttribute("font-size", "10px");
+        txtLbl.setAttribute("font-weight", "600");
+        txtLbl.setAttribute("text-anchor", "middle");
+        txtLbl.textContent = d.label;
+        g.appendChild(txtLbl);
+
+        chartSvg.appendChild(g);
+    });
+}
+
+function initAffiliateAnalytics() {
+    const btn7d = document.getElementById("btn-toggle-7d");
+    const btn30d = document.getElementById("btn-toggle-30d");
+
+    btn7d.addEventListener("click", () => {
+        btn7d.classList.add("active");
+        btn30d.classList.remove("active");
+        renderAffiliateChart("7d");
+    });
+
+    btn30d.addEventListener("click", () => {
+        btn30d.classList.add("active");
+        btn7d.classList.remove("active");
+        renderAffiliateChart("30d");
+    });
 }
