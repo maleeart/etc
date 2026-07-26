@@ -119,6 +119,32 @@
                     <path d="M 800,210 L 800,265" stroke="url(#pipe-steam)" stroke-width="8" fill="none" opacity="0.3" />
                     <path d="M 800,315 L 800,370" stroke="url(#pipe-water)" stroke-width="8" fill="none" opacity="0.3" />
 
+                    <!-- ================= PIPING FLOW PATHS (DASHED GLOWS) ================= -->
+                    <!-- Gas Paths -->
+                    <path class="flow-path flow-gas flow-gas-duct-1" d="M 50,370 L 260,370" fill="none" stroke-width="8" />
+                    <path class="flow-path flow-gas flow-gas-duct-2" d="M 260,370 L 325,370" fill="none" stroke-width="8" />
+                    <path class="flow-path flow-gas-warm flow-gas-in-hrsg" d="M 325,370 Q 370,350 420,350 L 590,350 Q 630,350 650,370" fill="none" stroke-width="8" />
+                    <path class="flow-path flow-gas-warm flow-gas-stack" d="M 650,370 L 665,370 L 665,115" fill="none" stroke-width="8" />
+
+                    <!-- Water Paths -->
+                    <path class="flow-path flow-water flow-feedwater-in" d="M 772,385 L 585,385 L 585,390" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-water flow-eco-tubes" d="M 585,390 L 585,130" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-water-hot flow-eco-to-drum" d="M 585,130 L 585,90 Q 560,75 510,75 Q 490,75 490,65" fill="none" stroke-width="3.5" />
+
+                    <!-- Evaporator Loop -->
+                    <path class="flow-path flow-water-hot flow-drum-downcomer" d="M 430,65 Q 430,80 440,80 L 440,390" fill="none" stroke-width="4" />
+                    <path class="flow-path flow-water-hot flow-eva-tubes" d="M 440,390 L 455,390 L 455,130" fill="none" stroke-width="4" />
+                    <path class="flow-path flow-steam flow-eva-to-drum" d="M 455,130 L 455,90 Q 455,75 450,65" fill="none" stroke-width="3" />
+
+                    <!-- Steam Paths -->
+                    <path class="flow-path flow-steam flow-drum-to-sh" d="M 430,30 L 325,30 L 325,120" fill="none" stroke-width="3" />
+                    <path class="flow-path flow-steam-super flow-sh-tubes" d="M 325,120 L 325,390" fill="none" stroke-width="4" />
+                    <path class="flow-path flow-steam-super flow-sh-to-turbine" d="M 325,390 L 325,415 L 755,415 L 755,175" fill="none" stroke-width="5" />
+
+                    <!-- Turbine Exhaust & Condensate -->
+                    <path class="flow-path flow-steam flow-turbine-exhaust" d="M 790,215 L 790,245" fill="none" stroke-width="6" />
+                    <path class="flow-path flow-water flow-condensate-pump" d="M 790,315 L 790,367" fill="none" stroke-width="3.5" />
+
                     <!-- ================= COMPONENT SHAPES ================= -->
                     <!-- HRSG Casing -->
                     <g id="comp-hrsg-body" class="interactive-component">
@@ -235,32 +261,6 @@
                         <line x1="772" y1="385" x2="808" y2="385" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" />
                         <text x="790" y="388" fill="#60a5fa" font-size="7" font-weight="700" text-anchor="middle">PUMP</text>
                     </g>
-
-                    <!-- ================= PIPING FLOW PATHS (DASHED GLOWS) ================= -->
-                    <!-- Gas Paths -->
-                    <path class="flow-path flow-gas flow-gas-duct-1" d="M 50,370 L 260,370" fill="none" stroke-width="8" />
-                    <path class="flow-path flow-gas flow-gas-duct-2" d="M 260,370 L 325,370" fill="none" stroke-width="8" />
-                    <path class="flow-path flow-gas-warm flow-gas-in-hrsg" d="M 325,370 Q 370,350 420,350 L 590,350 Q 630,350 650,370" fill="none" stroke-width="8" />
-                    <path class="flow-path flow-gas-warm flow-gas-stack" d="M 650,370 L 665,370 L 665,115" fill="none" stroke-width="8" />
-
-                    <!-- Water Paths -->
-                    <path class="flow-path flow-water flow-feedwater-in" d="M 772,385 L 585,385 L 585,390" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-water flow-eco-tubes" d="M 585,390 L 585,130" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-water-hot flow-eco-to-drum" d="M 585,130 L 585,90 Q 560,75 510,75 Q 490,75 490,65" fill="none" stroke-width="3.5" />
-
-                    <!-- Evaporator Loop -->
-                    <path class="flow-path flow-water-hot flow-drum-downcomer" d="M 430,65 Q 430,80 440,80 L 440,390" fill="none" stroke-width="4" />
-                    <path class="flow-path flow-water-hot flow-eva-tubes" d="M 440,390 L 455,390 L 455,130" fill="none" stroke-width="4" />
-                    <path class="flow-path flow-steam flow-eva-to-drum" d="M 455,130 L 455,90 Q 455,75 450,65" fill="none" stroke-width="3" />
-
-                    <!-- Steam Paths -->
-                    <path class="flow-path flow-steam flow-drum-to-sh" d="M 430,30 L 325,30 L 325,120" fill="none" stroke-width="3" />
-                    <path class="flow-path flow-steam-super flow-sh-tubes" d="M 325,120 L 325,390" fill="none" stroke-width="4" />
-                    <path class="flow-path flow-steam-super flow-sh-to-turbine" d="M 325,390 L 325,415 L 755,415 L 755,175" fill="none" stroke-width="5" />
-
-                    <!-- Turbine Exhaust & Condensate -->
-                    <path class="flow-path flow-steam flow-turbine-exhaust" d="M 790,215 L 790,245" fill="none" stroke-width="6" />
-                    <path class="flow-path flow-water flow-condensate-pump" d="M 790,315 L 790,367" fill="none" stroke-width="3.5" />
                 </svg>
 
                 <!-- SVG Diagram 2: Wet FGD (Flue Gas Desulfurization) - แม่เมาะ -->
@@ -296,6 +296,26 @@
                     <path d="M 350,420 L 350,450 L 630,450 L 630,220" stroke="url(#pipe-gas)" stroke-width="8" fill="none" opacity="0.2" />
                     <!-- Air pipe background -->
                     <path d="M 600,400 L 480,400" stroke="url(#pipe-water)" stroke-width="8" fill="none" opacity="0.2" />
+
+                    <!-- ================= PIPING FLOW PATHS ================= -->
+                    <path class="flow-path flow-fgd-gas flow-fgd-gas-in" d="M 20,365 L 120,365" fill="none" stroke-width="6" />
+                    <path class="flow-path flow-fgd-gas flow-fgd-gas-buf" d="M 120,365 L 150,365" fill="none" stroke-width="6" />
+                    <path class="flow-path flow-fgd-gas flow-fgd-gas-tower" d="M 150,365 L 305,365" fill="none" stroke-width="6" />
+                    
+                    <path class="flow-path flow-limestone-slurry flow-limestone-pump" d="M 150,220 L 260,220" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-limestone-slurry flow-limestone-sprays" d="M 260,220 L 260,200 L 320,200 M 260,200 L 260,225 L 320,225 M 260,225 L 260,250 L 320,250 M 260,250 L 260,275 L 320,275" fill="none" stroke-width="3" />
+                    
+                    <path class="flow-path flow-gypsum-slurry flow-gypsum-recycle" d="M 330,360 L 330,225 L 320,225" fill="none" stroke-width="2" />
+                    
+                    <path class="flow-path flow-air-bubbles flow-air-blower" d="M 580,400 L 480,400" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-air-bubbles flow-air-bubbles" d="M 480,400 C 450,400 370,400 340,400" fill="none" stroke-width="4" stroke-dasharray="3,10" />
+
+                    <path class="flow-path flow-gypsum-slurry flow-gypsum-out" d="M 350,420 L 350,450 L 630,450 L 630,210" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-gypsum-slurry flow-gypsum-belt" d="M 630,210 Q 650,220 670,220" fill="none" stroke-width="3.5" />
+                    <path class="flow-path flow-gypsum-slurry flow-gypsum-product" d="M 800,227 Q 830,227 835,240" fill="none" stroke-width="4" />
+
+                    <path class="flow-path flow-fgd-clean flow-fgd-gas-clean" d="M 410,90 L 410,65 L 770,65 L 770,130" fill="none" stroke-width="6" />
+                    <path class="flow-path flow-fgd-clean flow-fgd-gas-stack" d="M 770,420 L 770,130" fill="none" stroke-width="5" />
 
                     <!-- ================= COMPONENT SHAPES ================= -->
                     <!-- Gas Inlet Duct -->
@@ -437,26 +457,6 @@
                         <ellipse cx="760" cy="72" rx="20" ry="12" fill="rgba(255,255,255,0.1)" />
                         <text x="771" y="240" fill="rgba(255,255,255,0.5)" font-size="10" font-weight="600" text-anchor="middle" transform="rotate(90,771,240)">WET STACK (CHIMNEY)</text>
                     </g>
-
-                    <!-- ================= PIPING FLOW PATHS ================= -->
-                    <path class="flow-path flow-fgd-gas flow-fgd-gas-in" d="M 20,365 L 120,365" fill="none" stroke-width="6" />
-                    <path class="flow-path flow-fgd-gas flow-fgd-gas-buf" d="M 120,365 L 150,365" fill="none" stroke-width="6" />
-                    <path class="flow-path flow-fgd-gas flow-fgd-gas-tower" d="M 150,365 L 305,365" fill="none" stroke-width="6" />
-                    
-                    <path class="flow-path flow-limestone-slurry flow-limestone-pump" d="M 150,220 L 260,220" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-limestone-slurry flow-limestone-sprays" d="M 260,220 L 260,200 L 320,200 M 260,200 L 260,225 L 320,225 M 260,225 L 260,250 L 320,250 M 260,250 L 260,275 L 320,275" fill="none" stroke-width="3" />
-                    
-                    <path class="flow-path flow-gypsum-slurry flow-gypsum-recycle" d="M 330,360 L 330,225 L 320,225" fill="none" stroke-width="2" />
-                    
-                    <path class="flow-path flow-air-bubbles flow-air-blower" d="M 580,400 L 480,400" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-air-bubbles flow-air-bubbles" d="M 480,400 C 450,400 370,400 340,400" fill="none" stroke-width="4" stroke-dasharray="3,10" />
-
-                    <path class="flow-path flow-gypsum-slurry flow-gypsum-out" d="M 350,420 L 350,450 L 630,450 L 630,210" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-gypsum-slurry flow-gypsum-belt" d="M 630,210 Q 650,220 670,220" fill="none" stroke-width="3.5" />
-                    <path class="flow-path flow-gypsum-slurry flow-gypsum-product" d="M 800,227 Q 830,227 835,240" fill="none" stroke-width="4" />
-
-                    <path class="flow-path flow-fgd-clean flow-fgd-gas-clean" d="M 410,90 L 410,65 L 770,65 L 770,130" fill="none" stroke-width="6" />
-                    <path class="flow-path flow-fgd-clean flow-fgd-gas-stack" d="M 770,420 L 770,130" fill="none" stroke-width="5" />
                 </svg>
 
                 <!-- Tooltip for Diagram Hover -->
