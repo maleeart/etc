@@ -243,7 +243,9 @@ svg {
 /* Interactive SVG elements */
 .interactive-component {
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, filter 0.5s ease;
+    transform-box: fill-box;
+    transform-origin: center;
 }
 
 .interactive-component rect, 
@@ -261,6 +263,7 @@ svg {
 .interactive-component:hover ellipse {
     stroke: #60a5fa !important;
     filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
+    transform: scale(1.03);
 }
 
 .interactive-component.highlighted rect,
@@ -271,6 +274,10 @@ svg {
     stroke: #10b981 !important;
     stroke-width: 3px !important;
     filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.9));
+}
+
+.interactive-component.highlighted {
+    transform: scale(1.06);
     animation: highlightPulse 1.5s ease-in-out infinite alternate;
 }
 
@@ -283,11 +290,9 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 @keyframes highlightPulse {
     0% {
         filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
-        stroke-width: 3px !important;
     }
     100% {
         filter: drop-shadow(0 0 18px rgba(16, 185, 129, 1));
-        stroke-width: 4.5px !important;
     }
 }
 
@@ -304,8 +309,24 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     max-width: 320px;
     pointer-events: none; /* Let click events fall through to SVG behind it */
     z-index: 20;
-    transition: opacity 0.3s, transform 0.3s;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.step-hud.hud-animate {
+    animation: hudSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hudSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hud-step-num {

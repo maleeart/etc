@@ -538,10 +538,14 @@ function setStep(stepIndex) {
     document.getElementById("current-step-title").innerText = step.title;
     document.getElementById("current-step-desc").innerText = step.desc;
 
-    // Update floating HUD overlay on diagram
+    // Update floating HUD overlay on diagram with smooth slide-in animation
+    const hud = document.getElementById("step-hud");
+    hud.classList.remove("hud-animate");
     document.getElementById("hud-step-num").innerText = step.num;
     document.getElementById("hud-step-title").innerText = step.title;
     document.getElementById("hud-step-desc").innerText = step.desc;
+    void hud.offsetWidth; // Trigger reflow
+    hud.classList.add("hud-animate");
 
     // Highlight the active component in active SVG (Spotlight effect)
     const svgElem = currentTab === "hrsg" ? document.getElementById("svg-hrsg") : document.getElementById("svg-fgd");
@@ -705,6 +709,12 @@ function showOverview() {
         document.getElementById("hud-step-title").innerText = "Wet FGD Plant Diagram (Mae Moh)";
         document.getElementById("hud-step-desc").innerText = "ก๊าซเสีย (สีเทา) วิ่งผ่าน Booster Fan เข้ามาฉีดสเปรย์พ่นหินปูน (สีเทาอ่อน) เกิดปฏิกิริยากลายเป็นยิปซัมป้อนออกก้นถัง (สีเหลือง)";
     }
+
+    // Trigger HUD slide animation
+    const hud = document.getElementById("step-hud");
+    hud.classList.remove("hud-animate");
+    void hud.offsetWidth; // Trigger reflow
+    hud.classList.add("hud-animate");
 
     overlay.classList.add("active");
     
