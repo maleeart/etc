@@ -448,12 +448,12 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 
 /* Booster Fan Blade Spin animation */
 .spin-fan {
-    transform-origin: 135px 365px;
+    transform-origin: 150px 365px;
     animation: spin calc(3s / var(--flow-speed-scale, 1)) linear infinite;
 }
 
 .spin-fan-fgd {
-    transform-origin: 135px 365px;
+    transform-origin: 150px 365px;
     animation: spin calc(3s / var(--flow-speed-scale, 1)) linear infinite;
 }
 
