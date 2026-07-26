@@ -637,6 +637,10 @@ svg {
 
 /* Responsiveness & Mobile Optimization */
 @media (max-width: 1024px) {
+    body {
+        overflow: auto !important;
+    }
+    
     header {
         flex-wrap: wrap;
         height: auto;
