@@ -1249,35 +1249,38 @@ let cfState = {
 
 // Opportunities Deals list
 const smallDeals = [
-    { type: "stock", symbol: "MYCO", name: "หุ้นยาชีวภาพ MYCO", cost: 100, range: "฿50 - ฿350", cashFlow: 0, desc: "หุ้นยาชีวภาพ MYCO เปิดขายในราคาตกร่อง มีแนวโน้มราคาผันผวนสูง คาดหวังการขายทำกำไรในตลาดอนาคตได้" },
-    { type: "stock", symbol: "OK4U", name: "หุ้นปันผล OK4U", cost: 150, range: "฿100 - ฿250", cashFlow: 20, desc: "หุ้นสาธารณูปโภค OK4U มั่นคงสูง ปันผลต่อเนื่องที่ ฿20 ต่อหุ้น/เดือน เหมาะสะสมเพื่อปันผล" },
-    { type: "realestate", category: "condo", name: "คอนโด 2 ห้องนอน (2-BD Condo)", cost: 400000, downPayment: 40000, mortgage: 360000, cashFlow: 1600, desc: "คอนโดใกล้รถไฟฟ้า ยอดเงินกู้ต่ำ สร้างรายได้ค่าเช่าทันที ฿1,600 ต่อเดือน" },
-    { type: "realestate", category: "house", name: "บ้านทาวน์โฮม 3 ห้องนอน (3-BD Townhouse)", cost: 500000, downPayment: 50000, mortgage: 450000, cashFlow: 2200, desc: "บ้านชานเมืองสภาพดีมาก มีคนเช่าอยู่แล้ว ช่วยสร้างรายได้ Passive +฿2,200 ต่อเดือน" }
+    { type: "stock", symbol: "PTT", name: "หุ้นพลังงาน PTT", cost: 300, range: "฿180 - ฿450", cashFlow: 0, desc: "หุ้นกลุ่มพลังงานปิโตรเลียมยักษ์ใหญ่ของไทย ราคาปัจจุบันน่าดึงดูดใจ คาดหวังการฟื้นตัวของเศรษฐกิจและปันผลในอนาคต" },
+    { type: "stock", symbol: "SIRI", name: "หุ้นอสังหาฯ SIRI ปันผล", cost: 150, range: "฿80 - ฿250", cashFlow: 20, desc: "หุ้นพัฒนาอสังหาริมทรัพย์ที่จ่ายเงินปันผลมั่นคงและต่อเนื่องที่ ฿20 ต่อหุ้น/เดือน เหมาะสำหรับสะสมกระแสเงินสด" },
+    { type: "stock", symbol: "BTC", name: "เหรียญดิจิทัล BitCoin (BTC)", cost: 1000, range: "฿300 - ฿3,500", cashFlow: 0, desc: "สินทรัพย์ดิจิทัลคริปโทเคอร์เรนซีที่มีความผันผวนสูงมาก เหมาะสำหรับการซื้อสะสมเพื่อขายเก็งกำไรในตลาดกระทิง" },
+    { type: "realestate", category: "condo", name: "คอนโดห้องสตูดิโอปล่อยเช่า (Studio Condo)", cost: 400000, downPayment: 40000, mortgage: 360000, cashFlow: 2000, desc: "คอนโดสร้างใหม่ทำเลดีใกล้รถไฟฟ้าสายสีม่วง มีคนเช่าพร้อมทำสัญญาเช่า ปล่อยเช่าสร้างกระแสเงินสด Passive +฿2,000/เดือน" },
+    { type: "realestate", category: "house", name: "บ้านทาวน์เฮ้าส์ 2 ชั้นปรับปรุงใหม่ (Townhouse)", cost: 600000, downPayment: 60000, mortgage: 540000, cashFlow: 3000, desc: "ทาวน์เฮ้าส์ในแหล่งชุมชนคนทำงาน เจ้าของเก่าร้อนเงินปล่อยขายต่ำกว่าทุน ปล่อยเช่ารับกระแสเงินสดเน้นๆ +฿3,000/เดือน" }
 ];
 
 const bigDeals = [
-    { type: "realestate", category: "apartment", name: "อพาร์ตเมนต์ 8 ห้อง (8-Unit Apartment)", cost: 1600000, downPayment: 240000, mortgage: 1360000, cashFlow: 14000, desc: "อพาร์ตเมนต์คนเช่าเต็ม ยอดกระแสเงินสดสูงถึง ฿14,000 ต่อเดือน ต้องการเงินดาวน์สูง" },
-    { type: "realestate", category: "commercial", name: "ตึกช็อปปิ้งมอลล์ (Shopping Center)", cost: 3000000, downPayment: 500000, mortgage: 2500000, cashFlow: 26000, desc: "อาคารพาณิชย์สร้างเสร็จใหม่ มีแบรนด์ดังทำสัญญาเช่าระยะยาว รับกระแสเงินสดสุทธิ ฿26,000/เดือน" },
-    { type: "business", name: "แฟรนไชส์ร้านพิซซ่าค้างเคียง (Pizza Franchise)", cost: 1200000, downPayment: 180000, mortgage: 1020000, cashFlow: 10000, desc: "ส่วนแบ่งร้านพิซซ่ายอดขายคงที่ ระบบงานลงตัวแล้ว ปันผล Passive +฿10,000 ต่อเดือน" }
+    { type: "realestate", category: "apartment", name: "อพาร์ตเมนต์ 10 ห้อง (10-Unit Apartment)", cost: 2000000, downPayment: 300000, mortgage: 1700000, cashFlow: 16000, desc: "หอพักนักศึกษาใกล้แหล่งสถานศึกษาและนิคมอุตสาหกรรม อัตราเช่าเฉลี่ย 95% ตลอดปี ปล่อยกระแสเงินสดสม่ำเสมอดีเยี่ยม" },
+    { type: "realestate", category: "commercial", name: "อาคารพาณิชย์เช่าโดยร้านสะดวกซื้อ (7-11 Tenant)", cost: 3500000, downPayment: 500000, mortgage: 3000000, cashFlow: 32000, desc: "ตึกแถวทำเลสี่แยกใหญ่ แฟรนไชส์ร้านสะดวกซื้อเช่าระยะยาว 10 ปี ได้รับการการันตีค่าเช่าตรงกำหนดทุกสิ้นเดือน" },
+    { type: "business", name: "แฟรนไชส์ชาไข่มุกระบบอัตโนมัติ (Bubble Tea)", cost: 1000000, downPayment: 150000, mortgage: 850000, cashFlow: 10000, desc: "ร้านชาไข่มุกระบบปิดกึ่งอัตโนมัติในห้างสรรพสินค้าชั้นนำ ไม่ต้องเฝ้าร้านเอง มีผู้จัดการดูแลพร้อมโอนปันผลให้คุณทุกเดือน" },
+    { type: "business", name: "สถานีบริการน้ำมันชุมชนขนาดเล็ก (Gas Station)", cost: 2500000, downPayment: 400000, mortgage: 2100000, cashFlow: 26000, desc: "ปั๊มน้ำมันท้องถิ่นบนทางหลวงหลักหมู่บ้าน มีรายรับเสริมจากค่าเช่าแผงขายผลไม้และร้านค้าในปั๊มเป็นกระแสเงินสด" }
 ];
 
 // Doodads list
 const doodadCards = [
-    { name: "ซื้อโทรศัพท์มือถือเรือธงรุ่นใหม่ 📱", cost: 10000, desc: "โทรศัพท์ตกรุ่นพอดี ทนกระแสไม่ไหว รูดบัตรซื้อเงินสดไปทันที ฿10,000" },
-    { name: "ซ่อมแซมใหญ่รถยนต์ส่วนตัว 🚗", cost: 6000, desc: "เครื่องยนต์ส่งเสียงเตือน ต้องเข้าศูนย์เช็คระบบไฟและเกียร์ จ่ายค่าซ่อม ฿6,000" },
-    { name: "ล่องเรือสำราญพักผ่อนประจำปี 🚢", cost: 15000, desc: "เพื่อนชวนเที่ยวทริปสุดหรูระดับห้าดาว จ่ายค่าบัตรและค่าห้อง ฿15,000" },
-    { name: "ซื้อรองเท้าและกระเป๋าแบรนด์เนม 🛍️", cost: 3000, desc: "เห็นป้ายลดราคาในห้างช็อปปิ้ง รูดซื้อของสะสมส่วนตัวทันที ฿3,000" },
-    { name: "จัดงานเลี้ยงวันเกิดสุดอลังการ 🎂", cost: 4000, desc: "ฉลองเลี้ยงอาหารและเครื่องดื่มให้เพื่อนฝูงและญาติมิตร จ่ายค่าจัดเลี้ยง ฿4,000" }
+    { name: "ซื้อโทรศัพท์มือถือเรือธงรุ่นใหม่ล่าสุด 📱", cost: 10000, desc: "มือถือเครื่องเก่าตกหน้าจอร้าวพอดี ทนกระแสโฆษณาในโซเชียลไม่ไหว รูดซื้อทันที ฿10,000" },
+    { name: "ซ่อมแซมและเช็คระยะรถยนต์กะทันหัน 🚗", cost: 6000, desc: "เครื่องยนต์ส่งเสียงเตือนและระบบไฟหน้าขัดข้อง ต้องเข้าศูนย์บริการเพื่อแก้ไขความปลอดภัย จ่ายเงินสด ฿6,000" },
+    { name: "ล่องเรือสำราญสุดหรูในฝั่งอันดามัน 🚢", cost: 15000, desc: "ร่วมทริปประจำปีกับกลุ่มสมาคมเพื่อนเก่าระดับวีไอพี ได้พักผ่อนและทำคอนเทนต์ลงอินสตาแกรม เสียเงินสด ฿15,000" },
+    { name: "ซื้อกระเป๋าและเครื่องประดับแบรนด์เนม 🛍️", cost: 3000, desc: "เดินห้างช่วงเทศกาลลดราคากลางปี รูดบัตรซื้อของใช้แฟชั่นส่วนตัวเก็บไว้เป็นรางวัลชีวิต ฿3,000" },
+    { name: "จัดงานเลี้ยงวันเกิดส่วนตัว 🎂", cost: 4000, desc: "จัดงานบุฟเฟต์เลี้ยงอาหารและของหวานให้เพื่อนๆ และคนสนิทที่ร้านอาหารริมน้ำ จ่ายค่าอาหาร ฿4,000" }
 ];
 
 // Market Events list
 const marketCards = [
-    { type: "buyer_condo", name: "บริษัทซื้ออสังหาฯ เสนอซื้อคอนโด 2 ห้องนอน 🏢", price: 650000, desc: "นักลงทุนรายใหญ่เสนอซื้อคอนโด 2 ห้องนอนทุกแห่งในราคาหลังละ ฿650,000 ผู้ที่มีสินทรัพย์นี้สามารถขายเพื่อรับเงินก้อนได้ทันที" },
-    { type: "buyer_house", name: "ครอบครัวย้ายถิ่น เสนอซื้อทาวน์โฮม 3 ห้องนอน 🏠", price: 850000, desc: "ตลาดอสังหาฯ ร้อนแรง มีผู้ต้องการซื้อบ้านทาวน์โฮม 3 ห้องนอนในราคาหลังละ ฿850,000 สามารถขายเพื่อเอาเงินสดสะสมได้" },
-    { type: "stock_boom", symbol: "MYCO", price: 320, name: "ราคาหุ้น MYCO พุ่งสูงขึ้นเป็นประวัติการณ์! 🚀", desc: "หุ้นยา MYCO ประสบความสำเร็จในการวิจัยวัคซีน ราคาหุ้นพุ่งขึ้นเป็น ฿320 ต่อหุ้น สามารถสั่งขายหุ้นในมือได้ทั้งหมด" },
-    { type: "stock_boom", symbol: "OK4U", price: 240, name: "หุ้น OK4U ปรับราคาเพิ่มขึ้นรับปันผล 📈", desc: "ราคาหุ้น OK4U พุ่งขึ้นมาที่ ฿240 ต่อหุ้น สามารถขายเพื่อเอากำไรส่วนต่างได้ทันที" },
-    { type: "buyer_apartment", name: "กลุ่มทุนใหญ่กว้านซื้อตึก อพาร์ตเมนต์ 8 ห้อง 🏢", price: 2300000, desc: "ทุนต่างชาติเสนอซื้อตึกอพาร์ตเมนต์ 8 ห้องในราคาตึกละ ฿2,300,000 จ่ายเงินสดหักหนี้กู้ยืมทั้งหมด" },
-    { type: "inflation", name: "วิกฤตเงินเฟ้อและของแพง 💸", price: 2000, desc: "ราคาน้ำมันและของใช้ส่วนตัวแพงขึ้นกะทันหัน จ่ายค่าซื้อของเข้าบ้านเพิ่มขึ้นทันที ฿2,000" }
+    { type: "buyer_condo", name: "กองทุนอสังหาฯ เสนอซื้อคอนโดสตูดิโอ 🏢", price: 650000, desc: "ความต้องการซื้อคอนโดใกล้รถไฟฟ้าพุ่งสูงขึ้นเนื่องจากทัวร์ท่องเที่ยวจีนกลับมา กองทุนเสนอรับซื้อคอนโดสตูดิโอทุกแห่งในราคา ฿650,000 ขายทำกำไรด่วน!" },
+    { type: "buyer_house", name: "ผู้เช่าตกลงซื้อบ้านทาวน์เฮ้าส์ต่อ 🏠", price: 950000, desc: "ผู้เช่าทาวน์เฮ้าส์ของคุณยื่นเรื่องกู้ผ่าน ขอเสนอซื้อบ้านต่อจากคุณในราคาหลังละ ฿950,000 สามารถขายเพื่อรับเงินก้อนสุทธิ (ราคาขายลบยอดจำนอง) ทันที" },
+    { type: "stock_boom", symbol: "PTT", price: 440, name: "ราคาหุ้น PTT พุ่งรับวิกฤตพลังงานโลก! 📈", desc: "ราคาน้ำมันดิบพุ่งสูงขึ้นอย่างรวดเร็ว ดึงราคาหุ้น PTT ดีดตัวขึ้นมาที่ ฿440 ต่อหุ้น สามารถขายหุ้น PTT ในมือทั้งหมดเพื่อเอาเงินก้อน" },
+    { type: "stock_boom", symbol: "SIRI", price: 230, name: "หุ้น SIRI วิ่งทะยานขานรับดอกเบี้ยขาลง 🚀", desc: "การปรับลดดอกเบี้ยนโยบายเอื้อประโยชน์ต่ออสังหาฯ ราคาหุ้น SIRI พุ่งมาแตะ ฿230 ต่อหุ้น ขายเอากลไรส่วนต่างได้ทันที" },
+    { type: "stock_boom", symbol: "BTC", price: 3200, name: "คริปโทฯ กระทิงดุ! Bitcoin พุ่งทะลุแนวต้าน 🚀", desc: "เกิดกระแส Halving ราคาบิตคอยน์วิ่งกระฉูดขึ้นมาที่ ฿3,200 ต่อหน่วย ใครที่มี BTC อยู่ สามารถขายเหรียญออกทั้งหมดเพื่อทำเงินสดมหาศาล" },
+    { type: "buyer_apartment", name: "นายทุนต่างชาติยื่นข้อเสนอขอซื้ออพาร์ตเมนต์ 🏢", price: 2800000, desc: "นายทุนยื่นข้อเสนอซื้อตึกอพาร์ตเมนต์ 10 ห้องเพื่อไปทำโรงแรมขนาดเล็ก เสนอซื้อราคา ฿2,800,000 หักยอดจำนองที่เหลือและรับเงินส่วนต่างสดๆ ได้ทันที" },
+    { type: "inflation", name: "วิกฤตเศรษฐกิจจากปัญหาเงินเฟ้อทั่วประเทศ 💸", price: 3000, desc: "ราคาสินค้าอุปโภคบริโภค น้ำมัน และแก๊สหุงต้มปรับตัวสูงขึ้นพร้อมกัน จ่ายเงินสดค่าใช้จ่ายปรับราคาสินค้าเพิ่มขึ้น ฿3,000" }
 ];
 
 // Initialize and setup Event listeners
@@ -1621,16 +1624,14 @@ function handleSpaceEvent(type) {
             `;
             break;
     }
+    
+    // Open the Event Modal
+    document.getElementById("cf-event-modal").classList.remove("hidden");
 }
 
-// Clear event card box and render roll dice reminder
+// Clear event card box (closes the event modal dialog)
 function clearEventCard() {
-    document.getElementById("event-card-display").innerHTML = `
-        <div class="event-card empty-state">
-            <h4>เตรียมตัวทอยลูกเต๋าเพื่อเดินทาง 🎲</h4>
-            <p>กดปุ่ม "ทอยลูกเต๋า" เพื่อเคลื่อนตำแหน่งหมากของคุณ ตกช่องใดจะเกิดเหตุการณ์ทางการเงินของช่องนั้น ๆ</p>
-        </div>
-    `;
+    document.getElementById("cf-event-modal").classList.add("hidden");
 }
 
 // Draw Small vs Big Deal
@@ -1709,6 +1710,7 @@ function buyStockDeal(symbol, shares, costPerShare, dividendPerShare) {
     }
 
     cfState.cash -= totalCost;
+    showFloatingEffect(totalCost, 'minus');
 
     const existing = cfState.assets.stocks.find(s => s.symbol === symbol);
     if (existing) {
@@ -1738,6 +1740,7 @@ function buyAssetDeal(name, assetType, cost, downPayment, mortgage, monthlyCashf
     }
 
     cfState.cash -= downPayment;
+    showFloatingEffect(downPayment, 'minus');
 
     const newAsset = {
         id: Date.now().toString() + Math.random().toString(36).substring(2, 5),
@@ -1771,6 +1774,7 @@ function sellRealEstate(assetId, marketPrice) {
 
     const equity = marketPrice - asset.mortgage;
     cfState.cash += equity;
+    showFloatingEffect(equity, 'plus');
 
     cfState.assets.realEstate = cfState.assets.realEstate.filter(re => re.id !== assetId);
 
@@ -1786,6 +1790,7 @@ function sellStock(symbol, marketPrice) {
 
     const proceeds = stock.shares * marketPrice;
     cfState.cash += proceeds;
+    showFloatingEffect(proceeds, 'plus');
 
     cfState.assets.stocks = cfState.assets.stocks.filter(s => s.symbol !== symbol);
 
@@ -1797,6 +1802,7 @@ function sellStock(symbol, marketPrice) {
 // Borrow Bank loan (฿10,000 chunks)
 function borrowBank() {
     cfState.cash += 10000;
+    showFloatingEffect(10000, 'plus');
     cfState.liabilities.bankLoan += 10000;
     cfState.expenses.bankInterest += 1000; // 10% Interest rate
 
@@ -1816,6 +1822,7 @@ function repayBank() {
     }
 
     cfState.cash -= 10000;
+    showFloatingEffect(10000, 'minus');
     cfState.liabilities.bankLoan -= 10000;
     cfState.expenses.bankInterest -= 1000;
 
@@ -1847,6 +1854,7 @@ function repayDebt(debtType) {
     }
 
     cfState.cash -= debtValue;
+    showFloatingEffect(debtValue, 'minus');
     
     if (debtType === "creditCard") {
         cfState.liabilities.creditCard = 0;
@@ -2059,7 +2067,60 @@ function openCFGuideModal() {
     document.getElementById("cf-guide-modal").classList.remove("hidden");
 }
 
+// In-game Guide Modal close
 function closeCFGuideModal() {
     document.getElementById("cf-guide-modal").classList.add("hidden");
+}
+
+// In-game Event Card Modal controllers
+function openCFEventModal() {
+    document.getElementById("cf-event-modal").classList.remove("hidden");
+}
+
+function closeCFEventModal() {
+    document.getElementById("cf-event-modal").classList.add("hidden");
+}
+
+// Mobile Tab switcher for Cashflow Game layout
+function switchCFMobileTab(tabName) {
+    const boardView = document.getElementById("cf-game-board-view");
+    if (boardView) {
+        boardView.setAttribute("data-active-tab", tabName);
+    }
+    
+    // Update active state class on sub-tab navigation buttons
+    document.querySelectorAll(".cf-nav-tab-btn").forEach(btn => btn.classList.remove("active"));
+    const activeBtn = document.getElementById(`cf-btn-tab-${tabName}`);
+    if (activeBtn) {
+        activeBtn.classList.add("active");
+    }
+}
+
+// Visual Floating Cash effect (+/- amount animation)
+function showFloatingEffect(amount, type) {
+    if (amount === 0) return;
+    const container = document.getElementById("game-cash-on-hand");
+    if (!container) return;
+    
+    const floater = document.createElement("span");
+    floater.className = `floating-effect ${type === 'plus' ? 'text-green' : 'text-red'}`;
+    floater.innerText = `${type === 'plus' ? '+' : '-'}฿${Math.abs(amount).toLocaleString()}`;
+    floater.style.position = "absolute";
+    floater.style.left = "50%";
+    floater.style.top = "-22px";
+    floater.style.transform = "translateX(-50%)";
+    floater.style.fontSize = "1rem";
+    floater.style.fontWeight = "bold";
+    floater.style.pointerEvents = "none";
+    floater.style.zIndex = "100";
+    floater.style.animation = "floatUpFade 1.2s ease-out forwards";
+    
+    // Ensure parent is relative
+    container.parentElement.style.position = "relative";
+    container.parentElement.appendChild(floater);
+    
+    setTimeout(() => {
+        floater.remove();
+    }, 1200);
 }
 

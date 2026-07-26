@@ -840,19 +840,26 @@
             </div>
 
             <!-- 2. Main Game Board and Dashboard -->
-            <div id="cf-game-board-view" class="cf-container hidden">
+            <div id="cf-game-board-view" class="cf-container hidden" data-active-tab="board">
+                <!-- Mobile Navigation Tabs for Cashflow View -->
+                <div class="cf-mobile-nav-tabs">
+                    <button class="cf-nav-tab-btn active" id="cf-btn-tab-board" onclick="switchCFMobileTab('board')">🎲 เล่นเกม / บอร์ด</button>
+                    <button class="cf-nav-tab-btn" id="cf-btn-tab-ledger" onclick="switchCFMobileTab('ledger')">📊 งบการเงิน</button>
+                    <button class="cf-nav-tab-btn" id="cf-btn-tab-logs" onclick="switchCFMobileTab('logs')">📝 ประวัติเหตุการณ์</button>
+                </div>
+
                 <div class="cf-game-layout">
                     <!-- Left: Board Track, Dice Roll, and Event Cards -->
                     <div class="cf-play-area">
                         <!-- Rat Race Track Board -->
-                        <div class="board-track-container">
+                        <div class="board-track-container" id="cf-section-board">
                             <div class="board-track" id="cf-board-track">
                                 <!-- 24 Spaces generated dynamically by app.js -->
                             </div>
                         </div>
 
                         <!-- Game Controls & Status -->
-                        <div class="cf-game-controls">
+                        <div class="cf-game-controls" id="cf-section-controls">
                             <div class="cf-control-card">
                                 <div class="dice-roll-panel">
                                     <div class="dice-display" id="dice-result">🎲</div>
@@ -880,16 +887,8 @@
                             </div>
                         </div>
 
-                        <!-- Card Draw Modal Area (Shows the active card drawn) -->
-                        <div class="cf-event-card-container" id="event-card-display">
-                            <div class="event-card empty-state">
-                                <h4>เตรียมตัวทอยลูกเต๋าเพื่อเดินทาง 🎲</h4>
-                                <p>กดปุ่ม "ทอยลูกเต๋า" เพื่อเคลื่อนตำแหน่งหมากของคุณ ตกช่องใดจะเกิดเหตุการณ์ทางการเงินของช่องนั้น ๆ</p>
-                            </div>
-                        </div>
-
                         <!-- Live Game Logs -->
-                        <div class="cf-log-card">
+                        <div class="cf-log-card" id="cf-section-logs">
                             <h5>บันทึกเหตุการณ์ (Game Logs)</h5>
                             <div class="cf-log-box" id="cf-game-logs">
                                 <div class="log-entry system-log">เริ่มต้นเกม: เลือกอาชีพแล้วเข้าสู่ลู่แข่งหนูถีบจักร (Rat Race)</div>
@@ -898,7 +897,7 @@
                     </div>
 
                     <!-- Right: Personal Financial Statement Sheet -->
-                    <div class="cf-financial-panel">
+                    <div class="cf-financial-panel" id="cf-section-ledger">
                         <div class="financial-statement-card">
                             <div class="financial-header">
                                 <h3>งบการเงินส่วนบุคคล (Financial Statement)</h3>
@@ -1105,6 +1104,13 @@
                         </p>
                     </div>
                     <button class="btn btn-green-full" onclick="closeCFGuideModal()">เข้าใจแล้ว ➡️</button>
+                </div>
+            </div>
+
+            <!-- 5. Card Draw Event Modal (Popup overlay) -->
+            <div id="cf-event-modal" class="cf-modal hidden" style="z-index: 1080;">
+                <div class="cf-modal-content" style="max-width: 500px; padding: 1.5rem; text-align: left;" id="event-card-display">
+                    <!-- Active card injected here dynamically -->
                 </div>
             </div>
         </div>
