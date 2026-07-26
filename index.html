@@ -16,11 +16,8 @@
 <body>
     <div class="dashboard">
         <header class="app-header">
-            <h1 id="brand-logo" style="cursor: pointer;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ee4d2d; transition: transform 0.3s; vertical-align: middle; margin-right: 8px;">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
+            <h1 id="brand-logo" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <img src="favicon.jpg" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.15);">
                 My Playground
             </h1>
             <div class="header-controls">
@@ -66,7 +63,8 @@
 
         <!-- View 1: Home View (Landing Page) -->
         <div id="home-view" class="view-section">
-            <div class="welcome-hero">
+            <div class="welcome-hero" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
+                <img src="apple-touch-icon.jpg" alt="MyPlayground Logo" style="width: 80px; height: 80px; border-radius: 20px; border: 2.5px solid rgba(255,255,255,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
                 <h2>ยินดีต้อนรับสู่ My Playground 🌟</h2>
                 <p>พื้นที่รวบรวมสื่อการเรียนรู้เชิงวิศวกรรมไฟฟ้า และเครื่องมือสำหรับบริหารจัดการงานการตลาดออนไลน์</p>
             </div>
@@ -800,6 +798,42 @@
                     <h2>เลือกอาชีพของคุณเพื่อเริ่มเกม 🎓</h2>
                     <p>แต่ละอาชีพมีงบการเงินเริ่มต้นที่แตกต่างกัน คนมีรายได้ต่ำจะมียอดเงินเก็บและหนี้สินที่น้อยกว่า ทำให้หลุดพ้นจากวงจรหนูถีบจักรได้ง่ายกว่า แต่คนมีรายได้สูงจะเข้าถึงดีลใหญ่ได้ง่ายกว่าด้วยเงินทุนที่สูงกว่า</p>
                 </div>
+                
+                <!-- Play Guide Box -->
+                <div class="cf-guide-card" style="margin-bottom: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="guide-header" onclick="togglePlayGuide()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(30, 41, 59, 0.6); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); transition: background 0.3s;">
+                        <h4 style="margin: 0; color: #10b981; display: flex; align-items: center; gap: 8px; font-size: 1rem; font-weight: 700;">
+                            📖 คู่มือและวิธีเล่นเกมกระแสเงินสดเบื้องต้น (กดเพื่อเปิดอ่าน)
+                        </h4>
+                        <span id="guide-arrow" style="transition: transform 0.3s; color: var(--text-secondary);">▼</span>
+                    </div>
+                    <div id="guide-content" class="hidden" style="padding: 1.5rem; background: rgba(15, 23, 42, 0.45); border-radius: 0 0 12px 12px; border: 1px solid rgba(255, 255, 255, 0.08); border-top: none; line-height: 1.6; font-size: 0.88rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h5 style="color: #60a5fa; margin-top: 0; margin-bottom: 0.5rem; font-weight: 700;">🎯 เป้าหมายสู่ชัยชนะ</h5>
+                                <p style="color: var(--text-secondary); font-size: 0.82rem; margin: 0;">คุณต้องสร้างรายได้ทรัพย์สิน (Passive Income) เช่น ดอกเบี้ยหุ้น เงินปันผล ค่าเช่าบ้าน หรือกำไรธุรกิจ ให้ <strong>"มากกว่ารายจ่ายรวมทั้งหมด"</strong> ของคุณ เพื่อหลุดพ้นจากวงจักรหนูถีบจักร (Rat Race) เป็นอิสระทางการเงิน!</p>
+                            </div>
+                            <div>
+                                <h5 style="color: #60a5fa; margin-top: 0; margin-bottom: 0.5rem; font-weight: 700;">📦 ช่องเดินทางและกติกา</h5>
+                                <ul style="color: var(--text-secondary); font-size: 0.82rem; padding-left: 1.2rem; margin: 0; line-height: 1.5;">
+                                    <li><strong>วันจ่ายเงิน 💵:</strong> รับเงินเดือนสุทธิ ทุกครั้งที่ตกช่องหรือทอยเดินผ่าน</li>
+                                    <li><strong>โอกาสลงทุน 📈:</strong> เลือกสุ่มการ์ดดีลซื้อหุ้นหรือซื้อบ้านดาวน์ต่ำ</li>
+                                    <li><strong>ตลาด 🏢:</strong> โอกาสขายสินทรัพย์ตามราคาดีมานด์ตลาดเพื่อรับเงินก้อน</li>
+                                    <li><strong>รายจ่ายฟุ่มเฟือย 🛍️:</strong> การจ่ายฉุกเฉิน / <strong>มีลูก 👶:</strong> รายจ่ายเพิ่มขึ้น / <strong>ตกงาน 🛑:</strong> หยุด 2 ตา</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 style="color: #60a5fa; margin-top: 0; margin-bottom: 0.5rem; font-weight: 700;">💡 ทริคแนะนำมือใหม่</h5>
+                                <ul style="color: var(--text-secondary); font-size: 0.82rem; padding-left: 1.2rem; margin: 0; line-height: 1.5;">
+                                    <li><strong>สะสมดีลเล็กก่อน:</strong> จั่ว Opportunity ดีลเล็กสะสมหุ้นและอสังหาฯ ช่วงแรก</li>
+                                    <li><strong>กู้ธนาคารคุ้มค่า:</strong> กู้ ฿10,000 ดอกเบี้ย ฿1,000 เพื่อต่อยอดทรัพย์สินสร้าง Passive</li>
+                                    <li><strong>ปิดหนี้ช่วยชีวิต:</strong> นำเงินสดปิดหนี้รถ หนี้เครดิตการ์ด จะช่วยเพิ่มกระแสเงินรายเดือนทันที</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="career-grid" id="career-options-container">
                     <!-- Injected dynamically from app.js -->
                 </div>
@@ -827,6 +861,9 @@
                                 <div class="game-turn-info">
                                     <span>รอบที่: <strong id="game-turn-count">0</strong></span>
                                     <span>เงินสดในมือ: <strong id="game-cash-on-hand" class="text-green">฿-</strong></span>
+                                </div>
+                                <div class="game-turn-info margin-top-sm" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 0.5rem; margin-top: 0.5rem;">
+                                    <button onclick="openCFGuideModal()" class="btn btn-action-repay-debt" style="flex: 1; border-color: rgba(16, 185, 129, 0.25); color: #10b981; font-weight: 700; font-size: 0.72rem; padding: 0.4rem;">📖 คู่มือและเป้าหมาย</button>
                                 </div>
                             </div>
 
@@ -1030,6 +1067,44 @@
                     </div>
 
                     <button id="btn-restart-game" class="btn btn-green-full">เริ่มเกมใหม่อีกครั้ง 🔄</button>
+                </div>
+            </div>
+
+            <!-- 4. Game Guide Modal -->
+            <div id="cf-guide-modal" class="cf-modal hidden" style="z-index: 1100;">
+                <div class="cf-modal-content" style="max-width: 600px; text-align: center; border: 1px solid rgba(255,255,255,0.08); padding: 2rem;">
+                    <h3 style="color: #10b981; margin-top: 0; font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        📖 คู่มือและกฎกติกาการเล่น Cashflow
+                    </h3>
+                    <div style="line-height: 1.6; font-size: 0.88rem; margin: 1.5rem 0; text-align: left; max-height: 380px; overflow-y: auto; padding-right: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem;">
+                        <h4 style="color: #10b981; margin-top: 0; margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 700;">🎯 เป้าหมายสูงสุดสู่ชัยชนะ</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.85rem; margin-top: 0;">
+                            สร้างรายได้ทรัพย์สิน (Passive Income) เช่น ดอกเบี้ยหุ้น เงินปันผล ค่าเช่าอสังหาริมทรัพย์ หรือส่วนแบ่งจากธุรกิจ ให้มีมูลค่า <strong>"มากกว่ารายจ่ายรวมทั้งหมดต่อเดือน"</strong> ของคุณ เพื่อหลุดพ้นจากวงจรหนูถีบจักร (Rat Race) เป็นอิสระทางการเงินอย่างแท้จริง!
+                        </p>
+                        
+                        <h4 style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 700;">🚶 ช่องเดินทางและเหตุการณ์ต่าง ๆ</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.25rem; padding-left: 1.2rem; font-size: 0.85rem; line-height: 1.6;">
+                            <li><strong>วันจ่ายเงิน 💵:</strong> รับเงินกระแสเงินสดรายเดือนสุทธิ (รายได้รวม - รายจ่ายรวม) ทุกครั้งที่คุณทอยเต๋าเดินตกช่องนี้หรือเดินผ่าน</li>
+                            <li><strong>โอกาสลงทุน 📈:</strong> สุ่มจั่วดีลซื้อสินทรัพย์เพื่อสร้างรายได้ Passive มีทั้งดีลเล็ก (เงินดาวน์ไม่เกิน ฿50,000 เช่น หุ้นปันผล คอนโดให้เช่า) และดีลใหญ่ (เงินดาวน์ ฿50,000+ เช่น อพาร์ตเมนต์ ตึกช็อปปิ้งมอลล์ แฟรนไชส์)</li>
+                            <li><strong>ตลาดซื้อขาย 🏢:</strong> มีกลุ่มทุนหรือผู้ซื้อเสนอดีลมาขอซื้อสินทรัพย์ (หุ้น คอนโด หรือตึก) ที่คุณมีในราคาตลาดที่สูง คุณสามารถกดขายเพื่อรับเงินสดก้อนโต (Capital Gain) ได้ทันที</li>
+                            <li><strong>ค่าใช้จ่ายฟุ่มเฟือย 🛍️:</strong> เสียเงินสดกะทันหันให้กับสิ่งของฟุ่มเฟือยแบบสุ่ม</li>
+                            <li><strong>มีลูกเพิ่ม 👶:</strong> มีลูกได้สูงสุด 3 คน เพิ่มค่าใช้จ่ายเลี้ยงดูตามเงื่อนไขของแต่ละอาชีพ</li>
+                            <li><strong>ตกงาน 🛑:</strong> ต้องจ่ายรายจ่ายรวมรายเดือนให้ธนาคารทันที และจะถูกหยุดเล่นเพื่อหางานใหม่ 2 ตา</li>
+                        </ul>
+
+                        <h4 style="color: #f59e0b; margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 700;">🏦 ธุรกรรมการเงินและธนาคาร</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.85rem; margin-top: 0; line-height: 1.6;">
+                            คุณสามารถกู้เงินธนาคารเพิ่มได้ยามจำเป็นรอบละ <strong>฿10,000</strong> (เพิ่มภาระดอกเบี้ยจ่าย ฿1,000/เดือน) เพื่อมีสภาพคล่องในการดาวน์ทรัพย์สิน หรือคุณสามารถนำเงินสดสะสมไปกดปุ่มปิดหนี้สินอื่นๆ เช่น <strong>หนี้บัตรเครดิต</strong> หรือ <strong>หนี้รถยนต์</strong> เพื่อตัดรายจ่ายรายเดือนออกถาวร
+                        </p>
+
+                        <h4 style="color: #10b981; margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 700;">📈 กลยุทธ์ที่แนะนำเพื่อชัยชนะ</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0; line-height: 1.6;">
+                            1. ในช่วงเริ่มแรก ให้จั่วเฉพาะ <strong>ดีลขนาดเล็ก (Small Deal)</strong> สะสมหุ้นกู้และอสังหาริมทรัพย์ดาวน์ต่ำเพื่อเริ่มปั๊มปันผล/ค่าเช่าทีละนิด<br>
+                            2. เมื่อเริ่มมีสภาพคล่อง ให้กดปิดหนี้บัตรเครดิตและหนี้รถยนต์ จะช่วยประหยัดค่าใช้จ่ายรายเดือนลงอย่างมหาศาลทันที<br>
+                            3. เมื่อเงินสดสะสมมีมากพอ ให้เริ่มจั่ว <strong>ดีลใหญ่ (Big Deal)</strong> เพื่อครอบครองธุรกิจและอสังหาฯ ขนาดใหญ่ที่จะช่วยผลักดันให้ Passive Income เอาชนะรายจ่ายได้ง่ายขึ้น
+                        </p>
+                    </div>
+                    <button class="btn btn-green-full" onclick="closeCFGuideModal()">เข้าใจแล้ว ➡️</button>
                 </div>
             </div>
         </div>

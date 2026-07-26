@@ -1398,9 +1398,16 @@ function buildBoardTrack() {
         slot.style.gridRow = coordinates[idx].r;
         slot.style.gridColumn = coordinates[idx].c;
 
+        const labelStr = space.label;
+        const emoji = labelStr.substring(labelStr.length - 2);
+        const text = labelStr.substring(0, labelStr.length - 2).trim();
+
         slot.innerHTML = `
             <span class="slot-num">${idx + 1}</span>
-            <div class="slot-label">${space.label}</div>
+            <div class="slot-label">
+                <span class="slot-text">${text}</span>
+                <span class="slot-emoji">${emoji}</span>
+            </div>
         `;
         track.appendChild(slot);
     });
@@ -2033,3 +2040,26 @@ function triggerVictory() {
     document.getElementById("cf-victory-modal").classList.remove("hidden");
     addCFLog("🏆 ยินดีด้วย! คุณหลุดพ้นจากวงจรหนูถีบจักร (Rat Race) สำเร็จและชนะเกมนี้!", "payday-log");
 }
+
+// Collapsible play guide toggle
+function togglePlayGuide() {
+    const content = document.getElementById("guide-content");
+    const arrow = document.getElementById("guide-arrow");
+    if (content.classList.contains("hidden")) {
+        content.classList.remove("hidden");
+        arrow.style.transform = "rotate(180deg)";
+    } else {
+        content.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+    }
+}
+
+// In-game Guide Modal controllers
+function openCFGuideModal() {
+    document.getElementById("cf-guide-modal").classList.remove("hidden");
+}
+
+function closeCFGuideModal() {
+    document.getElementById("cf-guide-modal").classList.add("hidden");
+}
+
