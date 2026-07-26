@@ -525,7 +525,9 @@ function setStep(stepIndex) {
     document.querySelectorAll(".step-card").forEach((card, idx) => {
         if (idx === stepIndex) {
             card.classList.add("active");
-            card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            if (window.innerWidth > 1024) {
+                card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
         } else {
             card.classList.remove("active");
         }
