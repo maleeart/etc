@@ -410,12 +410,12 @@
             </div>
             
             <!-- Quick stats bar under SVG -->
-            <div style="display: flex; justify-content: space-around; background: var(--bg-card); margin-top: 1rem; padding: 0.75rem; border-radius: 12px; border: 1px solid var(--border-card); font-size: 0.8rem;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="quick-stats-bar">
+                <div class="stat-col-small">
                     <span style="color: var(--text-secondary);">สเตปการทำงานปัจุบัน</span>
                     <strong id="current-step-num" style="color: #60a5fa; font-size: 0.95rem;">ขั้นตอนที่ 1</strong>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60%;">
+                <div class="stat-col-large">
                     <span style="color: var(--text-secondary);">เป้าหมายการทำงาน</span>
                     <strong id="current-step-title" style="color: var(--text-primary);">คำอธิบายการทำงานในสเตป</strong>
                     <span id="current-step-desc" style="color: var(--text-secondary); text-align: center; margin-top: 0.2rem; font-size: 0.75rem;">...</span>

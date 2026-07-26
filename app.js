@@ -386,6 +386,15 @@ function switchTab(tabName) {
 function loadSystem(systemName) {
     const config = systemName === "hrsg" ? hrsgConfig : fgdConfig;
     
+    // Update sidebar title and description
+    if (systemName === "hrsg") {
+        document.getElementById("sidebar-title").innerText = "ระบบต้มน้ำด้วยความร้อนทิ้ง (HRSG)";
+        document.getElementById("sidebar-desc").innerText = "เรียนรู้การทำงานของเครื่องต้มน้ำด้วยก๊าซร้อนทิ้งของโรงไฟฟ้ากังหันแก๊สแบบขั้นตอนต่อขั้นตอน กดเลือกดูอุปกรณ์ หรือคลิกปุ่ม Auto Play";
+    } else {
+        document.getElementById("sidebar-title").innerText = "ระบบกำจัด SO2 (Wet FGD - แม่เมาะ)";
+        document.getElementById("sidebar-desc").innerText = "เรียนรู้การทำงานของระบบบำบัดซัลเฟอร์ไดออกไซด์แบบเปียกของโรงไฟฟ้าแม่เมาะแบบขั้นตอนต่อขั้นตอน กดเลือกดูอุปกรณ์ หรือคลิกปุ่ม Auto Play";
+    }
+    
     // 1. Initialize steps list on sidebar
     const stepsListContainer = document.getElementById("steps-list");
     stepsListContainer.innerHTML = "";
