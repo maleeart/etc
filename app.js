@@ -1167,36 +1167,35 @@ function initAffiliateAnalytics() {
 
 // ==========================================================================
 // ========================== CASHFLOW GAME ENGINE ==========================
-// ==========================================================================
 
 const cfCareers = [
     {
         name: "ภารโรง (Janitor)",
-        salary: 1600,
-        cash: 560,
-        expenses: { taxes: 280, mortgage: 200, carLoan: 60, creditCard: 60, retailDebt: 50, other: 300, bankInterest: 0, childCost: 95 },
-        liabilities: { mortgage: 20000, carLoan: 4000, creditCard: 2000, retail: 1000, bankLoan: 0 }
+        salary: 16000,
+        cash: 5600,
+        expenses: { taxes: 2800, mortgage: 2000, carLoan: 600, creditCard: 600, retailDebt: 500, other: 3000, bankInterest: 0, childCost: 950 },
+        liabilities: { mortgage: 200000, carLoan: 40000, creditCard: 20000, retail: 10000, bankLoan: 0 }
     },
     {
         name: "ครูประถม (School Teacher)",
-        salary: 3300,
-        cash: 400,
-        expenses: { taxes: 630, mortgage: 500, carLoan: 120, creditCard: 90, retailDebt: 50, other: 760, bankInterest: 0, childCost: 180 },
-        liabilities: { mortgage: 50000, carLoan: 7000, creditCard: 3000, retail: 1000, bankLoan: 0 }
+        salary: 33000,
+        cash: 4000,
+        expenses: { taxes: 6300, mortgage: 5000, carLoan: 1200, creditCard: 900, retailDebt: 500, other: 7600, bankInterest: 0, childCost: 1800 },
+        liabilities: { mortgage: 500000, carLoan: 70000, creditCard: 30000, retail: 10000, bankLoan: 0 }
     },
     {
         name: "วิศวกร (Engineer)",
-        salary: 4900,
-        cash: 400,
-        expenses: { taxes: 1050, mortgage: 700, carLoan: 140, creditCard: 120, retailDebt: 90, other: 1090, bankInterest: 0, childCost: 250 },
-        liabilities: { mortgage: 75000, carLoan: 9000, creditCard: 4000, retail: 2000, bankLoan: 0 }
+        salary: 49000,
+        cash: 4000,
+        expenses: { taxes: 10500, mortgage: 7000, carLoan: 1400, creditCard: 1200, retailDebt: 900, other: 10900, bankInterest: 0, childCost: 2500 },
+        liabilities: { mortgage: 750000, carLoan: 90000, creditCard: 40000, retail: 20000, bankLoan: 0 }
     },
     {
         name: "แพทย์ประจำบ้าน (Doctor)",
-        salary: 9500,
-        cash: 400,
-        expenses: { taxes: 2460, mortgage: 1900, carLoan: 380, creditCard: 270, retailDebt: 180, other: 1900, bankInterest: 0, childCost: 480 },
-        liabilities: { mortgage: 200000, carLoan: 34000, creditCard: 9000, retail: 5000, bankLoan: 0 }
+        salary: 95000,
+        cash: 4000,
+        expenses: { taxes: 24600, mortgage: 19000, carLoan: 3800, creditCard: 2700, retailDebt: 1800, other: 19000, bankInterest: 0, childCost: 4800 },
+        liabilities: { mortgage: 2000000, carLoan: 340000, creditCard: 90000, retail: 50000, bankLoan: 0 }
     }
 ];
 
@@ -1250,35 +1249,35 @@ let cfState = {
 
 // Opportunities Deals list
 const smallDeals = [
-    { type: "stock", symbol: "MYCO", name: "หุ้นยาชีวภาพ MYCO", cost: 10, range: "$5 - $35", cashFlow: 0, desc: "หุ้นยาชีวภาพ MYCO เปิดขายในราคาตกร่อง มีแนวโน้มราคาผันผวนสูง คาดหวังการขายทำกำไรในตลาดอนาคตได้" },
-    { type: "stock", symbol: "OK4U", name: "หุ้นปันผล OK4U", cost: 15, range: "$10 - $25", cashFlow: 2, desc: "หุ้นสาธารณูปโภค OK4U มั่นคงสูง ปันผลต่อเนื่องที่ $2 ต่อหุ้น/เดือน เหมาะสะสมเพื่อปันผล" },
-    { type: "realestate", category: "condo", name: "คอนโด 2 ห้องนอน (2-BD Condo)", cost: 40000, downPayment: 4000, mortgage: 36000, cashFlow: 160, desc: "คอนโดใกล้รถไฟฟ้า ยอดเงินกู้ต่ำ สร้างรายได้ค่าเช่าทันที $160 ต่อเดือน" },
-    { type: "realestate", category: "house", name: "บ้านทาวน์โฮม 3 ห้องนอน (3-BD Townhouse)", cost: 50000, downPayment: 5000, mortgage: 45000, cashFlow: 220, desc: "บ้านชานเมืองสภาพดีมาก มีคนเช่าอยู่แล้ว ช่วยสร้างรายได้ Passive +$220 ต่อเดือน" }
+    { type: "stock", symbol: "MYCO", name: "หุ้นยาชีวภาพ MYCO", cost: 100, range: "฿50 - ฿350", cashFlow: 0, desc: "หุ้นยาชีวภาพ MYCO เปิดขายในราคาตกร่อง มีแนวโน้มราคาผันผวนสูง คาดหวังการขายทำกำไรในตลาดอนาคตได้" },
+    { type: "stock", symbol: "OK4U", name: "หุ้นปันผล OK4U", cost: 150, range: "฿100 - ฿250", cashFlow: 20, desc: "หุ้นสาธารณูปโภค OK4U มั่นคงสูง ปันผลต่อเนื่องที่ ฿20 ต่อหุ้น/เดือน เหมาะสะสมเพื่อปันผล" },
+    { type: "realestate", category: "condo", name: "คอนโด 2 ห้องนอน (2-BD Condo)", cost: 400000, downPayment: 40000, mortgage: 360000, cashFlow: 1600, desc: "คอนโดใกล้รถไฟฟ้า ยอดเงินกู้ต่ำ สร้างรายได้ค่าเช่าทันที ฿1,600 ต่อเดือน" },
+    { type: "realestate", category: "house", name: "บ้านทาวน์โฮม 3 ห้องนอน (3-BD Townhouse)", cost: 500000, downPayment: 50000, mortgage: 450000, cashFlow: 2200, desc: "บ้านชานเมืองสภาพดีมาก มีคนเช่าอยู่แล้ว ช่วยสร้างรายได้ Passive +฿2,200 ต่อเดือน" }
 ];
 
 const bigDeals = [
-    { type: "realestate", category: "apartment", name: "อพาร์ตเมนต์ 8 ห้อง (8-Unit Apartment)", cost: 160000, downPayment: 24000, mortgage: 136000, cashFlow: 1400, desc: "อพาร์ตเมนต์คนเช่าเต็ม ยอดกระแสเงินสดสูงถึง $1,400 ต่อเดือน ต้องการเงินดาวน์สูง" },
-    { type: "realestate", category: "commercial", name: "ตึกช็อปปิ้งมอลล์ (Shopping Center)", cost: 300000, downPayment: 50000, mortgage: 250000, cashFlow: 2600, desc: "อาคารพาณิชย์สร้างเสร็จใหม่ มีแบรนด์ดังทำสัญญาเช่าระยะยาว รับกระแสเงินสดสุทธิ $2,600/เดือน" },
-    { type: "business", name: "แฟรนไชส์ร้านพิซซ่าค้างเคียง (Pizza Franchise)", cost: 120000, downPayment: 18000, mortgage: 102000, cashFlow: 1000, desc: "ส่วนแบ่งร้านพิซซ่ายอดขายคงที่ ระบบงานลงตัวแล้ว ปันผล Passive +$1,000 ต่อเดือน" }
+    { type: "realestate", category: "apartment", name: "อพาร์ตเมนต์ 8 ห้อง (8-Unit Apartment)", cost: 1600000, downPayment: 240000, mortgage: 1360000, cashFlow: 14000, desc: "อพาร์ตเมนต์คนเช่าเต็ม ยอดกระแสเงินสดสูงถึง ฿14,000 ต่อเดือน ต้องการเงินดาวน์สูง" },
+    { type: "realestate", category: "commercial", name: "ตึกช็อปปิ้งมอลล์ (Shopping Center)", cost: 3000000, downPayment: 500000, mortgage: 2500000, cashFlow: 26000, desc: "อาคารพาณิชย์สร้างเสร็จใหม่ มีแบรนด์ดังทำสัญญาเช่าระยะยาว รับกระแสเงินสดสุทธิ ฿26,000/เดือน" },
+    { type: "business", name: "แฟรนไชส์ร้านพิซซ่าค้างเคียง (Pizza Franchise)", cost: 1200000, downPayment: 180000, mortgage: 1020000, cashFlow: 10000, desc: "ส่วนแบ่งร้านพิซซ่ายอดขายคงที่ ระบบงานลงตัวแล้ว ปันผล Passive +฿10,000 ต่อเดือน" }
 ];
 
 // Doodads list
 const doodadCards = [
-    { name: "ซื้อโทรศัพท์มือถือเรือธงรุ่นใหม่ 📱", cost: 1000, desc: "โทรศัพท์ตกรุ่นพอดี ทนกระแสไม่ไหว รูดบัตรซื้อเงินสดไปทันที $1,000" },
-    { name: "ซ่อมแซมใหญ่รถยนต์ส่วนตัว 🚗", cost: 600, desc: "เครื่องยนต์ส่งเสียงเตือน ต้องเข้าศูนย์เช็คระบบไฟและเกียร์ จ่ายค่าซ่อม $600" },
-    { name: "ล่องเรือสำราญพักผ่อนประจำปี 🚢", cost: 1500, desc: "เพื่อนชวนเที่ยวทริปสุดหรูระดับห้าดาว จ่ายค่าบัตรและค่าห้อง $1,500" },
-    { name: "ซื้อรองเท้าและกระเป๋าแบรนด์เนม 🛍️", cost: 300, desc: "เห็นป้ายลดราคาในห้างช็อปปิ้ง รูดซื้อของสะสมส่วนตัวทันที $300" },
-    { name: "จัดงานเลี้ยงวันเกิดสุดอลังการ 🎂", cost: 400, desc: "ฉลองเลี้ยงอาหารและเครื่องดื่มให้เพื่อนฝูงและญาติมิตร จ่ายค่าจัดเลี้ยง $400" }
+    { name: "ซื้อโทรศัพท์มือถือเรือธงรุ่นใหม่ 📱", cost: 10000, desc: "โทรศัพท์ตกรุ่นพอดี ทนกระแสไม่ไหว รูดบัตรซื้อเงินสดไปทันที ฿10,000" },
+    { name: "ซ่อมแซมใหญ่รถยนต์ส่วนตัว 🚗", cost: 6000, desc: "เครื่องยนต์ส่งเสียงเตือน ต้องเข้าศูนย์เช็คระบบไฟและเกียร์ จ่ายค่าซ่อม ฿6,000" },
+    { name: "ล่องเรือสำราญพักผ่อนประจำปี 🚢", cost: 15000, desc: "เพื่อนชวนเที่ยวทริปสุดหรูระดับห้าดาว จ่ายค่าบัตรและค่าห้อง ฿15,000" },
+    { name: "ซื้อรองเท้าและกระเป๋าแบรนด์เนม 🛍️", cost: 3000, desc: "เห็นป้ายลดราคาในห้างช็อปปิ้ง รูดซื้อของสะสมส่วนตัวทันที ฿3,000" },
+    { name: "จัดงานเลี้ยงวันเกิดสุดอลังการ 🎂", cost: 4000, desc: "ฉลองเลี้ยงอาหารและเครื่องดื่มให้เพื่อนฝูงและญาติมิตร จ่ายค่าจัดเลี้ยง ฿4,000" }
 ];
 
 // Market Events list
 const marketCards = [
-    { type: "buyer_condo", name: "บริษัทซื้ออสังหาฯ เสนอซื้อคอนโด 2 ห้องนอน 🏢", price: 65000, desc: "นักลงทุนรายใหญ่เสนอซื้อคอนโด 2 ห้องนอนทุกแห่งในราคาหลังละ $65,000 ผู้ที่มีสินทรัพย์นี้สามารถขายเพื่อรับเงินก้อนได้ทันที" },
-    { type: "buyer_house", name: "ครอบครัวย้ายถิ่น เสนอซื้อทาวน์โฮม 3 ห้องนอน 🏠", price: 85000, desc: "ตลาดอสังหาฯ ร้อนแรง มีผู้ต้องการซื้อบ้านทาวน์โฮม 3 ห้องนอนในราคาหลังละ $85,000 สามารถขายเพื่อเอาเงินสดสะสมได้" },
-    { type: "stock_boom", symbol: "MYCO", price: 32, name: "ราคาหุ้น MYCO พุ่งสูงขึ้นเป็นประวัติการณ์! 🚀", desc: "หุ้นยา MYCO ประสบความสำเร็จในการวิจัยวัคซีน ราคาหุ้นพุ่งขึ้นเป็น $32 ต่อหุ้น สามารถสั่งขายหุ้นในมือได้ทั้งหมด" },
-    { type: "stock_boom", symbol: "OK4U", price: 24, name: "หุ้น OK4U ปรับราคาเพิ่มขึ้นรับปันผล 📈", desc: "ราคาหุ้น OK4U พุ่งขึ้นมาที่ $24 ต่อหุ้น สามารถขายเพื่อเอากำไรส่วนต่างได้ทันที" },
-    { type: "buyer_apartment", name: "กลุ่มทุนใหญ่กว้านซื้อตึก อพาร์ตเมนต์ 8 ห้อง 🏢", price: 230000, desc: "ทุนต่างชาติเสนอซื้อตึกอพาร์ตเมนต์ 8 ห้องในราคาตึกละ $230,000 จ่ายเงินสดหักหนี้กู้ยืมทั้งหมด" },
-    { type: "inflation", name: "วิกฤตเงินเฟ้อและของแพง 💸", price: 200, desc: "ราคาน้ำมันและของใช้ส่วนตัวแพงขึ้นกะทันหัน จ่ายค่าซื้อของเข้าบ้านเพิ่มขึ้นทันที $200" }
+    { type: "buyer_condo", name: "บริษัทซื้ออสังหาฯ เสนอซื้อคอนโด 2 ห้องนอน 🏢", price: 650000, desc: "นักลงทุนรายใหญ่เสนอซื้อคอนโด 2 ห้องนอนทุกแห่งในราคาหลังละ ฿650,000 ผู้ที่มีสินทรัพย์นี้สามารถขายเพื่อรับเงินก้อนได้ทันที" },
+    { type: "buyer_house", name: "ครอบครัวย้ายถิ่น เสนอซื้อทาวน์โฮม 3 ห้องนอน 🏠", price: 850000, desc: "ตลาดอสังหาฯ ร้อนแรง มีผู้ต้องการซื้อบ้านทาวน์โฮม 3 ห้องนอนในราคาหลังละ ฿850,000 สามารถขายเพื่อเอาเงินสดสะสมได้" },
+    { type: "stock_boom", symbol: "MYCO", price: 320, name: "ราคาหุ้น MYCO พุ่งสูงขึ้นเป็นประวัติการณ์! 🚀", desc: "หุ้นยา MYCO ประสบความสำเร็จในการวิจัยวัคซีน ราคาหุ้นพุ่งขึ้นเป็น ฿320 ต่อหุ้น สามารถสั่งขายหุ้นในมือได้ทั้งหมด" },
+    { type: "stock_boom", symbol: "OK4U", price: 240, name: "หุ้น OK4U ปรับราคาเพิ่มขึ้นรับปันผล 📈", desc: "ราคาหุ้น OK4U พุ่งขึ้นมาที่ ฿240 ต่อหุ้น สามารถขายเพื่อเอากำไรส่วนต่างได้ทันที" },
+    { type: "buyer_apartment", name: "กลุ่มทุนใหญ่กว้านซื้อตึก อพาร์ตเมนต์ 8 ห้อง 🏢", price: 2300000, desc: "ทุนต่างชาติเสนอซื้อตึกอพาร์ตเมนต์ 8 ห้องในราคาตึกละ ฿2,300,000 จ่ายเงินสดหักหนี้กู้ยืมทั้งหมด" },
+    { type: "inflation", name: "วิกฤตเงินเฟ้อและของแพง 💸", price: 2000, desc: "ราคาน้ำมันและของใช้ส่วนตัวแพงขึ้นกะทันหัน จ่ายค่าซื้อของเข้าบ้านเพิ่มขึ้นทันที ฿2,000" }
 ];
 
 // Initialize and setup Event listeners
@@ -1323,15 +1322,15 @@ function renderCareers() {
         card.innerHTML = `
             <h4>
                 <span>${car.name}</span>
-                <span style="color: #10b981;">+$${netFlow}</span>
+                <span style="color: #10b981;">+฿${netFlow.toLocaleString()}</span>
             </h4>
             <div class="career-card-body">
-                <div class="career-stat"><span>รายรับเงินเดือน (Salary):</span> <strong>$${car.salary}</strong></div>
-                <div class="career-stat"><span>รายจ่ายเริ่มต้น:</span> <strong class="text-red">$${totalExp}</strong></div>
-                <div class="career-stat"><span>เงินออมเริ่มต้น:</span> <strong class="text-green">$${car.cash}</strong></div>
-                <div class="career-stat"><span>หนี้สินบ้าน (Mortgage):</span> <strong>$${car.liabilities.mortgage}</strong></div>
-                <div class="career-stat"><span>หนี้บัตรเครดิตสะสม:</span> <strong>$${car.liabilities.creditCard}</strong></div>
-                <div class="career-stat"><span>ค่าเลี้ยงดูลูก (ต่อคน):</span> <strong class="text-red">$${car.expenses.childCost}</strong></div>
+                <div class="career-stat"><span>รายรับเงินเดือน (Salary):</span> <strong>฿${car.salary.toLocaleString()}</strong></div>
+                <div class="career-stat"><span>รายจ่ายเริ่มต้น:</span> <strong class="text-red">฿${totalExp.toLocaleString()}</strong></div>
+                <div class="career-stat"><span>เงินออมเริ่มต้น:</span> <strong class="text-green">฿${car.cash.toLocaleString()}</strong></div>
+                <div class="career-stat"><span>หนี้สินบ้าน (Mortgage):</span> <strong>฿${car.liabilities.mortgage.toLocaleString()}</strong></div>
+                <div class="career-stat"><span>หนี้บัตรเครดิตสะสม:</span> <strong>฿${car.liabilities.creditCard.toLocaleString()}</strong></div>
+                <div class="career-stat"><span>ค่าเลี้ยงดูลูก (ต่อคน):</span> <strong class="text-red">฿${car.expenses.childCost.toLocaleString()}</strong></div>
             </div>
             <button class="mode-btn btn-green" onclick="startCashflowGame(${idx})">เลือกอาชีพนี้ ➡️</button>
         `;
@@ -1366,7 +1365,7 @@ function startCashflowGame(careerIdx) {
 
     // Clean log panel
     const logBox = document.getElementById("cf-game-logs");
-    logBox.innerHTML = `<div class="log-entry system-log">เริ่มต้นเกม: คุณทำงานเป็น ${car.name} เริ่มต้นลู่แข่ง Rat Race เงินสดในมือ $${cfState.cash}</div>`;
+    logBox.innerHTML = `<div class="log-entry system-log">เริ่มต้นเกม: คุณทำงานเป็น ${car.name} เริ่มต้นลู่แข่ง Rat Race เงินสดในมือ ฿${cfState.cash.toLocaleString()}</div>`;
 
     // Render original card state
     document.getElementById("event-card-display").innerHTML = `
@@ -1385,10 +1384,6 @@ function buildBoardTrack() {
     track.innerHTML = "";
 
     // Coordinates mapping for 8x6 grid
-    // Slots 0-7: top row (row 1, col 1-8)
-    // Slots 8-12: right column (row 2-6, col 8)
-    // Slots 13-19: bottom row (row 6, col 7-1)
-    // Slots 20-23: left column (row 5-2, col 1)
     const coordinates = [
         { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 }, { r: 1, c: 5 }, { r: 1, c: 6 }, { r: 1, c: 7 }, { r: 1, c: 8 },
         { r: 2, c: 8 }, { r: 3, c: 8 }, { r: 4, c: 8 }, { r: 5, c: 8 }, { r: 6, c: 8 },
@@ -1446,15 +1441,7 @@ function rollDice() {
 
     addCFLog(`ทอยลูกเต๋าได้ ${roll} แต้ม 🎲 เดินทางไปยังช่อง ${cfState.boardPosition + 1}`, "system-log");
 
-    // Check if passed Payday (Day check from position change)
-    if (cfState.boardPosition < oldPosition) {
-        // We crossed slot 0 (Payday is slot 0, 4, 8, 12, 16, 20)
-        // But also check if they passed any payday slots along the way!
-        // We passed payday if: oldPosition -> newPosition crosses a Payday index
-    }
-    
     // Rat Race Rule: Whenever you land on OR PASS a Payday slot, you get paid!
-    // Let's check how many Payday indices were crossed: 0, 4, 8, 12, 16, 20
     let paydayCrossedCount = 0;
     for (let step = 1; step <= roll; step++) {
         const checkPos = (oldPosition + step) % 24;
@@ -1466,7 +1453,7 @@ function rollDice() {
     if (paydayCrossedCount > 0) {
         const netFlow = calculateCFNetFlow();
         cfState.cash += netFlow * paydayCrossedCount;
-        addCFLog(`💵 ได้รับเงินวันจ่ายเงิน (Payday)! รับรายได้สุทธิ $${netFlow} x ${paydayCrossedCount} = $${netFlow * paydayCrossedCount}`, "payday-log");
+        addCFLog(`💵 ได้รับเงินวันจ่ายเงิน (Payday)! รับรายได้สุทธิ ฿${netFlow.toLocaleString()} x ${paydayCrossedCount} = ฿${(netFlow * paydayCrossedCount).toLocaleString()}`, "payday-log");
     }
 
     // Process landing space type
@@ -1482,7 +1469,6 @@ function handleSpaceEvent(type) {
 
     switch (type) {
         case "payday":
-            // Landed exactly on payday (already handled above if they passed it, but we give log statement)
             container.innerHTML = `
                 <div class="event-card">
                     <h4>💵 วันรับเงินเดือนกะทันหัน (Payday)</h4>
@@ -1493,11 +1479,10 @@ function handleSpaceEvent(type) {
             break;
 
         case "opportunity":
-            // Offer Small Deal vs Big Deal choice
             container.innerHTML = `
                 <div class="event-card">
                     <h4>📈 โอกาสการลงทุนเพื่อสร้าง Passive Income</h4>
-                    <p>คุณสามารถเลือกซื้อ "ดีลเล็ก" (Small Deal - วงเงินดาวน์ไม่เกิน $5,000 เหมาะสำหรับเก็บหอมรอบริบหุ้นหรืออสังหาขนาดเล็ก) หรือ "ดีลใหญ่" (Big Deal - ต้องการเงินลงทุนสูง แต่ให้ Passive Income ก้อนใหญ่)</p>
+                    <p>คุณสามารถเลือกซื้อ "ดีลเล็ก" (Small Deal - วงเงินดาวน์ไม่เกิน ฿50,000 เหมาะสำหรับเก็บหอมรอบริบหุ้นหรืออสังหาขนาดเล็ก) หรือ "ดีลใหญ่" (Big Deal - ต้องการเงินลงทุนสูง แต่ให้ Passive Income ก้อนใหญ่)</p>
                     <div class="event-card-actions">
                         <button class="btn btn-card-buy" onclick="drawDeal('small')">ดีลขนาดเล็ก 📈</button>
                         <button class="btn btn-card-pass" onclick="drawDeal('big')">ดีลขนาดใหญ่ 🏢</button>
@@ -1507,26 +1492,22 @@ function handleSpaceEvent(type) {
             break;
 
         case "doodad":
-            // Draw random Doodad expense
             const card = doodadCards[Math.floor(Math.random() * doodadCards.length)];
             cfState.cash -= card.cost;
-            addCFLog(`🛍️ ค่าใช้จ่ายฟุ่มเฟือย: ${card.name} เสียเงินสด $${card.cost}`, "doodad-log");
+            addCFLog(`🛍️ ค่าใช้จ่ายฟุ่มเฟือย: ${card.name} เสียเงินสด ฿${card.cost.toLocaleString()}`, "doodad-log");
 
             container.innerHTML = `
                 <div class="event-card" style="border-left: 4px solid #ef4444;">
                     <h4 class="text-red">🛍️ รายจ่ายฟุ่มเฟือย (Doodad Drawn)</h4>
                     <p class="event-card-subtitle">${card.name}</p>
-                    <p>${card.desc} เงินสดถูกหักจากมือจำนวน <strong>$${card.cost}</strong> ทันที</p>
+                    <p>${card.desc} เงินสดถูกหักจากมือจำนวน <strong>฿${card.cost.toLocaleString()}</strong> ทันที</p>
                     <button class="btn btn-green-full" onclick="clearEventCard()">ชำระเงินเรียบร้อย ➡️</button>
                 </div>
             `;
             break;
 
         case "market":
-            // Draw Market sell event
             const market = marketCards[Math.floor(Math.random() * marketCards.length)];
-            
-            // Check if player has matching assets to sell
             let sellAvailable = false;
             let sellDetailsHTML = "";
 
@@ -1536,8 +1517,8 @@ function handleSpaceEvent(type) {
                     sellAvailable = true;
                     sellDetailsHTML = condos.map(c => `
                         <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
-                            <span>${c.name} (ค่าเช่า +$${c.cashFlow})</span>
-                            <button class="btn-action-borrow" onclick="sellRealEstate('${c.id}', ${market.price})">ขายรับเงินก้อน (+$${market.price - c.mortgage})</button>
+                            <span>${c.name} (ค่าเช่า +฿${c.cashFlow.toLocaleString()})</span>
+                            <button class="btn-action-borrow" onclick="sellRealEstate('${c.id}', ${market.price})">ขายรับเงินก้อน (+฿${(market.price - c.mortgage).toLocaleString()})</button>
                         </div>
                     `).join("");
                 }
@@ -1547,8 +1528,8 @@ function handleSpaceEvent(type) {
                     sellAvailable = true;
                     sellDetailsHTML = houses.map(h => `
                         <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
-                            <span>${h.name} (ค่าเช่า +$${h.cashFlow})</span>
-                            <button class="btn-action-borrow" onclick="sellRealEstate('${h.id}', ${market.price})">ขายรับเงินก้อน (+$${market.price - h.mortgage})</button>
+                            <span>${h.name} (ค่าเช่า +฿${h.cashFlow.toLocaleString()})</span>
+                            <button class="btn-action-borrow" onclick="sellRealEstate('${h.id}', ${market.price})">ขายรับเงินก้อน (+฿${(market.price - h.mortgage).toLocaleString()})</button>
                         </div>
                     `).join("");
                 }
@@ -1558,8 +1539,8 @@ function handleSpaceEvent(type) {
                     sellAvailable = true;
                     sellDetailsHTML = apartments.map(a => `
                         <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
-                            <span>${a.name} (ค่าเช่า +$${a.cashFlow})</span>
-                            <button class="btn-action-borrow" onclick="sellRealEstate('${a.id}', ${market.price})">ขายรับเงินก้อน (+$${market.price - a.mortgage})</button>
+                            <span>${a.name} (ค่าเช่า +฿${a.cashFlow.toLocaleString()})</span>
+                            <button class="btn-action-borrow" onclick="sellRealEstate('${a.id}', ${market.price})">ขายรับเงินก้อน (+฿${(market.price - a.mortgage).toLocaleString()})</button>
                         </div>
                     `).join("");
                 }
@@ -1569,14 +1550,14 @@ function handleSpaceEvent(type) {
                     sellAvailable = true;
                     sellDetailsHTML = `
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span>มีหุ้นในครอบครอง ${stock.shares} หุ้น (ต้นทุนเฉลี่ย $${stock.averageCost})</span>
-                            <button class="btn-action-borrow" onclick="sellStock('${stock.symbol}', ${market.price})">ขายหุ้นทั้งหมด (+$${stock.shares * market.price})</button>
+                            <span>มีหุ้นในครอบครอง ${stock.shares} หุ้น (ต้นทุนเฉลี่ย ฿${stock.averageCost.toLocaleString()})</span>
+                            <button class="btn-action-borrow" onclick="sellStock('${stock.symbol}', ${market.price})">ขายหุ้นทั้งหมด (+฿${(stock.shares * market.price).toLocaleString()})</button>
                         </div>
                     `;
                 }
             } else if (market.type === "inflation") {
                 cfState.cash -= market.price;
-                addCFLog(`💸 จ่ายค่าซื้อของแพงขึ้นเงินเฟ้อ $${market.price}`, "doodad-log");
+                addCFLog(`💸 จ่ายค่าซื้อของแพงขึ้นเงินเฟ้อ ฿${market.price.toLocaleString()}`, "doodad-log");
             }
 
             container.innerHTML = `
@@ -1598,12 +1579,12 @@ function handleSpaceEvent(type) {
         case "baby":
             if (cfState.childrenCount < 3) {
                 cfState.childrenCount++;
-                addCFLog(`👶 มีลูกเพิ่มคนที่ ${cfState.childrenCount}! รายจ่ายเพิ่มขึ้นรายเดือน $${cfState.expenses.childCost}`, "doodad-log");
+                addCFLog(`👶 มีลูกเพิ่มคนที่ ${cfState.childrenCount}! รายจ่ายเพิ่มขึ้นรายเดือน ฿${cfState.expenses.childCost.toLocaleString()}`, "doodad-log");
                 
                 container.innerHTML = `
                     <div class="event-card" style="border-left: 4px solid #ec4899;">
                         <h4 style="color: #ec4899;">👶 มีทายาทเพิ่มขึ้น! (Add a Child)</h4>
-                        <p>ขอแสดงความยินดี! สมาชิกใหม่ในครอบครัวได้เกิดขึ้นแล้ว คุณมีหน้าที่ต้องจ่ายเลี้ยงดูเพิ่มขึ้น <strong>$${cfState.expenses.childCost}</strong> ต่อเดือน (สูงสุดไม่เกิน 3 คน)</p>
+                        <p>ขอแสดงความยินดี! สมาชิกใหม่ในครอบครัวได้เกิดขึ้นแล้ว คุณมีหน้าที่ต้องจ่ายเลี้ยงดูเพิ่มขึ้น <strong>฿${cfState.expenses.childCost.toLocaleString()}</strong> ต่อเดือน (สูงสุดไม่เกิน 3 คน)</p>
                         <button class="btn btn-green-full" onclick="clearEventCard()">ต้อนรับทารกใหม่ ➡️</button>
                     </div>
                 `;
@@ -1622,12 +1603,12 @@ function handleSpaceEvent(type) {
             const expense = calculateCFTotalExpenses();
             cfState.cash -= expense;
             cfState.downsizedTurnsLeft = 2;
-            addCFLog(`🛑 ตกงาน! จ่ายรายจ่ายรายเดือน $${expense} และพลาดการเล่นทอยลูกเต๋า 2 รอบ`, "doodad-log");
+            addCFLog(`🛑 ตกงาน! จ่ายรายจ่ายรายเดือน ฿${expense.toLocaleString()} และพลาดการเล่นทอยลูกเต๋า 2 รอบ`, "doodad-log");
 
             container.innerHTML = `
                 <div class="event-card" style="border-left: 4px solid #f97316;">
                     <h4 class="text-orange">🛑 คุณถูกเลิกจ้างชั่วคราว! (Downsized)</h4>
-                    <p>บริษัทปรับลดขนาดแผนก ทำให้คุณต้องจ่ายรายจ่ายส่วนตัวรวมประจำเดือน <strong>$${expense}</strong> ให้แก่ธนาคารทันที และต้องหยุดเดินเพื่อหางานใหม่เป็นเวลา 2 รอบการทอย</p>
+                    <p>บริษัทปรับลดขนาดแผนก ทำให้คุณต้องจ่ายรายจ่ายส่วนตัวรวมประจำเดือน <strong>฿${expense.toLocaleString()}</strong> ให้แก่ธนาคารทันที และต้องหยุดเดินเพื่อหางานใหม่เป็นเวลา 2 รอบการทอย</p>
                     <button class="btn btn-green-full" onclick="clearEventCard()">รับสภาพตกงาน ➡️</button>
                 </div>
             `;
@@ -1651,12 +1632,11 @@ function drawDeal(dealType) {
     const dataset = dealType === "small" ? smallDeals : bigDeals;
     const card = dataset[Math.floor(Math.random() * dataset.length)];
 
-    if (dealType === "big" && cfState.cash < 5000) {
-        // Warning: Not enough cash to qualify
+    if (dealType === "big" && cfState.cash < 50000) {
         container.innerHTML = `
             <div class="event-card">
                 <h4>🛑 เงินสดไม่เพียงพอที่จะเข้าดูดีลใหญ่</h4>
-                <p>การเปิดดีลใหญ่ต้องการเงินลงทุน/เงินดาวน์สูงกว่าปกติ (ขั้นต่ำประมาณ $5,000) แต่คุณมีเงินสดในมือเพียง $${cfState.cash} แนะนำให้เริ่มจากเก็บดีลขนาดเล็กก่อนครับ</p>
+                <p>การเปิดดีลใหญ่ต้องการเงินลงทุน/เงินดาวน์สูงกว่าปกติ (ขั้นต่ำประมาณ ฿50,000) แต่คุณมีเงินสดในมือเพียง ฿${cfState.cash.toLocaleString()} แนะนำให้เริ่มจากเก็บดีลขนาดเล็กก่อนครับ</p>
                 <div class="event-card-actions">
                     <button class="btn btn-card-buy" onclick="drawDeal('small')">กลับไปเลือกดีลขนาดเล็ก 📈</button>
                     <button class="btn btn-card-pass" onclick="clearEventCard()">ยกเลิกดีล ➡️</button>
@@ -1667,11 +1647,10 @@ function drawDeal(dealType) {
     }
 
     if (card.type === "stock") {
-        // Stock Purchase Offer template
         const sharesOptions = [100, 200, 500, 1000];
         let optionsHTML = sharesOptions.map(sh => {
             const cost = sh * card.cost;
-            return `<button class="btn-action-borrow" onclick="buyStockDeal('${card.symbol}', ${sh}, ${card.cost}, ${card.cashFlow})">ซื้อ ${sh} หุ้น ($${cost})</button>`;
+            return `<button class="btn-action-borrow" onclick="buyStockDeal('${card.symbol}', ${sh}, ${card.cost}, ${card.cashFlow})">ซื้อ ${sh} หุ้น (฿${cost.toLocaleString()})</button>`;
         }).join(" ");
 
         container.innerHTML = `
@@ -1680,9 +1659,9 @@ function drawDeal(dealType) {
                 <p class="event-card-subtitle">${card.name}</p>
                 <p>${card.desc}</p>
                 <div class="event-card-stats">
-                    <div class="card-stat">ราคาปัจจุบัน: <strong>$${card.cost}/หุ้น</strong></div>
+                    <div class="card-stat">ราคาปัจจุบัน: <strong>฿${card.cost.toLocaleString()}/หุ้น</strong></div>
                     <div class="card-stat">กรอบราคาตลาดทั่วไป: <strong>${card.range}</strong></div>
-                    <div class="card-stat">ปันผลต่อหุ้น/เดือน: <strong>+$${card.cashFlow || 0}</strong></div>
+                    <div class="card-stat">ปันผลต่อหุ้น/เดือน: <strong>+฿${card.cashFlow || 0}</strong></div>
                 </div>
                 <div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:10px; margin-bottom:1rem;">
                     <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:0.5rem;">เลือกซื้อจำนวนหุ้นที่เหมาะสม:</label>
@@ -1694,17 +1673,16 @@ function drawDeal(dealType) {
             </div>
         `;
     } else {
-        // Real Estate or Business asset Deal template
         container.innerHTML = `
             <div class="event-card" style="border-left: 4px solid #3b82f6;">
                 <h4>🏢 โอกาสลงทุนอสังหาฯ และธุรกิจส่วนตัว</h4>
                 <p class="event-card-subtitle">${card.name}</p>
                 <p>${card.desc}</p>
                 <div class="event-card-stats">
-                    <div class="card-stat">ราคาสินทรัพย์ทั้งหมด: <strong>$${card.cost}</strong></div>
-                    <div class="card-stat">เงินสดดาวน์เริ่มต้น: <strong class="text-green">$${card.downPayment}</strong></div>
-                    <div class="card-stat">กระแสเงินสดเข้ากระเป๋า: <strong class="text-green">+$${card.cashFlow}/เดือน</strong></div>
-                    <div class="card-stat">ยอดหนี้จำนอง (Mortgage): <strong>$${card.mortgage || 0}</strong></div>
+                    <div class="card-stat">ราคาสินทรัพย์ทั้งหมด: <strong>฿${card.cost.toLocaleString()}</strong></div>
+                    <div class="card-stat">เงินสดดาวน์เริ่มต้น: <strong class="text-green">฿${card.downPayment.toLocaleString()}</strong></div>
+                    <div class="card-stat">กระแสเงินสดเข้ากระเป๋า: <strong class="text-green">+฿${card.cashFlow.toLocaleString()}/เดือน</strong></div>
+                    <div class="card-stat">ยอดหนี้จำนอง (Mortgage): <strong>฿${(card.mortgage || 0).toLocaleString()}</strong></div>
                 </div>
                 <div class="event-card-actions">
                     <button class="btn btn-card-buy" onclick="buyAssetDeal('${card.name}', '${card.type}', ${card.cost}, ${card.downPayment}, ${card.mortgage || 0}, ${card.cashFlow})">ตกลงลงทุน ➕</button>
@@ -1725,7 +1703,6 @@ function buyStockDeal(symbol, shares, costPerShare, dividendPerShare) {
 
     cfState.cash -= totalCost;
 
-    // Add to stock array
     const existing = cfState.assets.stocks.find(s => s.symbol === symbol);
     if (existing) {
         const totalShares = existing.shares + shares;
@@ -1741,7 +1718,7 @@ function buyStockDeal(symbol, shares, costPerShare, dividendPerShare) {
         });
     }
 
-    addCFLog(`📈 ลงทุนซื้อหุ้น ${symbol} จำนวน ${shares} หุ้น ที่ราคา $${costPerShare} (จ่ายเงินรวม $${totalCost})`, "deal-log");
+    addCFLog(`📈 ลงทุนซื้อหุ้น ${symbol} จำนวน ${shares} หุ้น ที่ราคา ฿${costPerShare.toLocaleString()} (จ่ายเงินรวม ฿${totalCost.toLocaleString()})`, "deal-log");
     clearEventCard();
     updateCFUI();
 }
@@ -1765,7 +1742,6 @@ function buyAssetDeal(name, assetType, cost, downPayment, mortgage, monthlyCashf
     };
 
     if (assetType === "realestate") {
-        // Parse condo vs house
         let category = "house";
         if (name.includes("Condo") || name.includes("คอนโด")) category = "condo";
         else if (name.includes("Apartment") || name.includes("อพาร์ตเมนต์")) category = "apartment";
@@ -1776,7 +1752,7 @@ function buyAssetDeal(name, assetType, cost, downPayment, mortgage, monthlyCashf
         cfState.assets.businesses.push(newAsset);
     }
 
-    addCFLog(`🏢 ตกลงลงทุนใน ${name} (เงินดาวน์ $${downPayment}, กระแสเงินสด Passive +$${monthlyCashflow}/เดือน)`, "deal-log");
+    addCFLog(`🏢 ตกลงลงทุนใน ${name} (เงินดาวน์ ฿${downPayment.toLocaleString()}, กระแสเงินสด Passive +฿${monthlyCashflow.toLocaleString()}/เดือน)`, "deal-log");
     clearEventCard();
     updateCFUI();
 }
@@ -1789,10 +1765,9 @@ function sellRealEstate(assetId, marketPrice) {
     const equity = marketPrice - asset.mortgage;
     cfState.cash += equity;
 
-    // Remove from assets array
     cfState.assets.realEstate = cfState.assets.realEstate.filter(re => re.id !== assetId);
 
-    addCFLog(`🏢 ขายอสังหาริมทรัพย์ ${asset.name} ที่ราคาตลาด $${marketPrice} (หักหนี้กู้ยืม $${asset.mortgage} รับเงินสุทธิ $${equity})`, "market-log");
+    addCFLog(`🏢 ขายอสังหาริมทรัพย์ ${asset.name} ที่ราคาตลาด ฿${marketPrice.toLocaleString()} (หักหนี้กู้ยืม ฿${asset.mortgage.toLocaleString()} รับเงินสุทธิ ฿${equity.toLocaleString()})`, "market-log");
     clearEventCard();
     updateCFUI();
 }
@@ -1805,40 +1780,39 @@ function sellStock(symbol, marketPrice) {
     const proceeds = stock.shares * marketPrice;
     cfState.cash += proceeds;
 
-    // Remove from assets array
     cfState.assets.stocks = cfState.assets.stocks.filter(s => s.symbol !== symbol);
 
-    addCFLog(`📈 ขายหุ้น ${symbol} ทั้งหมดจำนวน ${stock.shares} หุ้น ที่ราคาตลาด $${marketPrice} (รับเงินก้อนสุทธิ $${proceeds})`, "market-log");
+    addCFLog(`📈 ขายหุ้น ${symbol} ทั้งหมดจำนวน ${stock.shares} หุ้น ที่ราคาตลาด ฿${marketPrice.toLocaleString()} (รับเงินก้อนสุทธิ ฿${proceeds.toLocaleString()})`, "market-log");
     clearEventCard();
     updateCFUI();
 }
 
-// Borrow Bank loan ($1000 chunks)
+// Borrow Bank loan (฿10,000 chunks)
 function borrowBank() {
-    cfState.cash += 1000;
-    cfState.liabilities.bankLoan += 1000;
-    cfState.expenses.bankInterest += 100; // 10% Interest rate
+    cfState.cash += 10000;
+    cfState.liabilities.bankLoan += 10000;
+    cfState.expenses.bankInterest += 1000; // 10% Interest rate
 
-    addCFLog(`💵 กู้ยืมเงินธนาคารเพิ่ม +$1,000 (เพิ่มรายจ่ายดอกเบี้ย $100/เดือน)`, "deal-log");
+    addCFLog(`💵 กู้ยืมเงินธนาคารเพิ่ม +฿10,000 (เพิ่มรายจ่ายดอกเบี้ย ฿1,000/เดือน)`, "deal-log");
     updateCFUI();
 }
 
-// Repay Bank loan ($1000 chunks)
+// Repay Bank loan (฿10,000 chunks)
 function repayBank() {
-    if (cfState.liabilities.bankLoan < 1000) {
+    if (cfState.liabilities.bankLoan < 10000) {
         alert("คุณไม่มียอดค้างชำระเงินกู้ยืมธนาคารนี้ครับ");
         return;
     }
-    if (cfState.cash < 1000) {
-        alert("เงินสดในมือไม่เพียงพอชำระหนี้ $1,000! กรุณาสะสมเงินจากกระแสรายเดือนก่อนครับ");
+    if (cfState.cash < 10000) {
+        alert("เงินสดในมือไม่เพียงพอชำระหนี้ ฿10,000! กรุณาสะสมเงินจากกระแสรายเดือนก่อนครับ");
         return;
     }
 
-    cfState.cash -= 1000;
-    cfState.liabilities.bankLoan -= 1000;
-    cfState.expenses.bankInterest -= 100;
+    cfState.cash -= 10000;
+    cfState.liabilities.bankLoan -= 10000;
+    cfState.expenses.bankInterest -= 1000;
 
-    addCFLog(`💵 คืนชำระหนี้กู้ธนาคาร -$1,000 (ลดค่าใช้จ่ายดอกเบี้ยลง $100/เดือน)`, "deal-log");
+    addCFLog(`💵 คืนชำระหนี้กู้ธนาคาร -฿10,000 (ลดค่าใช้จ่ายดอกเบี้ยลง ฿1,000/เดือน)`, "deal-log");
     updateCFUI();
 }
 
@@ -1861,7 +1835,7 @@ function repayDebt(debtType) {
     }
 
     if (cfState.cash < debtValue) {
-        alert(`เงินสดไม่เพียงพอปิดหนี้สินจำนวน $${debtValue}! กรุณาสะสมเงินสดเพิ่มขึ้นก่อนครับ`);
+        alert(`เงินสดไม่เพียงพอปิดหนี้สินจำนวน ฿${debtValue.toLocaleString()}! กรุณาสะสมเงินสดเพิ่มขึ้นก่อนครับ`);
         return;
     }
 
@@ -1870,11 +1844,11 @@ function repayDebt(debtType) {
     if (debtType === "creditCard") {
         cfState.liabilities.creditCard = 0;
         cfState.expenses.creditCard = 0;
-        addCFLog(`🎉 ปิดหนี้บัตรเครดิตสะสมทั้งหมด -$${debtValue} สำเร็จ! ลดรายจ่ายประจำลง $${monthlySaving}/เดือน`, "deal-log");
+        addCFLog(`🎉 ปิดหนี้บัตรเครดิตสะสมทั้งหมด -฿${debtValue.toLocaleString()} สำเร็จ! ลดรายจ่ายประจำลง ฿${monthlySaving.toLocaleString()}/เดือน`, "deal-log");
     } else if (debtType === "carLoan") {
         cfState.liabilities.carLoan = 0;
         cfState.expenses.carLoan = 0;
-        addCFLog(`🎉 ปิดหนี้กู้ซื้อรถยนต์สะสมทั้งหมด -$${debtValue} สำเร็จ! ลดรายจ่ายประจำลง $${monthlySaving}/เดือน`, "deal-log");
+        addCFLog(`🎉 ปิดหนี้กู้ซื้อรถยนต์สะสมทั้งหมด -฿${debtValue.toLocaleString()} สำเร็จ! ลดรายจ่ายประจำลง ฿${monthlySaving.toLocaleString()}/เดือน`, "deal-log");
     }
 
     updateCFUI();
@@ -1894,17 +1868,14 @@ function addCFLog(text, logClass = "system-log") {
 function calculateCFPassiveIncome() {
     let passive = 0;
 
-    // Real estate cash flow
     cfState.assets.realEstate.forEach(re => {
         passive += re.cashFlow;
     });
 
-    // Business cash flow
     cfState.assets.businesses.forEach(b => {
         passive += b.cashFlow;
     });
 
-    // Stock dividend income (e.g. OK4U)
     cfState.assets.stocks.forEach(s => {
         passive += s.shares * (s.dividendPerShare || 0);
     });
@@ -1924,7 +1895,6 @@ function calculateCFTotalExpenses() {
     Object.values(cfState.expenses).forEach(v => {
         totalExp += v;
     });
-    // Subtract childCost placeholder and add actual childrenCount * childCost
     totalExp -= cfState.expenses.childCost; 
     totalExp += cfState.childrenCount * cfState.expenses.childCost;
     return totalExp;
@@ -1940,29 +1910,25 @@ function calculateCFNetFlow() {
 function updateCFUI() {
     if (!cfState.activeGame) return;
 
-    // 1. Basic Turn info updates
     document.getElementById("game-turn-count").innerText = cfState.turnCount;
-    document.getElementById("game-cash-on-hand").innerText = `$${cfState.cash.toLocaleString()}`;
+    document.getElementById("game-cash-on-hand").innerText = `฿${cfState.cash.toLocaleString()}`;
     document.getElementById("cf-display-job").innerText = `อาชีพ: ${cfState.profession}`;
 
-    // 2. Financial calculation updates
     const passive = calculateCFPassiveIncome();
     const expenses = calculateCFTotalExpenses();
     const income = calculateCFTotalIncome();
     const netFlow = income - expenses;
 
-    document.getElementById("cf-net-cashflow-val").innerText = `$${netFlow.toLocaleString()}`;
+    document.getElementById("cf-net-cashflow-val").innerText = `฿${netFlow.toLocaleString()}`;
     
-    // Status text color based on positive net flow
     if (netFlow < 0) {
         document.getElementById("cf-net-cashflow-val").className = "text-red";
     } else {
         document.getElementById("cf-net-cashflow-val").className = "text-green";
     }
 
-    // 3. Progress bar updates
-    document.getElementById("progress-val-passive").innerText = `$${passive.toLocaleString()}`;
-    document.getElementById("progress-val-expenses").innerText = `$${expenses.toLocaleString()}`;
+    document.getElementById("progress-val-passive").innerText = `฿${passive.toLocaleString()}`;
+    document.getElementById("progress-val-expenses").innerText = `฿${expenses.toLocaleString()}`;
 
     let progressPct = 0;
     if (expenses > 0) {
@@ -1972,38 +1938,33 @@ function updateCFUI() {
     document.getElementById("cf-passive-progress-bar").style.width = `${Math.min(100, progressPct)}%`;
     document.getElementById("cf-escape-status").innerText = `ความคืบหน้าการเป็นอิสระทางการเงิน: ${progressPct}%`;
 
-    // 4. Update ledger specific sheet values
-    document.getElementById("cf-salary-val").innerText = `$${cfState.salary.toLocaleString()}`;
-    document.getElementById("cf-interest-val").innerText = `$${cfState.assets.stocks.reduce((acc, s) => acc + (s.shares * (s.dividendPerShare || 0)), 0).toLocaleString()}`;
-    document.getElementById("cf-realestate-inc-val").innerText = `$${cfState.assets.realEstate.reduce((acc, re) => acc + re.cashFlow, 0).toLocaleString()}`;
-    document.getElementById("cf-business-inc-val").innerText = `$${cfState.assets.businesses.reduce((acc, b) => acc + b.cashFlow, 0).toLocaleString()}`;
-    document.getElementById("cf-total-income-val").innerText = `$${income.toLocaleString()}`;
+    document.getElementById("cf-salary-val").innerText = `฿${cfState.salary.toLocaleString()}`;
+    document.getElementById("cf-interest-val").innerText = `฿${cfState.assets.stocks.reduce((acc, s) => acc + (s.shares * (s.dividendPerShare || 0)), 0).toLocaleString()}`;
+    document.getElementById("cf-realestate-inc-val").innerText = `฿${cfState.assets.realEstate.reduce((acc, re) => acc + re.cashFlow, 0).toLocaleString()}`;
+    document.getElementById("cf-business-inc-val").innerText = `฿${cfState.assets.businesses.reduce((acc, b) => acc + b.cashFlow, 0).toLocaleString()}`;
+    document.getElementById("cf-total-income-val").innerText = `฿${income.toLocaleString()}`;
 
-    document.getElementById("cf-tax-val").innerText = `$${cfState.expenses.taxes.toLocaleString()}`;
-    document.getElementById("cf-mortgage-pay-val").innerText = `$${cfState.expenses.mortgage.toLocaleString()}`;
-    document.getElementById("cf-car-pay-val").innerText = `$${cfState.expenses.carLoan.toLocaleString()}`;
-    document.getElementById("cf-cc-pay-val").innerText = `$${cfState.expenses.creditCard.toLocaleString()}`;
-    document.getElementById("cf-retail-pay-val").innerText = `$${cfState.expenses.retailDebt.toLocaleString()}`;
+    document.getElementById("cf-tax-val").innerText = `฿${cfState.expenses.taxes.toLocaleString()}`;
+    document.getElementById("cf-mortgage-pay-val").innerText = `฿${cfState.expenses.mortgage.toLocaleString()}`;
+    document.getElementById("cf-car-pay-val").innerText = `฿${cfState.expenses.carLoan.toLocaleString()}`;
+    document.getElementById("cf-cc-pay-val").innerText = `฿${cfState.expenses.creditCard.toLocaleString()}`;
+    document.getElementById("cf-retail-pay-val").innerText = `฿${cfState.expenses.retailDebt.toLocaleString()}`;
     document.getElementById("cf-child-count-lbl").innerText = cfState.childrenCount;
-    document.getElementById("cf-child-pay-val").innerText = `$${(cfState.childrenCount * cfState.expenses.childCost).toLocaleString()}`;
-    document.getElementById("cf-bank-interest-val").innerText = `$${cfState.expenses.bankInterest.toLocaleString()}`;
-    document.getElementById("cf-total-expenses-val").innerText = `$${expenses.toLocaleString()}`;
+    document.getElementById("cf-child-pay-val").innerText = `฿${(cfState.childrenCount * cfState.expenses.childCost).toLocaleString()}`;
+    document.getElementById("cf-bank-interest-val").innerText = `฿${cfState.expenses.bankInterest.toLocaleString()}`;
+    document.getElementById("cf-total-expenses-val").innerText = `฿${expenses.toLocaleString()}`;
 
-    // Balance Sheet items (Assets & Liabilities)
     renderLedgerLists();
 
-    // 5. Debt values
-    document.getElementById("cf-mortgage-liab-val").innerText = `$${cfState.liabilities.mortgage.toLocaleString()}`;
-    document.getElementById("cf-car-liab-val").innerText = `$${cfState.liabilities.carLoan.toLocaleString()}`;
-    document.getElementById("cf-cc-liab-val").innerText = `$${cfState.liabilities.creditCard.toLocaleString()}`;
-    document.getElementById("cf-retail-liab-val").innerText = `$${cfState.liabilities.retail.toLocaleString()}`;
-    document.getElementById("cf-bank-liab-val").innerText = `$${cfState.liabilities.bankLoan.toLocaleString()}`;
+    document.getElementById("cf-mortgage-liab-val").innerText = `฿${cfState.liabilities.mortgage.toLocaleString()}`;
+    document.getElementById("cf-car-liab-val").innerText = `฿${cfState.liabilities.carLoan.toLocaleString()}`;
+    document.getElementById("cf-cc-liab-val").innerText = `฿${cfState.liabilities.creditCard.toLocaleString()}`;
+    document.getElementById("cf-retail-liab-val").innerText = `฿${cfState.liabilities.retail.toLocaleString()}`;
+    document.getElementById("cf-bank-liab-val").innerText = `฿${cfState.liabilities.bankLoan.toLocaleString()}`;
 
-    // Repay button states
-    document.getElementById("btn-pay-credit-card").innerText = `ปิดหนี้บัตรเครดิต ($${cfState.liabilities.creditCard.toLocaleString()})`;
-    document.getElementById("btn-pay-car-loan").innerText = `ปิดหนี้รถยนต์ ($${cfState.liabilities.carLoan.toLocaleString()})`;
+    document.getElementById("btn-pay-credit-card").innerText = `ปิดหนี้บัตรเครดิต (฿${cfState.liabilities.creditCard.toLocaleString()})`;
+    document.getElementById("btn-pay-car-loan").innerText = `ปิดหนี้รถยนต์ (฿${cfState.liabilities.carLoan.toLocaleString()})`;
 
-    // Check Victory conditions
     if (passive > expenses && cfState.activeGame) {
         triggerVictory();
     }
@@ -2011,7 +1972,6 @@ function updateCFUI() {
 
 // Render Asset listing inside Ledger
 function renderLedgerLists() {
-    // Stocks list
     const stockContainer = document.getElementById("cf-list-stocks");
     stockContainer.innerHTML = "";
     if (cfState.assets.stocks.length === 0) {
@@ -2021,14 +1981,13 @@ function renderLedgerLists() {
             const item = document.createElement("div");
             item.className = "ledger-item";
             item.innerHTML = `
-                <span>${s.symbol} (${s.shares} หุ้น, ต้นทุน $${s.averageCost})</span>
-                <span class="ledger-item-val">+$${s.shares * (s.dividendPerShare || 0)}/ด.</span>
+                <span>${s.symbol} (${s.shares} หุ้น, ต้นทุน ฿${s.averageCost.toLocaleString()})</span>
+                <span class="ledger-item-val">+฿${(s.shares * (s.dividendPerShare || 0)).toLocaleString()}/ด.</span>
             `;
             stockContainer.appendChild(item);
         });
     }
 
-    // Real estate list
     const reContainer = document.getElementById("cf-list-realestate");
     reContainer.innerHTML = "";
     if (cfState.assets.realEstate.length === 0) {
@@ -2038,14 +1997,13 @@ function renderLedgerLists() {
             const item = document.createElement("div");
             item.className = "ledger-item";
             item.innerHTML = `
-                <span>${re.name} (จำนอง $${re.mortgage})</span>
-                <span class="ledger-item-val">+$${re.cashFlow}/ด.</span>
+                <span>${re.name} (จำนอง ฿${re.mortgage.toLocaleString()})</span>
+                <span class="ledger-item-val">+฿${re.cashFlow.toLocaleString()}/ด.</span>
             `;
             reContainer.appendChild(item);
         });
     }
 
-    // Business list
     const bizContainer = document.getElementById("cf-list-businesses");
     bizContainer.innerHTML = "";
     if (cfState.assets.businesses.length === 0) {
@@ -2056,7 +2014,7 @@ function renderLedgerLists() {
             item.className = "ledger-item";
             item.innerHTML = `
                 <span>${b.name}</span>
-                <span class="ledger-item-val">+$${b.cashFlow}/ด.</span>
+                <span class="ledger-item-val">+฿${b.cashFlow.toLocaleString()}/ด.</span>
             `;
             bizContainer.appendChild(item);
         });
@@ -2069,10 +2027,9 @@ function triggerVictory() {
     
     document.getElementById("vic-job").innerText = cfState.profession;
     document.getElementById("vic-turns").innerText = cfState.turnCount;
-    document.getElementById("vic-passive").innerText = `$${cfState.passiveIncome.toLocaleString()}`;
-    document.getElementById("vic-expenses").innerText = `$${calculateCFTotalExpenses().toLocaleString()}`;
+    document.getElementById("vic-passive").innerText = `฿${cfState.passiveIncome.toLocaleString()}`;
+    document.getElementById("vic-expenses").innerText = `฿${calculateCFTotalExpenses().toLocaleString()}`;
 
-    // Show modal
     document.getElementById("cf-victory-modal").classList.remove("hidden");
     addCFLog("🏆 ยินดีด้วย! คุณหลุดพ้นจากวงจรหนูถีบจักร (Rat Race) สำเร็จและชนะเกมนี้!", "payday-log");
 }

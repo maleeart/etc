@@ -819,15 +819,15 @@
                                 </div>
                                 <div class="game-turn-info">
                                     <span>รอบที่: <strong id="game-turn-count">0</strong></span>
-                                    <span>เงินสดในมือ: <strong id="game-cash-on-hand" class="text-green">$-</strong></span>
+                                    <span>เงินสดในมือ: <strong id="game-cash-on-hand" class="text-green">฿-</strong></span>
                                 </div>
                             </div>
 
                             <div class="cf-control-card">
                                 <h5>ธุรกรรมการเงินกับธนาคาร</h5>
                                 <div class="bank-action-row">
-                                    <button id="btn-bank-borrow" class="btn btn-action-borrow">กู้เงินธนาคาร (+$1,000)</button>
-                                    <button id="btn-bank-repay" class="btn btn-action-repay">คืนเงินกู้ (-$1,000)</button>
+                                    <button id="btn-bank-borrow" class="btn btn-action-borrow">กู้เงินธนาคาร (+฿10,000)</button>
+                                    <button id="btn-bank-repay" class="btn btn-action-repay">คืนเงินกู้ (-฿10,000)</button>
                                 </div>
                                 <div class="bank-action-row margin-top-sm">
                                     <button id="btn-pay-credit-card" class="btn btn-action-repay-debt">ปิดหนี้บัตรเครดิต</button>
@@ -864,8 +864,8 @@
                             <!-- Passive Income vs Expenses Progress Bar -->
                             <div class="cf-progress-container">
                                 <div class="progress-labels">
-                                    <span>Passive Income: <strong id="progress-val-passive" class="text-green">$0</strong></span>
-                                    <span>รายจ่ายรวม: <strong id="progress-val-expenses" class="text-red">$0</strong></span>
+                                    <span>Passive Income: <strong id="progress-val-passive" class="text-green">฿0</strong></span>
+                                    <span>รายจ่ายรวม: <strong id="progress-val-expenses" class="text-red">฿0</strong></span>
                                 </div>
                                 <div class="cf-progress-bar-bg">
                                     <div class="cf-progress-bar-fill" id="cf-passive-progress-bar" style="width: 0%;"></div>
@@ -878,7 +878,7 @@
                             <!-- Net Monthly Cash Flow Display -->
                             <div class="net-cash-flow-bar">
                                 <span>กระแสเงินสดรายเดือน (Net Monthly Cash Flow):</span>
-                                <strong id="cf-net-cashflow-val" class="text-green">$0</strong>
+                                <strong id="cf-net-cashflow-val" class="text-green">฿0</strong>
                             </div>
 
                             <div class="statement-grid">
@@ -890,23 +890,23 @@
                                             <h6>รายรับ (Income)</h6>
                                             <div class="ledger-row">
                                                 <span>เงินเดือน (Salary):</span>
-                                                <span id="cf-salary-val">$0</span>
+                                                <span id="cf-salary-val">฿0</span>
                                             </div>
                                             <div class="ledger-row highlight-green">
                                                 <span>รายได้ดอกเบี้ย/ปันผล:</span>
-                                                <span id="cf-interest-val">$0</span>
+                                                <span id="cf-interest-val">฿0</span>
                                             </div>
                                             <div class="ledger-row highlight-green">
                                                 <span>รายได้อสังหาริมทรัพย์ (ค่าเช่า):</span>
-                                                <span id="cf-realestate-inc-val">$0</span>
+                                                <span id="cf-realestate-inc-val">฿0</span>
                                             </div>
                                             <div class="ledger-row highlight-green">
                                                 <span>รายได้จากธุรกิจ:</span>
-                                                <span id="cf-business-inc-val">$0</span>
+                                                <span id="cf-business-inc-val">฿0</span>
                                             </div>
                                             <div class="ledger-row total-row">
                                                 <span>รายได้รวม (Total Income):</span>
-                                                <span id="cf-total-income-val">$0</span>
+                                                <span id="cf-total-income-val">฿0</span>
                                             </div>
                                         </div>
 
@@ -914,35 +914,35 @@
                                             <h6>รายจ่าย (Expenses)</h6>
                                             <div class="ledger-row">
                                                 <span>ภาษี (Taxes):</span>
-                                                <span id="cf-tax-val">$0</span>
+                                                <span id="cf-tax-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>หนี้บ้านกู้ยืม (Mortgage):</span>
-                                                <span id="cf-mortgage-pay-val">$0</span>
+                                                <span id="cf-mortgage-pay-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>หนี้ผ่อนรถยนต์ (Car Loan):</span>
-                                                <span id="cf-car-pay-val">$0</span>
+                                                <span id="cf-car-pay-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>หนี้ผ่อนบัตรเครดิต (Credit Card):</span>
-                                                <span id="cf-cc-pay-val">$0</span>
+                                                <span id="cf-cc-pay-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>หนี้สินส่วนตัวอื่น ๆ:</span>
-                                                <span id="cf-retail-pay-val">$0</span>
+                                                <span id="cf-retail-pay-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>ค่าเลี้ยงดูลูก (<span id="cf-child-count-lbl">0</span> คน):</span>
-                                                <span id="cf-child-pay-val">$0</span>
+                                                <span id="cf-child-pay-val">฿0</span>
                                             </div>
                                             <div class="ledger-row highlight-red">
                                                 <span>ดอกเบี้ยเงินกู้ธนาคาร (10%):</span>
-                                                <span id="cf-bank-interest-val">$0</span>
+                                                <span id="cf-bank-interest-val">฿0</span>
                                             </div>
                                             <div class="ledger-row total-row">
                                                 <span>รายจ่ายรวม (Total Expenses):</span>
-                                                <span id="cf-total-expenses-val">$0</span>
+                                                <span id="cf-total-expenses-val">฿0</span>
                                             </div>
                                         </div>
                                     </div>
@@ -974,23 +974,23 @@
                                             <h6>หนี้สิน (Liabilities)</h6>
                                             <div class="ledger-row">
                                                 <span>หนี้บ้านกู้ยืม (Mortgage):</span>
-                                                <span id="cf-mortgage-liab-val">$0</span>
+                                                <span id="cf-mortgage-liab-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>หนี้ผ่อนชำระรถยนต์:</span>
-                                                <span id="cf-car-liab-val">$0</span>
+                                                <span id="cf-car-liab-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>ยอดค้างชำระบัตรเครดิต:</span>
-                                                <span id="cf-cc-liab-val">$0</span>
+                                                <span id="cf-cc-liab-val">฿0</span>
                                             </div>
                                             <div class="ledger-row">
                                                 <span>ยอดค้างชำระอื่น ๆ (Retail):</span>
-                                                <span id="cf-retail-liab-val">$0</span>
+                                                <span id="cf-retail-liab-val">฿0</span>
                                             </div>
                                             <div class="ledger-row highlight-red">
                                                 <span>เงินกู้ยืมธนาคาร (Bank Loan):</span>
-                                                <span id="cf-bank-liab-val">$0</span>
+                                                <span id="cf-bank-liab-val">฿0</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1011,8 +1011,8 @@
                     <div class="victory-stats-box">
                         <p>อาชีพของคุณ: <strong id="vic-job">-</strong></p>
                         <p>ใช้เวลาทอยลูกเต๋าไปทั้งหมด: <strong id="vic-turns">-</strong> รอบ</p>
-                        <p>รายได้ Passive Income สุดท้าย: <strong id="vic-passive" class="text-green">$-</strong></p>
-                        <p>รายจ่ายรายเดือนสุดท้าย: <strong id="vic-expenses" class="text-red">$-</strong></p>
+                        <p>รายได้ Passive Income สุดท้าย: <strong id="vic-passive" class="text-green">฿-</strong></p>
+                        <p>รายจ่ายรายเดือนสุดท้าย: <strong id="vic-expenses" class="text-red">฿-</strong></p>
                     </div>
 
                     <div class="robert-quote">
