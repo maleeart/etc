@@ -131,6 +131,35 @@
                     <button class="mode-btn btn-purple">วิเคราะห์พอร์ตกองทุน →</button>
                 </div>
             </div>
+
+            <!-- System Command HUD -->
+            <div class="system-hud-card" style="margin-top: 2.5rem; width: 100%; max-width: 960px; background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem;">
+                    <span style="font-size: 1rem;">🖥️</span>
+                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #60a5fa; letter-spacing: 0.02em;">แผงควบคุมระบบจำลองส่วนกลาง (System Command HUD)</h4>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); text-align: left;">
+                        <span style="font-size: 0.65rem; color: var(--text-secondary); display: block; font-weight: bold; text-transform: uppercase;">Engine Status</span>
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 0.35rem; margin-top: 0.25rem;">
+                            <span class="pulse-dot" style="display: inline-block; width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981;"></span>
+                            SYSTEMS ONLINE
+                        </span>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); text-align: left;">
+                        <span style="font-size: 0.65rem; color: var(--text-secondary); display: block; font-weight: bold; text-transform: uppercase;">Simulation Engine</span>
+                        <span style="font-size: 0.82rem; font-weight: 700; color: #38bdf8; display: block; margin-top: 0.25rem;">HRSG & FGD Active</span>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); text-align: left;">
+                        <span style="font-size: 0.65rem; color: var(--text-secondary); display: block; font-weight: bold; text-transform: uppercase;">Affiliate Linker</span>
+                        <span style="font-size: 0.82rem; font-weight: 700; color: #fb923c; display: block; margin-top: 0.25rem;">Shopee SDK Ready</span>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); text-align: left;">
+                        <span style="font-size: 0.65rem; color: var(--text-secondary); display: block; font-weight: bold; text-transform: uppercase;">PVD Predictor</span>
+                        <span style="font-size: 0.82rem; font-weight: 700; color: #c084fc; display: block; margin-top: 0.25rem;">EGAT1-5 Modeled</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- View 2: Powerplant View (Wrap around existing components) -->

@@ -2,7 +2,7 @@
 
 :root {
     --bg-main: #0b0f19;
-    --bg-card: rgba(17, 24, 39, 0.7);
+    --bg-card: rgba(30, 41, 59, 0.45);
     --border-card: rgba(255, 255, 255, 0.08);
     --text-primary: #f3f4f6;
     --text-secondary: #9ca3af;
@@ -158,7 +158,7 @@ body {
     grid-column: 1;
     background-color: var(--bg-card);
     border-right: 1px solid var(--border-card);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -322,7 +322,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     top: 1rem;
     left: 1rem;
     background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(59, 130, 246, 0.25);
     border-radius: 10px;
     padding: 0.85rem 1.1rem;
@@ -496,7 +496,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     background: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 12px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
 }
 
 .control-group {
@@ -776,21 +776,25 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 /* Navigation Buttons */
 .header-nav {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.25rem;
     align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.25rem;
+    border-radius: 12px;
     margin-right: 1rem;
 }
 
 .nav-link-btn {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: transparent;
+    border: 1px solid transparent;
     color: var(--text-secondary);
-    padding: 0.55rem 0.95rem;
+    padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     border-radius: 9px;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -798,31 +802,30 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 
 .nav-link-btn svg {
     opacity: 0.65;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .nav-link-btn:hover {
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .nav-link-btn:hover svg {
     opacity: 0.95;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /* Specific Active Themes */
 .nav-link-btn.active {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .nav-link-btn.active svg {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .nav-link-btn.active[data-theme="home"] svg {
@@ -913,13 +916,23 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 }
 
 #mode-powerplant:hover {
-    box-shadow: 0 0 40px rgba(96, 165, 250, 0.15);
-    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+    border-color: rgba(6, 182, 212, 0.4);
 }
 
 #mode-affiliate:hover {
     box-shadow: 0 0 40px rgba(238, 77, 45, 0.15);
     border-color: rgba(238, 77, 45, 0.4);
+}
+
+#mode-cashflow:hover {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+#mode-egat:hover {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+    border-color: rgba(168, 85, 247, 0.4);
 }
 
 .mode-icon-box {
@@ -936,11 +949,25 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 .bg-blue-glow {
     background: rgba(96, 165, 250, 0.1);
     box-shadow: 0 0 15px rgba(96, 165, 250, 0.1) inset;
+    color: #60a5fa;
 }
 
 .bg-orange-glow {
     background: rgba(238, 77, 45, 0.1);
     box-shadow: 0 0 15px rgba(238, 77, 45, 0.1) inset;
+    color: #ee4d2d;
+}
+
+.bg-green-glow {
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) inset;
+    color: #10b981;
+}
+
+.bg-purple-glow {
+    background: rgba(168, 85, 247, 0.1);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.1) inset;
+    color: #a855f7;
 }
 
 .mode-card h3 {
@@ -992,6 +1019,17 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     filter: brightness(1.1);
 }
 
+.btn-purple {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+}
+
+.btn-purple:hover {
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+    filter: brightness(1.1);
+}
+
 /* ================= VIEW 3: SHOPEE AFFILIATE VIEW ================= */
 #affiliate-view {
     overflow-y: auto;
@@ -1022,7 +1060,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 
 .aff-card {
     background: rgba(30, 41, 59, 0.45);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
@@ -1481,7 +1519,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 
 .career-card {
     background: rgba(30, 41, 59, 0.45);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 1.75rem;
@@ -2133,7 +2171,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     width: 100vw;
     height: 100vh;
     background: rgba(11, 15, 25, 0.9);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(16px);
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -2699,7 +2737,7 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     border-top: 3px solid rgba(168, 85, 247, 0.4);
     border-radius: 16px;
     padding: 1.5rem;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
