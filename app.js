@@ -2319,6 +2319,56 @@ function initEgatFundsPage() {
     selectEgatPolicy(activeEgatPolicy);
 }
 
+function drawEgatDonutChart(allocations) {
+    const svg = document.getElementById("egat-donut-chart");
+    if (!svg) return;
+    svg.innerHTML = "";
+
+    const radius = 45;
+    const cx = 70;
+    const cy = 70;
+    const circumference = 2 * Math.PI * radius; // Approx 282.743
+    
+    let cumulativePercent = 0;
+    
+    allocations.forEach(alloc => {
+        const percent = alloc.weight;
+        const strokeDashArray = `${(percent / 100) * circumference} ${circumference}`;
+        const strokeDashOffset = `-${(cumulativePercent / 100) * circumference}`;
+        
+        let strokeColor = "#fbbf24";
+        if (alloc.type === "bond") strokeColor = "#10b981";
+        else if (alloc.type === "eq") strokeColor = "#3b82f6";
+        else if (alloc.type === "globeq") strokeColor = "#a855f7";
+
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", cx.toString());
+        circle.setAttribute("cy", cy.toString());
+        circle.setAttribute("r", radius.toString());
+        circle.setAttribute("class", "donut-segment");
+        circle.setAttribute("stroke", strokeColor);
+        circle.setAttribute("stroke-dasharray", strokeDashArray);
+        circle.setAttribute("stroke-dashoffset", strokeDashOffset);
+        circle.setAttribute("fill", "none");
+
+        // Hover micro interactions to change donut center labels
+        circle.addEventListener("mouseenter", () => {
+            document.getElementById("donut-center-label").innerText = alloc.name.substring(0, 10);
+            document.getElementById("donut-center-value").innerText = `${percent}%`;
+            document.getElementById("donut-center-value").style.color = strokeColor;
+        });
+
+        circle.addEventListener("mouseleave", () => {
+            document.getElementById("donut-center-label").innerText = "แผนสินทรัพย์";
+            document.getElementById("donut-center-value").innerText = "PVD";
+            document.getElementById("donut-center-value").style.color = "#a855f7";
+        });
+
+        svg.appendChild(circle);
+        cumulativePercent += percent;
+    });
+}
+
 function selectEgatPolicy(policyId) {
     activeEgatPolicy = policyId;
     const policy = egatPvdPolicies[policyId];
@@ -2333,26 +2383,30 @@ function selectEgatPolicy(policyId) {
     document.getElementById("allocation-policy-badge").innerText = policy.name;
     document.getElementById("allocation-policy-badge").className = `active-policy-title-badge bg-${policyId === 'egat1' ? 'green' : policyId === 'egat2' ? 'blue' : policyId === 'egat4' ? 'orange' : 'purple'}`;
     
-    // Render allocation bars
+    // Draw Donut SVG
+    drawEgatDonutChart(policy.allocations);
+    
+    // Render allocation legend items on side
     const allocContainer = document.getElementById("policy-allocations-list");
     allocContainer.innerHTML = "";
     policy.allocations.forEach(alloc => {
         const item = document.createElement("div");
-        item.className = "allocation-bar-item";
+        item.style.display = "flex";
+        item.style.justifyContent = "space-between";
+        item.style.alignItems = "center";
+        item.style.fontSize = "0.72rem";
         
-        let barClass = "bg-alloc-alt";
-        if (alloc.type === "bond") barClass = "bg-alloc-bond";
-        else if (alloc.type === "eq") barClass = "bg-alloc-eq";
-        else if (alloc.type === "globeq") barClass = "bg-alloc-globeq";
+        let dotColor = "#fbbf24";
+        if (alloc.type === "bond") dotColor = "#10b981";
+        else if (alloc.type === "eq") dotColor = "#3b82f6";
+        else if (alloc.type === "globeq") dotColor = "#a855f7";
 
         item.innerHTML = `
-            <div class="alloc-label-row">
-                <span>${alloc.name}</span>
-                <span>${alloc.weight}%</span>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+                <span class="legend-dot" style="background: ${dotColor}; width: 6px; height: 6px; border-radius: 50%;"></span>
+                <span style="color: var(--text-secondary);">${alloc.name}</span>
             </div>
-            <div class="alloc-track">
-                <div class="alloc-fill ${barClass}" style="width: ${alloc.weight}%;"></div>
-            </div>
+            <span style="font-weight: 700; color: #f3f4f6;">${alloc.weight}%</span>
         `;
         allocContainer.appendChild(item);
     });
@@ -2492,37 +2546,90 @@ function calculateEgatDca() {
         }
     });
 
-    // Update advice panel
+    // Update milestones check
+    checkEgatMilestones(currentBalance);
+
+    // Update advice panel with timeline steps
     document.getElementById("egat-pvd-advisory-text").innerHTML = generateEgatAdvisoryText(salary, employeeContribRate, actualMatchingRate, employerMaxRate, dcaYears);
 
     // Render Growth SVG Line Chart
     plotEgatGrowthChart(yearlyData);
 }
 
-// Generate customized financial advisory comments
+// Check wealth milestones unlocked states
+function checkEgatMilestones(balance) {
+    const limits = [1000000, 5000000, 10000000, 20000000];
+    const ids = ["ms-1", "ms-5", "ms-10", "ms-20"];
+    
+    ids.forEach((id, idx) => {
+        const card = document.getElementById(id);
+        if (card) {
+            if (balance >= limits[idx]) {
+                card.classList.remove("locked");
+                card.classList.add("unlocked");
+            } else {
+                card.classList.remove("unlocked");
+                card.classList.add("locked");
+            }
+        }
+    });
+}
+
+// Generate customized financial advisory timeline steps
 function generateEgatAdvisoryText(salary, contribRate, matchingRate, maxMatchingLimit, dcaYears) {
     let text = "";
 
-    // 1. Employer Match analysis
-    if (contribRate < maxMatchingLimit) {
-        text += `<p style="margin-bottom: 0.75rem;"><strong style="color: #f87171;">⚠️ เสียสิทธิ์รับเงินสมทบฟรี:</strong> ปัจจุบันคุณมีสิทธิ์ได้รับเงินสมทบจาก กฟผ. สูงสุดถึง <strong>${maxMatchingLimit}%</strong> ตามอายุงานของคุณ แต่เลือกสะสมเพียง <strong>${contribRate}%</strong> ทำให้สูญเสียเงินสมทบส่วนต่างไปถึง <strong>${maxMatchingLimit - contribRate}%</strong> หรือคิดเป็นเงิน <strong>฿${Math.round(salary * (maxMatchingLimit - contribRate) / 100).toLocaleString()} ต่อเดือน</strong>! แนะนำปรับเงินสะสมพนักงานขึ้นเป็น <strong>${maxMatchingLimit}%</strong> โดยเร็วที่สุด</p>`;
-    } else {
-        text += `<p style="margin-bottom: 0.75rem;"><strong style="color: #34d399;">✅ ได้รับเงินสมทบสูงสุดแล้ว:</strong> คุณเลือกสะสมที่อัตรา <strong>${contribRate}%</strong> ซึ่งคุ้มค่าตามสิทธิ์สมทบสูงสุดของ กฟผ. ที่ <strong>${maxMatchingLimit}%</strong> สำหรับรอบอายุงานของคุณแล้ว (กฟผ. สมทบให้ 100% เต็มจำนวนเป็นเงิน <strong>฿${Math.round(salary * maxMatchingLimit / 100).toLocaleString()} ทุกเดือน</strong> ถือเป็นสิทธิพิเศษที่ห้ามปล่อยผ่าน)</p>`;
-    }
+    // Step 1: Employer Match
+    const step1Class = contribRate < maxMatchingLimit ? "warning" : "success";
+    const step1Title = contribRate < maxMatchingLimit ? "⚠️ เสียสิทธิ์สมทบของนายจ้าง" : "✅ ได้รับเงินสมทบจากนายจ้างสูงสุด";
+    const step1Content = contribRate < maxMatchingLimit 
+        ? `กฟผ. สมทบสูงสุดของอายุงานคุณที่ <strong>${maxMatchingLimit}%</strong> แต่คุณสะสม <strong>${contribRate}%</strong> สูญสิทธิ์สมทบฟรีไปถึงปีละ <strong>฿${Math.round(salary * (maxMatchingLimit - contribRate) / 100 * 12).toLocaleString()}</strong> แนะนำปรับขึ้นด่วนครับ!`
+        : `คุณสะสมสะท้อนสิทธิ์สมทบสูงสุดของ กฟผ. ที่ <strong>${maxMatchingLimit}%</strong> เรียบร้อยแล้ว ได้รับเงินสนับสนุนครบเต็มเม็ดเต็มหน่วย <strong>฿${Math.round(salary * maxMatchingLimit / 100).toLocaleString()} ต่อเดือน</strong>`;
+    
+    text += `
+    <div class="timeline-item ${step1Class}">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <div class="timeline-title">${step1Title}</div>
+            <div>${step1Content}</div>
+        </div>
+    </div>
+    `;
 
-    // 2. Lifecycle allocation suggestion
-    text += `<p style="margin-bottom: 0.75rem;"><strong>💡 กลยุทธ์การออมตามรอบอายุงาน (${dcaYears} ปี):</strong><br>`;
+    // Step 2: Lifecycle Timeline strategy
+    let step2Class = "info";
+    let step2Title = `💡 แผนการลงทุนที่แนะนำ (${dcaYears} ปี)`;
+    let step2Content = "";
+    
     if (dcaYears >= 15) {
-        text += `เนื่องจากคุณเหลืออายุงานอีกยาวไกลถึง <strong>${dcaYears} ปี</strong> ความผันผวนระยะสั้นของตลาดไม่ใช่ความเสี่ยงหลัก แต่ควรให้ความสำคัญกับพลังของเงินเฟ้อที่กัดกิน แนะนำให้จัดสัดส่วนหรือเลือกนโยบายสะสมเชิงรุกอย่าง <strong style="color: #c084fc;">EGAT5 (เมกะเทรนด์ & ESG)</strong> หรือ <strong style="color: #fb923c;">EGAT4 (หุ้นต่างประเทศ)</strong> เพื่อผลตอบแทนคาดหวังระยะยาวที่สูงสุด แล้วค่อยปรับสัดส่วนปลอดภัยเมื่อใกล้เกษียณ</p>`;
+        step2Content = `คุณมีระยะเวลาเก็บออมอีก <strong>${dcaYears} ปี</strong> ก่อนเกษียณ แนะนำจัดแผนลงทุนหุ้นต่างประเทศสูงอย่าง <strong style="color: #c084fc;">EGAT5 (เมกะเทรนด์ & ESG)</strong> หรือ <strong style="color: #fb923c;">EGAT4</strong> เพื่อกระตุ้นพลังดอกเบี้ยทบต้นระยะยาวสูงสุด`;
     } else if (dcaYears >= 5 && dcaYears < 15) {
-        text += `คุณมีระยะเวลาจัดเก็บพอร์ตปานกลาง <strong>${dcaYears} ปี</strong> แนะนำให้ประเมินความเสี่ยงและเลือกนโยบายผสมผสานอย่าง <strong style="color: #60a5fa;">EGAT2 (นโยบายผสมทางเลือก)</strong> เพื่อกระจายการลงทุนอย่างสมดุล หรือกระจายสินทรัพย์ต่างประเทศและในประเทศร่วมกันเพื่อประคองพอร์ตยามวิกฤตเศรษฐกิจโลก</p>`;
+        step2Content = `ระยะเวลาปานกลาง <strong>${dcaYears} ปี</strong> แนะนำเฉลี่ยสินทรัพย์ผสมผสานในกองทุน <strong style="color: #60a5fa;">EGAT2 (นโยบายผสมทางเลือก)</strong> เพื่อรักษาสมดุลความผันผวนของพอร์ตการเงินหลัก`;
     } else {
-        text += `เนื่องจากคุณมีระยะเวลาเก็บออมอีกเพียง <strong>${dcaYears} ปี</strong> จะเกษียณอายุงาน การปกป้องทรัพย์สินหลักจึงเป็นเป้าหมายสูงสุด แนะนำให้เลือกแผนการลงทุนปลอดภัยความเสี่ยงต่ำอย่าง <strong style="color: #34d399;">EGAT1 (ตราสารหนี้มั่นคง)</strong> เพื่อหลีกเลี่ยงผลกระทบจากตลาดหุ้นผันผวนเฉียบพลันก่อนที่จะเบิกถอนเงินออกมาใช้สอยหลังเกษียณ</p>`;
+        step2Content = `ช่วงท้ายก่อนเกษียณใน <strong>${dcaYears} ปี</strong> แนะนำหันมาถือครองพอร์ตปลอดภัยสูงอย่าง <strong style="color: #34d399;">EGAT1 (นโยบายตราสารหนี้มั่นคง)</strong> ป้องกันเงินทุนสะสมเสียหายก่อนการปิดบัญชีออม`;
     }
+    
+    text += `
+    <div class="timeline-item ${step2Class}">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <div class="timeline-title">${step2Title}</div>
+            <div>${step2Content}</div>
+        </div>
+    </div>
+    `;
 
-    // 3. Tax Optimization tip
+    // Step 3: Tax Benefit
     const annualContrib = salary * (contribRate / 100) * 12;
-    text += `<p style="margin-bottom: 0; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 0.5rem;"><strong style="color: #60a5fa;">💰 สิทธิประโยชน์ลดหย่อนภาษี:</strong> ยอดเงินสะสมพนักงาน PVD ของคุณคิดเป็นปีละ <strong>฿${Math.round(annualContrib).toLocaleString()}</strong> สามารถนำไปกรอกลดหย่อนภาษีเงินได้บุคคลธรรมดาประจำปีได้ 100% เต็มจำนวน ช่วยประหยัดรายจ่ายภาษีได้ตามขั้นฐานรายได้ของคุณทันที</p>`;
+    text += `
+    <div class="timeline-item info">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <div class="timeline-title">💰 วิเคราะห์สิทธิ์ลดหย่อนภาษีรายปี</div>
+            <div>ยอดสะสมพนักงานเข้า PVD ของคุณคิดเป็นปีละ <strong>฿${Math.round(annualContrib).toLocaleString()}</strong> สามารถนำไปคำนวณหักลดหย่อนภาษีเงินได้บุคคลธรรมดาประจำปีได้สูงสุดเต็มจำนวนทันที</div>
+        </div>
+    </div>
+    `;
 
     return text;
 }
@@ -2882,6 +2989,35 @@ function triggerEgatEvent(eventId) {
         ratingsDisp.appendChild(span);
     }
 
+    // Update sentiment gauge needle rotation & text label
+    const needle = document.getElementById("sentiment-needle");
+    const label = document.getElementById("sentiment-label");
+    if (needle && label) {
+        let rotation = 0;
+        let lblText = "สภาวะปกติ (Neutral) ⚖️";
+        
+        if (eventId === "fed_cuts") {
+            rotation = 50;
+            lblText = "สภาวะเชิงบวกสูง (Bullish) 🚀";
+            label.style.color = "#10b981";
+        } else if (eventId === "china_stimulus") {
+            rotation = 30;
+            lblText = "สภาวะเชิงบวก (Optimistic) 📈";
+            label.style.color = "#34d399";
+        } else if (eventId === "inflation_spike") {
+            rotation = -55;
+            lblText = "วิกฤตความเสี่ยง (Risk-Off) ⚡";
+            label.style.color = "#f87171";
+        } else if (eventId === "baht_strong") {
+            rotation = -20;
+            lblText = "ค่าเงินตึงเครียด (FX Pressure) ⚖️";
+            label.style.color = "#fbbf24";
+        }
+        
+        needle.style.transform = `rotate(${rotation}deg)`;
+        label.innerText = lblText;
+    }
+
     // Hook action buttons
     document.getElementById("btn-apply-yield-mod").onclick = applyEgatEventModifiers;
     
@@ -2927,6 +3063,15 @@ function applyEgatEventModifiers() {
 function resetEgatYieldMod() {
     egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
     
+    // Reset sentiment gauge needle rotation & text label
+    const needle = document.getElementById("sentiment-needle");
+    const label = document.getElementById("sentiment-label");
+    if (needle && label) {
+        needle.style.transform = `rotate(0deg)`;
+        label.innerText = "สภาวะปกติ (Neutral) ⚖️";
+        label.style.color = "#fbbf24";
+    }
+
     // Restore policy card text and reset ticker tape
     for (const policyKey in egatPvdPolicies) {
         const policy = egatPvdPolicies[policyKey];

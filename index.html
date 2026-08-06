@@ -1189,14 +1189,25 @@
                         </div>
                     </div>
 
-                    <!-- Selected policy allocations & sub-funds -->
+                    <!-- Selected policy allocations (Interactive Donut Chart) -->
                     <div class="egat-card allocation-card">
-                        <div class="card-header-with-badge">
-                            <h4>สัดส่วนการลงทุนตามแผนนโยบาย PVD</h4>
+                        <div class="card-header-with-badge" style="margin-bottom: 0.75rem;">
+                            <h4>โครงสร้างสัดส่วนสินทรัพย์ (Interactive Donut Chart) 🍩</h4>
                             <span class="active-policy-title-badge" id="allocation-policy-badge">EGAT1</span>
                         </div>
-                        <div class="allocation-bars" id="policy-allocations-list">
-                            <!-- Injected dynamically by JS -->
+                        <div class="donut-chart-container" style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <div style="position: relative; width: 140px; height: 140px;">
+                                <svg id="egat-donut-chart" viewBox="0 0 140 140" style="width: 140px; height: 140px; transform: rotate(-90deg);">
+                                    <!-- Dynamic Donut Paths injected by JS -->
+                                </svg>
+                                <div class="donut-center-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <span id="donut-center-label" style="display: block; font-size: 0.65rem; color: var(--text-secondary); font-weight: bold;">แผนสินทรัพย์</span>
+                                    <span id="donut-center-value" style="display: block; font-size: 0.82rem; font-weight: 800; color: #a855f7;">PVD</span>
+                                </div>
+                            </div>
+                            <div class="allocation-legend" id="policy-allocations-list" style="flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 0.35rem;">
+                                <!-- Legend and allocation bars injected dynamically -->
+                            </div>
                         </div>
                         <div class="sub-funds-section">
                             <h5>บลจ. และ กองทุนย่อยที่ร่วมบริหารจัดการ:</h5>
@@ -1338,6 +1349,29 @@
                             </div>
                         </div>
 
+                        <!-- Gamified Wealth Milestones -->
+                        <div class="egat-milestones-container" style="margin-bottom: 1.25rem; background: rgba(0, 0, 0, 0.15); padding: 0.85rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
+                            <span style="display: block; font-size: 0.72rem; color: var(--text-secondary); font-weight: bold; margin-bottom: 0.5rem; letter-spacing: 0.02em;">เป้าหมายความสำเร็จของพอร์ตสะสม (Retirement Milestones)</span>
+                            <div class="milestones-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                                <div class="milestone-badge-card locked" id="ms-1" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.4rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                                    <span style="font-size: 1rem;">🌱</span>
+                                    <span style="font-size: 0.65rem; font-weight: 700; margin-top: 0.2rem; color: #fff;">1 ล้าน</span>
+                                </div>
+                                <div class="milestone-badge-card locked" id="ms-5" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.4rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                                    <span style="font-size: 1rem;">🏡</span>
+                                    <span style="font-size: 0.65rem; font-weight: 700; margin-top: 0.2rem; color: #fff;">5 ล้าน</span>
+                                </div>
+                                <div class="milestone-badge-card locked" id="ms-10" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.4rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                                    <span style="font-size: 1rem;">🚀</span>
+                                    <span style="font-size: 0.65rem; font-weight: 700; margin-top: 0.2rem; color: #fff;">10 ล้าน</span>
+                                </div>
+                                <div class="milestone-badge-card locked" id="ms-20" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.4rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                                    <span style="font-size: 1rem;">👑</span>
+                                    <span style="font-size: 0.65rem; font-weight: 700; margin-top: 0.2rem; color: #fff;">20 ล้าน+</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Growth Chart SVG -->
                         <div class="chart-wrapper-egat">
                             <div class="chart-tooltip-egat hidden" id="egat-chart-tooltip"></div>
@@ -1353,13 +1387,13 @@
                     </div>
 
                     <!-- PVD Lifecycle Advisory Card -->
-                    <div class="egat-card advisory-card" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(17, 24, 39, 0.7) 100%); border-color: rgba(251, 191, 36, 0.15);">
-                        <div class="advisory-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
-                            <span style="font-size: 1.25rem;">💡</span>
-                            <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #fbbf24;">คำแนะนำและกลยุทธ์วางแผน PVD รายบุคคล (Thai Lifecycle Advice)</h4>
+                    <div class="egat-card advisory-card" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.04) 0%, rgba(17, 24, 39, 0.85) 100%); border-color: rgba(251, 191, 36, 0.12) !important;">
+                        <div class="advisory-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                            <span style="font-size: 1.1rem;">💡</span>
+                            <h4 style="margin: 0; font-size: 0.92rem; font-weight: 700; color: #fbbf24; letter-spacing: 0.02em;">บทวิเคราะห์และแผนกลยุทธ์ PVD รายบุคคล (Advisor Report)</h4>
                         </div>
-                        <div class="advisory-content" id="egat-pvd-advisory-text" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
-                            <!-- Injected dynamically by JS based on user inputs -->
+                        <div class="pvd-timeline" id="egat-pvd-advisory-text">
+                            <!-- Injected dynamically by JS -->
                         </div>
                     </div>
 
@@ -1367,6 +1401,29 @@
                     <div class="egat-card macro-events-card">
                         <h4>จำลองสถานการณ์ความผันผวนข่าวโลก (Macro Economic Simulator) 📰</h4>
                         <p class="section-desc">คลิกเลือกเหตุการณ์ด้านการเงินโลกเพื่อวิเคราะห์ผลกระทบ และคาดการณ์ผลตอบแทนปรับเปลี่ยนแบบเรียลไทม์:</p>
+                        
+                        <!-- Sentiment Gauge -->
+                        <div class="sentiment-gauge-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.25rem; background: rgba(0, 0, 0, 0.25); padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); flex-wrap: wrap;">
+                            <div style="position: relative; width: 120px; height: 65px; overflow: hidden;">
+                                <svg width="120" height="120" viewBox="0 0 120 120" style="position: absolute; top: 0; left: 0;">
+                                    <defs>
+                                        <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#ef4444" />
+                                            <stop offset="50%" stop-color="#fbbf24" />
+                                            <stop offset="100%" stop-color="#10b981" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M 15 60 A 45 45 0 0 1 105 60" fill="none" stroke="url(#gauge-grad)" stroke-width="10" stroke-linecap="round" />
+                                    <!-- Needle -->
+                                    <line id="sentiment-needle" x1="60" y1="60" x2="60" y2="25" stroke="#f3f4f6" stroke-width="3" stroke-linecap="round" style="transform-origin: 60px 60px; transform: rotate(0deg); transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);" />
+                                    <circle cx="60" cy="60" r="5" fill="#f3f4f6" />
+                                </svg>
+                            </div>
+                            <div style="text-align: left;">
+                                <span style="display: block; font-size: 0.65rem; color: var(--text-secondary); font-weight: bold; letter-spacing: 0.02em;">ดัชนีอารมณ์ตลาด (Market Sentiment)</span>
+                                <span id="sentiment-label" style="display: block; font-size: 0.82rem; font-weight: 800; color: #fbbf24;">สภาวะปกติ (Neutral) ⚖️</span>
+                            </div>
+                        </div>
                         
                         <div class="macro-events-grid" id="macro-events-list">
                             <!-- News cards injected by JS -->

@@ -3380,3 +3380,77 @@ svg.has-highlight .interactive-component:not(.highlighted) {
         margin-bottom: 1rem;
     }
 }
+
+/* Donut chart styles */
+.donut-segment {
+    fill: none;
+    stroke-width: 10;
+    transition: stroke-width 0.25s ease, opacity 0.2s;
+    cursor: pointer;
+}
+
+.donut-segment:hover {
+    stroke-width: 12.5;
+    opacity: 0.95;
+}
+
+/* Timeline reports */
+.pvd-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    position: relative;
+    padding-left: 1.15rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.05);
+    margin-left: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.timeline-marker {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #9ca3af;
+    position: absolute;
+    left: -23.5px;
+    top: 5px;
+    border: 2px solid #0d121f;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+    transition: all 0.3s;
+}
+
+.timeline-item.success .timeline-marker { background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.6); }
+.timeline-item.warning .timeline-marker { background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.6); }
+.timeline-item.info .timeline-marker { background: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
+
+.timeline-content {
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.timeline-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+/* Milestone dynamic unlocks */
+.milestone-badge-card.unlocked {
+    opacity: 1 !important;
+    background: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15) !important;
+    animation: popBadge 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popBadge {
+    0% { transform: scale(0.92); }
+    100% { transform: scale(1); }
+}
+
