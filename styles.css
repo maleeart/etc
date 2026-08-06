@@ -2664,26 +2664,39 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     overflow-y: auto;
     padding: 1.5rem;
     height: calc(100vh - 70px);
+    background: #06080c;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.05) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 100% 100%, 24px 24px, 24px 24px;
 }
 
 .egat-dashboard {
     display: grid;
-    grid-template-columns: 1fr 1.20fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
     align-items: start;
 }
 
-.egat-left-panel, .egat-right-panel {
+.egat-left-panel, .egat-center-panel, .egat-right-panel {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+@media (min-width: 1024px) {
+    .egat-dashboard {
+        grid-template-columns: 1fr 1.35fr 1fr;
+    }
+}
+
 .egat-card {
     background: var(--bg-card);
     border: 1px solid var(--border-card);
+    border-top: 3px solid rgba(168, 85, 247, 0.4);
     border-radius: 16px;
     padding: 1.5rem;
     backdrop-filter: blur(12px);
@@ -2695,7 +2708,16 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 .welcome-card {
     background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%);
     border: 1px solid rgba(168, 85, 247, 0.2);
+    border-top: 3px solid #3b82f6;
 }
+
+/* Accent top border colors for terminal aesthetic */
+.allocation-card { border-top-color: #a855f7; }
+.chart-card { border-top-color: #10b981; }
+.table-card { border-top-color: #3b82f6; }
+.dca-calculator-card { border-top-color: #fb923c; }
+.advisory-card { border-top-color: #fbbf24; }
+.macro-events-card { border-top-color: #c084fc; }
 
 .welcome-card h3 {
     font-size: 1.3rem;

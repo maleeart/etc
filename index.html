@@ -1216,6 +1216,38 @@
                             </ul>
                         </div>
                     </div>
+                </div> <!-- End of left panel -->
+
+                <!-- Center Panel: Standalone Chart & Watchlist -->
+                <div class="egat-center-panel">
+                    <!-- Standalone Growth Chart Card -->
+                    <div class="egat-card chart-card">
+                        <div class="chart-header-row" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                            <h4 style="margin: 0; font-size: 0.92rem; font-weight: 700;">กราฟแสดงแนวโน้มพอร์ตออมสะสมเกษียณ (DCA Growth Projection) 📈</h4>
+                            <div class="egat-toggle-switch-container" style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0, 0, 0, 0.2); padding: 0.25rem 0.5rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                <span style="font-size: 0.72rem; color: var(--text-secondary); font-weight: bold;">โหมดเปรียบเทียบ:</span>
+                                <div class="egat-toggle-switch" style="position: relative; width: 68px; height: 24px; user-select: none;">
+                                    <input type="checkbox" id="egat-chart-mode-checkbox" style="display: none;">
+                                    <label for="egat-chart-mode-checkbox" style="display: block; overflow: hidden; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; height: 24px; margin: 0; background: rgba(255, 255, 255, 0.02); transition: background-color 0.2s;">
+                                        <span class="toggle-text-left" style="position: absolute; left: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: #10b981; transition: opacity 0.2s;">ปิด</span>
+                                        <span class="toggle-text-right" style="position: absolute; right: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); opacity: 0.5; transition: opacity 0.2s;">เปิด</span>
+                                        <span class="toggle-handle" style="display: block; width: 14px; height: 14px; margin: 4px; background: #9ca3af; position: absolute; top: 0; bottom: 0; right: 40px; border-radius: 50%; transition: all 0.2s ease-in-out;"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper-egat">
+                            <div class="chart-tooltip-egat hidden" id="egat-chart-tooltip"></div>
+                            <svg id="egat-growth-chart" viewBox="0 0 500 240" style="width: 100%; height: auto; display: block;">
+                                <!-- Dynamic SVG lines & axes injected here -->
+                            </svg>
+                            <div class="chart-legend-egat">
+                                <span><span class="legend-dot" style="background: #3b82f6;"></span>สะสมพนักงาน</span>
+                                <span><span class="legend-dot" style="background: #a855f7;"></span>สมทบจาก กฟผ.</span>
+                                <span><span class="legend-dot" style="background: #10b981;"></span>มูลค่าพอร์ตรวม</span>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Comparison Table Card -->
                     <div class="egat-card table-card">
@@ -1264,24 +1296,12 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> <!-- End of center panel -->
 
                 <!-- Right Panel: DCA Planner & Simulator -->
                 <div class="egat-right-panel">
                     <div class="egat-card dca-calculator-card">
-                        <div class="chart-header-row" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
-                            <h4 style="margin: 0; font-size: 1rem; font-weight: 700;">เครื่องมือวางแผนการออมสะสมรายเดือน (DCA & Matching) 💰</h4>
-                            <div class="egat-toggle-switch-container" style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0, 0, 0, 0.2); padding: 0.25rem 0.5rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                                <span style="font-size: 0.72rem; color: var(--text-secondary); font-weight: bold;">โหมดเปรียบเทียบ:</span>
-                                <div class="egat-toggle-switch" style="position: relative; width: 68px; height: 24px; user-select: none;">
-                                    <input type="checkbox" id="egat-chart-mode-checkbox" style="display: none;">
-                                    <label for="egat-chart-mode-checkbox" style="display: block; overflow: hidden; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; height: 24px; margin: 0; background: rgba(255, 255, 255, 0.02); transition: background-color 0.2s;">
-                                        <span class="toggle-text-left" style="position: absolute; left: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: #10b981; transition: opacity 0.2s;">ปิด</span>
-                                        <span class="toggle-text-right" style="position: absolute; right: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); opacity: 0.5; transition: opacity 0.2s;">เปิด</span>
-                                        <span class="toggle-handle" style="display: block; width: 14px; height: 14px; margin: 4px; background: #9ca3af; position: absolute; top: 0; bottom: 0; right: 40px; border-radius: 50%; transition: all 0.2s ease-in-out;"></span>
-                                    </label>
-                                </div>
-                            </div>
+                        <h4 style="margin: 0 0 1.25rem 0; font-size: 1rem; font-weight: 700;">เครื่องมือวางแผนการออมสะสมรายเดือน (DCA & Matching) 💰</h4>
                         <div class="trading-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.75rem;">
                             <button type="button" class="trade-tab-btn active" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-weight: 700; font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer;">DCA BUY (ตั้งเป้าสะสมรายเดือน)</button>
                             <button type="button" class="trade-tab-btn" style="background: none; border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer;" onclick="alert('คำแนะนำ: การสั่งถอน PVD (SELL ORDER) จะได้รับการประมวลผลอัตโนมัติเมื่อสิ้นสุดอายุงานหรือลาออกตามเงื่อนไขทางภาษีของกองทุน')">PVD SELL (เกษียณสั่งถอน)</button>
@@ -1369,19 +1389,6 @@
                                     <span style="font-size: 1rem;">👑</span>
                                     <span style="font-size: 0.65rem; font-weight: 700; margin-top: 0.2rem; color: #fff;">20 ล้าน+</span>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Growth Chart SVG -->
-                        <div class="chart-wrapper-egat">
-                            <div class="chart-tooltip-egat hidden" id="egat-chart-tooltip"></div>
-                            <svg id="egat-growth-chart" viewBox="0 0 500 240" style="width: 100%; height: auto; display: block;">
-                                <!-- Dynamic SVG lines & axes injected here -->
-                            </svg>
-                            <div class="chart-legend-egat">
-                                <span><span class="legend-dot" style="background: #3b82f6;"></span>สะสมพนักงาน</span>
-                                <span><span class="legend-dot" style="background: #a855f7;"></span>สมทบจาก กฟผ.</span>
-                                <span><span class="legend-dot" style="background: #10b981;"></span>มูลค่าพอร์ตรวม</span>
                             </div>
                         </div>
                     </div>
