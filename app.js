@@ -765,6 +765,7 @@ function switchView(viewName) {
     const powerplantView = document.getElementById("powerplant-view");
     const affiliateView = document.getElementById("affiliate-view");
     const cashflowView = document.getElementById("cashflow-view");
+    const egatFundsView = document.getElementById("egat-funds-view");
     const powerplantTabs = document.getElementById("powerplant-tabs");
 
     // Pause powerplant autoplay when leaving powerplant view
@@ -777,6 +778,7 @@ function switchView(viewName) {
     powerplantView.classList.add("hidden");
     affiliateView.classList.add("hidden");
     cashflowView.classList.add("hidden");
+    if (egatFundsView) egatFundsView.classList.add("hidden");
 
     // Update active nav button
     document.querySelectorAll(".nav-link-btn").forEach(btn => btn.classList.remove("active"));
@@ -803,6 +805,13 @@ function switchView(viewName) {
         cashflowView.classList.remove("hidden");
         document.getElementById("nav-cashflow-btn").classList.add("active");
         powerplantTabs.classList.add("hidden");
+    } else if (viewName === "egat") {
+        if (egatFundsView) egatFundsView.classList.remove("hidden");
+        const navBtn = document.getElementById("nav-egat-btn");
+        if (navBtn) navBtn.classList.add("active");
+        powerplantTabs.classList.add("hidden");
+        // Initialize EGAT funds analyzer engine
+        initEgatFundsPage();
     }
 }
 
@@ -817,11 +826,17 @@ function initNavigation() {
     const cardCashflow = document.getElementById("mode-cashflow");
     cardCashflow.addEventListener("click", () => switchView("cashflow"));
 
+    const cardEgat = document.getElementById("mode-egat");
+    if (cardEgat) cardEgat.addEventListener("click", () => switchView("egat"));
+
     // Top Navigation Link Buttons
     document.getElementById("nav-home-btn").addEventListener("click", () => switchView("home"));
     document.getElementById("nav-powerplant-btn").addEventListener("click", () => switchView("powerplant"));
     document.getElementById("nav-affiliate-btn").addEventListener("click", () => switchView("affiliate"));
     document.getElementById("nav-cashflow-btn").addEventListener("click", () => switchView("cashflow"));
+    
+    const navEgat = document.getElementById("nav-egat-btn");
+    if (navEgat) navEgat.addEventListener("click", () => switchView("egat"));
 
     // Brand Logo Click
     document.getElementById("brand-logo").addEventListener("click", () => switchView("home"));
@@ -2123,4 +2138,563 @@ function showFloatingEffect(amount, type) {
         floater.remove();
     }, 1200);
 }
+
+// ==========================================
+// EGAT PVD PROVIDENT FUND ANALYZER ENGINE
+// ==========================================
+
+const egatPvdPolicies = {
+    egat1: {
+        name: "EGAT1",
+        label: "นโยบายตราสารหนี้มั่นคง (Conservative PVD)",
+        baseYield: 2.8,
+        allocations: [
+            { name: "ตราสารหนี้รัฐบาลและตราสารหนี้ไทย", weight: 70, type: "bond" },
+            { name: "หุ้นสามัญไทยขนาดใหญ่", weight: 15, type: "eq" },
+            { name: "ตราสารหนี้ต่างประเทศคุณภาพสูง", weight: 10, type: "alt" },
+            { name: "เงินสดสำรองและเงินฝากระยะสั้น", weight: 5, type: "alt" }
+        ],
+        subFunds: [
+            { name: "EGAT2 MFC (กองตราสารหนี้มั่นคงทวีปัญญา)", manager: "MFC" },
+            { name: "EGAT1 KTAM (กองตราสารหนี้ภาครัฐเพิ่มคุณค่า)", manager: "KTAM" }
+        ]
+    },
+    egat2: {
+        name: "EGAT2",
+        label: "นโยบายผสมทางเลือก (Balanced PVD)",
+        baseYield: 5.4,
+        allocations: [
+            { name: "ตราสารหนี้ไทยชั้นดี", weight: 40, type: "bond" },
+            { name: "หุ้นสามัญไทย (SET100)", weight: 35, type: "eq" },
+            { name: "หุ้นต่างประเทศตลาดเกิดใหม่และพัฒนาแล้ว", weight: 15, type: "globeq" },
+            { name: "กองทุนรวมอสังหาริมทรัพย์และ REITs", weight: 10, type: "alt" }
+        ],
+        subFunds: [
+            { name: "EGAT1E MFC (กองผสมเพื่อการเลี้ยงชีพระดับกลาง)", manager: "MFC" },
+            { name: "EGAT9 MFC (กองทุนรวมหุ้นทวีทรัพย์ กฟผ.)", manager: "MFC" },
+            { name: "EGAT5 KTAM (กองผสมสัดส่วนยืดหยุ่น)", manager: "KTAM" },
+            { name: "EGAT6 UOBAM (กองทุน PVD เพื่อความมั่นคงยุคใหม่)", manager: "UOBAM" }
+        ]
+    },
+    egat4: {
+        name: "EGAT4",
+        label: "นโยบายหุ้นต่างประเทศเติบโต (Global Aggressive PVD)",
+        baseYield: 8.6,
+        allocations: [
+            { name: "หุ้นต่างประเทศทั่วโลก (Global Growth Equities)", weight: 60, type: "globeq" },
+            { name: "หุ้นสามัญไทยขยายตัวสูง", weight: 20, type: "eq" },
+            { name: "ตราสารหนี้คุณภาพสูงระยะสั้น", weight: 10, type: "bond" },
+            { name: "สินทรัพย์ทางเลือก ทองคำ หรือสินค้าโภคภัณฑ์", weight: 10, type: "alt" }
+        ],
+        subFunds: [
+            { name: "EGATO SCBAM (กองเปิดดัชนีหุ้นต่างประเทศ)", manager: "SCBAM" },
+            { name: "EGATP KTAM (กองตราสารทุนต่างประเทศทวีมูลค่า)", manager: "KTAM" }
+        ]
+    },
+    egat5: {
+        name: "EGAT5",
+        label: "นโยบายเมกะเทรนด์ & ESG (Sustainable Innovation PVD)",
+        baseYield: 9.8,
+        allocations: [
+            { name: "หุ้นนวัตกรรม เมกะเทรนด์โลก และเทคโนโลยีเปลี่ยนโลก", weight: 50, type: "globeq" },
+            { name: "หุ้นเป็นมิตรกับสิ่งแวดล้อมและความยั่งยืน ESG", weight: 20, type: "globeq" },
+            { name: "ตราสารหนี้โลกเกรดลงทุน", weight: 15, type: "bond" },
+            { name: "กองทุนโครงสร้างพื้นฐานพลังงานสะอาดและสาธารณูปโภค", weight: 10, type: "alt" },
+            { name: "เงินฝากสกุลต่างประเทศสำรอง", weight: 5, type: "alt" }
+        ],
+        subFunds: [
+            { name: "EGATGP MFC (กองทุนเปิด เมกะเทรนด์ความยั่งยืน ก กฟผ.)", manager: "MFC" }
+        ]
+    }
+};
+
+const egatMacroEvents = [
+    {
+        id: "fed_cuts",
+        emoji: "💵",
+        title: "เฟดปรับลดอัตราดอกเบี้ยลง",
+        desc: "ธนาคารกลางสหรัฐฯ (Fed) สั่งหั่นดอกเบี้ยนโยบายลง 0.50% เพื่อพยุงตลาดงานและลดอัตราดอกเบี้ยกู้ยืมในตลาดโลก",
+        yieldModifiers: { egat1: 0.6, egat2: 1.1, egat4: 2.2, egat5: 2.6 },
+        ratings: { egat1: "pos", egat2: "pos", egat4: "pos", egat5: "pos" },
+        analysis: "การลดดอกเบี้ยกระตุ้นให้ราคากองทุนตราสารหนี้ปรับขึ้นระยะสั้น และทำให้ต้นทุนการเงินของบริษัทเทคฯ และนวัตกรรมโลกลดลงอย่างรวดเร็ว ส่งผลเชิงบวกสูงสุดต่อกองทุน EGAT4 และ EGAT5 ที่เน้นสินทรัพย์เสี่ยงสูง"
+    },
+    {
+        id: "china_stimulus",
+        emoji: "🇨🇳",
+        title: "จีนจัดประชุมาตรการฟื้นฟูใหญ่",
+        desc: "ปักกิ่งเปิดแผนลดสัดส่วนการกันสำรองธนาคารและทุ่มพันล้านหยวนเพื่อฟื้นความเชื่อมั่นในอสังหาฯ และหุ้นเทค",
+        yieldModifiers: { egat1: -0.2, egat2: 0.8, egat4: 1.7, egat5: 1.3 },
+        ratings: { egat1: "neu", egat2: "pos", egat4: "pos", egat5: "pos" },
+        analysis: "มาตรการกระตุ้นจากเศรษฐกิจขนาดใหญ่อันดับ 2 ช่วยสร้างบรรยากาศการลงทุนบวกทั่วโลก ปลุกความหวังหุ้นเอเชียและหุ้นสินค้าโภคภัณฑ์ ส่งผลดีต่อพอร์ตกองทุนที่มีสัดส่วนตลาดเกิดใหม่และพลังงานทดแทน"
+    },
+    {
+        id: "inflation_spike",
+        emoji: "⚡",
+        title: "เงินเฟ้อพุ่งสูงรอบใหม่",
+        desc: "ปัญหาความขัดแย้งในทะเลแดงกระทบเส้นทางเดินเรือค้าขาย สินค้าขาดตลาดดันให้เงินเฟ้อทั่วไปดีดกลับขึ้นอย่างกะทันหัน",
+        yieldModifiers: { egat1: -1.2, egat2: -1.6, egat4: -2.2, egat5: 0.4 },
+        ratings: { egat1: "neg", egat2: "neg", egat4: "neg", egat5: "neu" },
+        analysis: "เงินเฟ้อดันผลตอบแทนพันธบัตรพุ่งแต่ราคากองทุนร่วง และบีบให้สถาบันการเงินชะลอการลดดอกเบี้ย ส่งผลกระทบเชิงลบต่อพอร์ตผสมและพอร์ตหุ้นทั่วไป ยกเว้น EGAT5 ที่มีโครงสร้างพื้นฐานป้องกันความเสี่ยงเงินเฟ้อประคองตัวได้ดี"
+    },
+    {
+        id: "baht_strong",
+        emoji: "🇹🇭",
+        title: "เงินบาทแข็งค่าทุบสถิติ",
+        desc: "กระแสเงินทุนต่างประเทศไหลเข้าตลาดบอนด์ไทย ทำค่าเงินบาทแข็งค่าทะยานแตะ 32.50 บาท/ดอลลาร์ ขาดดุลการค้าการส่งออก",
+        yieldModifiers: { egat1: 0.3, egat2: -0.1, egat4: -1.6, egat5: -1.3 },
+        ratings: { egat1: "pos", egat2: "neu", egat4: "neg", egat5: "neg" },
+        analysis: "เมื่อเงินบาทแข็งค่าขึ้น การแปลงค่าทรัพย์สินต่างประเทศกลับมาเป็นเงินบาทไทยจะเกิดผลขาดทุนทางบัญชี (FX Loss) พอร์ตที่กระจายลงทุนตลาดโลกอย่าง EGAT4 และ EGAT5 จะมีผลตอบแทนสุทธิรูปเงินบาทลดลงชั่วคราว"
+    }
+];
+
+let activeEgatPolicy = "egat1";
+let activeEgatEvent = null;
+let egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
+
+function initEgatFundsPage() {
+    // Bind policy card selections
+    document.querySelectorAll(".policy-select-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+            const currentCard = e.currentTarget;
+            document.querySelectorAll(".policy-select-card").forEach(c => c.classList.remove("active"));
+            currentCard.classList.add("active");
+            
+            const policy = currentCard.getAttribute("data-policy");
+            selectEgatPolicy(policy);
+        });
+    });
+
+    // Bind inputs changes
+    document.getElementById("egat-salary").addEventListener("input", calculateEgatDca);
+    document.getElementById("egat-contrib-rate").addEventListener("change", calculateEgatDca);
+    document.getElementById("egat-service-years").addEventListener("change", calculateEgatDca);
+    
+    const dcaYearsSlider = document.getElementById("egat-dca-years");
+    dcaYearsSlider.addEventListener("input", (e) => {
+        document.getElementById("egat-dca-years-val").innerText = `${e.target.value} ปี`;
+        calculateEgatDca();
+    });
+
+    // Render Macro events selection grid
+    renderEgatMacroEvents();
+
+    // Set initial view
+    selectEgatPolicy(activeEgatPolicy);
+}
+
+function selectEgatPolicy(policyId) {
+    activeEgatPolicy = policyId;
+    const policy = egatPvdPolicies[policyId];
+    
+    // Update labels and indicators
+    document.getElementById("allocation-policy-badge").innerText = policy.name;
+    document.getElementById("allocation-policy-badge").className = `active-policy-title-badge bg-${policyId === 'egat1' ? 'green' : policyId === 'egat2' ? 'blue' : policyId === 'egat4' ? 'orange' : 'purple'}`;
+    
+    // Render allocation bars
+    const allocContainer = document.getElementById("policy-allocations-list");
+    allocContainer.innerHTML = "";
+    policy.allocations.forEach(alloc => {
+        const item = document.createElement("div");
+        item.className = "allocation-bar-item";
+        
+        let barClass = "bg-alloc-alt";
+        if (alloc.type === "bond") barClass = "bg-alloc-bond";
+        else if (alloc.type === "eq") barClass = "bg-alloc-eq";
+        else if (alloc.type === "globeq") barClass = "bg-alloc-globeq";
+
+        item.innerHTML = `
+            <div class="alloc-label-row">
+                <span>${alloc.name}</span>
+                <span>${alloc.weight}%</span>
+            </div>
+            <div class="alloc-track">
+                <div class="alloc-fill ${barClass}" style="width: ${alloc.weight}%;"></div>
+            </div>
+        `;
+        allocContainer.appendChild(item);
+    });
+
+    // Render sub-funds lists
+    const subfundsContainer = document.getElementById("policy-subfunds-list");
+    subfundsContainer.innerHTML = "";
+    policy.subFunds.forEach(fund => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>${fund.name}</span>
+            <span class="sub-fund-mgr">${fund.manager}</span>
+        `;
+        subfundsContainer.appendChild(li);
+    });
+
+    calculateEgatDca();
+}
+
+function calculateEgatDca() {
+    const salary = parseFloat(document.getElementById("egat-salary").value) || 0;
+    const employeeContribRate = parseFloat(document.getElementById("egat-contrib-rate").value) || 2;
+    const dcaYears = parseInt(document.getElementById("egat-dca-years").value) || 15;
+    
+    // EGAT Employer Matching Rate logic
+    // matchingRate is min(employeeRate, employerMaxMatchingLimitBasedOnServiceYears)
+    const serviceYearsVal = parseInt(document.getElementById("egat-service-years").value);
+    let employerMaxRate = 9; // < 5 years
+    if (serviceYearsVal >= 5 && serviceYearsVal < 10) employerMaxRate = 11;
+    else if (serviceYearsVal >= 10 && serviceYearsVal < 20) employerMaxRate = 13;
+    else if (serviceYearsVal >= 20) employerMaxRate = 15;
+
+    const actualMatchingRate = Math.min(employeeContribRate, employerMaxRate);
+    
+    // Get average base returns
+    const policy = egatPvdPolicies[activeEgatPolicy];
+    const modifier = egatYieldModifier[activeEgatPolicy] || 0;
+    const finalYield = Math.max(0.5, policy.baseYield + modifier); // Minimum yield 0.5%
+    
+    const monthlyRate = (finalYield / 100) / 12;
+    const totalMonths = dcaYears * 12;
+    
+    const monthlyEmployeeSaving = salary * (employeeContribRate / 100);
+    const monthlyEmployerSaving = salary * (actualMatchingRate / 100);
+    const monthlyTotalSaving = monthlyEmployeeSaving + monthlyEmployerSaving;
+    
+    let currentBalance = 0;
+    let totalEmployeeContrib = 0;
+    let totalEmployerMatch = 0;
+    
+    const yearlyData = [];
+    
+    for (let month = 1; month <= totalMonths; month++) {
+        currentBalance = (currentBalance + monthlyTotalSaving) * (1 + monthlyRate);
+        totalEmployeeContrib += monthlyEmployeeSaving;
+        totalEmployerMatch += monthlyEmployerSaving;
+        
+        // Push yearly metrics to draw chart
+        if (month % 12 === 0) {
+            const yearIndex = month / 12;
+            yearlyData.push({
+                year: yearIndex,
+                employeeAccum: Math.round(totalEmployeeContrib),
+                employerAccum: Math.round(totalEmployerMatch),
+                totalValue: Math.round(currentBalance)
+            });
+        }
+    }
+
+    // Update UI Metrics
+    document.getElementById("res-total-sum").innerText = `฿${Math.round(currentBalance).toLocaleString()}`;
+    document.getElementById("res-employee-contrib").innerText = `฿${Math.round(totalEmployeeContrib).toLocaleString()}`;
+    document.getElementById("res-employer-match").innerText = `฿${Math.round(totalEmployerMatch).toLocaleString()}`;
+    
+    const compoundYield = Math.max(0, currentBalance - (totalEmployeeContrib + totalEmployerMatch));
+    document.getElementById("res-compound-yield").innerText = `฿${Math.round(compoundYield).toLocaleString()}`;
+
+    // Render Growth SVG Line Chart
+    plotEgatGrowthChart(yearlyData);
+}
+
+function plotEgatGrowthChart(data) {
+    const svg = document.getElementById("egat-growth-chart");
+    if (!svg) return;
+
+    // Viewport box width: 500, height: 240
+    const w = 500;
+    const h = 240;
+    const paddingLeft = 60;
+    const paddingRight = 20;
+    const paddingTop = 30;
+    const paddingBottom = 40;
+    
+    const graphWidth = w - paddingLeft - paddingRight;
+    const graphHeight = h - paddingTop - paddingBottom;
+    
+    // Clear old SVG elements
+    svg.innerHTML = "";
+    
+    if (data.length === 0) return;
+    
+    const maxVal = Math.max(...data.map(d => d.totalValue)) * 1.05 || 100000;
+    const yearsCount = data.length;
+
+    // Define X & Y scales
+    const getX = (year) => paddingLeft + (year / yearsCount) * graphWidth;
+    const getY = (val) => h - paddingBottom - (val / maxVal) * graphHeight;
+
+    // Add Grid Lines & Y-Axis values
+    const ticksCount = 4;
+    for (let i = 0; i <= ticksCount; i++) {
+        const val = (maxVal / ticksCount) * i;
+        const y = getY(val);
+        
+        // Horizontal gridline
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", paddingLeft);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", w - paddingRight);
+        line.setAttribute("y2", y);
+        line.setAttribute("class", "chart-grid-line");
+        svg.appendChild(line);
+        
+        // Y-axis label text
+        const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txt.setAttribute("x", paddingLeft - 10);
+        txt.setAttribute("y", y + 3);
+        txt.setAttribute("text-anchor", "end");
+        txt.setAttribute("class", "chart-label");
+        txt.textContent = val >= 1000000 
+            ? `${(val / 1000000).toFixed(1)}M` 
+            : `${Math.round(val / 1000).toLocaleString()}k`;
+        svg.appendChild(txt);
+    }
+
+    // Draw X-Axis Year Labels
+    const yearTickInterval = Math.max(1, Math.round(yearsCount / 5));
+    data.forEach((d) => {
+        if (d.year % yearTickInterval === 0 || d.year === yearsCount) {
+            const x = getX(d.year);
+            const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            txt.setAttribute("x", x);
+            txt.setAttribute("y", h - paddingBottom + 16);
+            txt.setAttribute("text-anchor", "middle");
+            txt.setAttribute("class", "chart-label");
+            txt.textContent = `ปีที่ ${d.year}`;
+            svg.appendChild(txt);
+        }
+    });
+
+    // Create points arrays for rendering paths
+    let employeePoints = `M ${getX(0)} ${getY(0)}`;
+    let employerPoints = `M ${getX(0)} ${getY(0)}`;
+    let totalPoints = `M ${getX(0)} ${getY(0)}`;
+    
+    let areaTotalPoints = `M ${getX(0)} ${getY(0)}`;
+
+    data.forEach(d => {
+        const x = getX(d.year);
+        employeePoints += ` L ${x} ${getY(d.employeeAccum)}`;
+        employerPoints += ` L ${x} ${getY(d.employeeAccum + d.employerAccum)}`;
+        totalPoints += ` L ${x} ${getY(d.totalValue)}`;
+        
+        areaTotalPoints += ` L ${x} ${getY(d.totalValue)}`;
+    });
+    
+    // Close Area path
+    const lastX = getX(yearsCount);
+    areaTotalPoints += ` L ${lastX} ${getY(0)} Z`;
+
+    // 1. Render cumulative total shaded area
+    const totalAreaPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    totalAreaPath.setAttribute("d", areaTotalPoints);
+    totalAreaPath.setAttribute("class", "chart-area");
+    totalAreaPath.setAttribute("fill", "#10b981");
+    svg.appendChild(totalAreaPath);
+
+    // 2. Render Employee Accumulative Line
+    const empLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    empLine.setAttribute("d", employeePoints);
+    empLine.setAttribute("class", "chart-path");
+    empLine.setAttribute("stroke", "#3b82f6");
+    empLine.setAttribute("stroke-width", "2.5");
+    svg.appendChild(empLine);
+
+    // 3. Render Employer Accumulative Line
+    const employerLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    employerLine.setAttribute("d", employerPoints);
+    employerLine.setAttribute("class", "chart-path");
+    employerLine.setAttribute("stroke", "#a855f7");
+    employerLine.setAttribute("stroke-width", "2.5");
+    svg.appendChild(employerLine);
+
+    // 4. Render Total Portfolio Value Line
+    const totalLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    totalLine.setAttribute("d", totalPoints);
+    totalLine.setAttribute("class", "chart-path");
+    totalLine.setAttribute("stroke", "#10b981");
+    totalLine.setAttribute("stroke-width", "3.5");
+    svg.appendChild(totalLine);
+
+    // 5. Draw interactive hover nodes & vertical tracking guide line
+    const trackingGuide = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    trackingGuide.setAttribute("y1", paddingTop);
+    trackingGuide.setAttribute("y2", h - paddingBottom);
+    trackingGuide.setAttribute("stroke", "rgba(255,255,255,0.2)");
+    trackingGuide.setAttribute("stroke-dasharray", "3,3");
+    trackingGuide.setAttribute("style", "display: none;");
+    svg.appendChild(trackingGuide);
+
+    const hoverDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    hoverDot.setAttribute("r", "5");
+    hoverDot.setAttribute("fill", "#10b981");
+    hoverDot.setAttribute("stroke", "#ffffff");
+    hoverDot.setAttribute("stroke-width", "1.5");
+    hoverDot.setAttribute("style", "display: none;");
+    svg.appendChild(hoverDot);
+
+    // Hover Interaction Handlers
+    svg.addEventListener("mousemove", (e) => {
+        const rect = svg.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        
+        // Calculate closest year index based on SVG viewBox coordinates
+        const svgMouseX = (mouseX / rect.width) * w;
+        
+        if (svgMouseX < paddingLeft || svgMouseX > w - paddingRight) {
+            trackingGuide.setAttribute("style", "display: none;");
+            hoverDot.setAttribute("style", "display: none;");
+            document.getElementById("egat-chart-tooltip").classList.add("hidden");
+            return;
+        }
+
+        const relativeX = svgMouseX - paddingLeft;
+        const yearFraction = (relativeX / graphWidth) * yearsCount;
+        const yearIndex = Math.max(1, Math.min(yearsCount, Math.round(yearFraction)));
+        
+        const d = data[yearIndex - 1];
+        if (!d) return;
+
+        const xPos = getX(d.year);
+        const yPos = getY(d.totalValue);
+
+        // Update tracking guide lines coordinates
+        trackingGuide.setAttribute("x1", xPos);
+        trackingGuide.setAttribute("x2", xPos);
+        trackingGuide.setAttribute("style", "display: block;");
+
+        // Move dot
+        hoverDot.setAttribute("cx", xPos);
+        hoverDot.setAttribute("cy", yPos);
+        hoverDot.setAttribute("style", "display: block;");
+
+        // Position and fill Tooltip html
+        const tooltip = document.getElementById("egat-chart-tooltip");
+        tooltip.innerHTML = `
+            <strong>ปีที่ ${d.year}</strong><br>
+            สะสมคุณ: ฿${d.employeeAccum.toLocaleString()}<br>
+            สมทบ กฟผ: ฿${(d.employeeAccum + d.employerAccum).toLocaleString()}<br>
+            <span style="color: #34d399;">รวมสุทธิ: ฿${d.totalValue.toLocaleString()}</span>
+        `;
+        tooltip.classList.remove("hidden");
+        
+        // Tooltip page positioning offset
+        const tooltipWidth = tooltip.offsetWidth;
+        const pageX = (xPos / w) * rect.width;
+        const pageY = (yPos / h) * rect.height;
+        
+        tooltip.style.left = `${pageX}px`;
+        tooltip.style.top = `${pageY}px`;
+    });
+
+    svg.addEventListener("mouseleave", () => {
+        trackingGuide.setAttribute("style", "display: none;");
+        hoverDot.setAttribute("style", "display: none;");
+        document.getElementById("egat-chart-tooltip").classList.add("hidden");
+    });
+}
+
+function renderEgatMacroEvents() {
+    const list = document.getElementById("macro-events-list");
+    if (!list) return;
+
+    list.innerHTML = "";
+    egatMacroEvents.forEach(evt => {
+        const card = document.createElement("div");
+        card.className = "macro-event-card";
+        card.setAttribute("id", `macro-evt-${evt.id}`);
+        card.innerHTML = `
+            <span class="macro-event-emoji">${evt.emoji}</span>
+            <h6>${evt.title}</h6>
+        `;
+        card.addEventListener("click", () => triggerEgatEvent(evt.id));
+        list.appendChild(card);
+    });
+}
+
+function triggerEgatEvent(eventId) {
+    const evt = egatMacroEvents.find(e => e.id === eventId);
+    if (!evt) return;
+
+    activeEgatEvent = evt;
+    
+    // Highlight active card
+    document.querySelectorAll(".macro-event-card").forEach(c => c.classList.remove("active"));
+    const activeCard = document.getElementById(`macro-evt-${eventId}`);
+    if (activeCard) activeCard.classList.add("active");
+
+    // Display impact explanation
+    document.getElementById("impact-event-title").innerText = `${evt.emoji} วิเคราะห์ข่าว: ${evt.title}`;
+    document.getElementById("impact-explanation-text").innerText = evt.analysis;
+
+    // Show rating badges for all PVD options
+    const ratingsDisp = document.getElementById("impact-ratings-display");
+    ratingsDisp.innerHTML = "";
+    
+    for (const key in evt.ratings) {
+        const rating = evt.ratings[key];
+        const span = document.createElement("span");
+        
+        let rateClass = "badge-neu";
+        let ratingTxt = "เท่าเดิม";
+        if (rating === "pos") { rateClass = "badge-pos"; ratingTxt = "ส่งผลบวก 📈"; }
+        else if (rating === "neg") { rateClass = "badge-neg"; ratingTxt = "ส่งผลลบ 📉"; }
+        
+        const label = key.toUpperCase();
+        span.className = `rating-badge ${rateClass}`;
+        span.innerHTML = `<strong>${label}</strong>: ${ratingTxt}`;
+        ratingsDisp.appendChild(span);
+    }
+
+    // Hook action buttons
+    document.getElementById("btn-apply-yield-mod").onclick = applyEgatEventModifiers;
+    
+    // Show the detail block
+    document.getElementById("event-impact-detail").classList.remove("hidden");
+}
+
+function applyEgatEventModifiers() {
+    if (!activeEgatEvent) return;
+    
+    // Apply modifiers to yield
+    egatYieldModifier = { ...activeEgatEvent.yieldModifiers };
+    
+    // Highlight affected policy yields visually
+    for (const policyKey in egatPvdPolicies) {
+        const policy = egatPvdPolicies[policyKey];
+        const card = document.querySelector(`.policy-select-card[data-policy="${policyKey}"]`);
+        if (card) {
+            const modVal = egatYieldModifier[policyKey];
+            const modText = modVal > 0 ? `+${modVal}` : modVal;
+            const yieldSpan = card.querySelector(".policy-yield");
+            if (yieldSpan) {
+                yieldSpan.innerHTML = `ผลตอบแทนปรับเปลี่ยน: <strong>฿${(policy.baseYield + modVal).toFixed(1)}%</strong> <span style="font-size:0.65rem; color:${modVal > 0 ? '#10b981' : '#ef4444'}">(${modText}%)</span>`;
+            }
+        }
+    }
+
+    calculateEgatDca();
+    alert(`⚡ ปรับใช้สถานการณ์ "${activeEgatEvent.title}" เรียบร้อย! อัตราผลตอบแทนและกราฟ DCA ได้รับการจำลองผลแบบเรียลไทม์แล้วครับ`);
+}
+
+function resetEgatYieldMod() {
+    egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
+    
+    // Restore policy card text
+    for (const policyKey in egatPvdPolicies) {
+        const policy = egatPvdPolicies[policyKey];
+        const card = document.querySelector(`.policy-select-card[data-policy="${policyKey}"]`);
+        if (card) {
+            const yieldSpan = card.querySelector(".policy-yield");
+            if (yieldSpan) {
+                yieldSpan.innerHTML = `ผลตอบแทนเฉลี่ย: ~${policy.baseYield}% ต่อปี`;
+            }
+        }
+    }
+
+    calculateEgatDca();
+}
+
+function closeEgatEventImpact() {
+    document.getElementById("event-impact-detail").classList.add("hidden");
+    document.querySelectorAll(".macro-event-card").forEach(c => c.classList.remove("active"));
+    activeEgatEvent = null;
+    resetEgatYieldMod();
+}
+
 

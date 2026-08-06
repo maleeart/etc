@@ -22,35 +22,43 @@
             </h1>
             <div class="header-controls">
                 <nav class="header-nav">
-                    <button id="nav-home-btn" class="nav-link-btn active">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
+                    <button id="nav-home-btn" class="nav-link-btn active" data-theme="home">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                             <polyline points="9 22 9 12 15 12 15 22"/>
                         </svg>
                         หน้าแรก
                     </button>
-                    <button id="nav-powerplant-btn" class="nav-link-btn">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
+                    <button id="nav-powerplant-btn" class="nav-link-btn" data-theme="powerplant">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <rect x="2" y="2" width="20" height="8" rx="2" />
                             <rect x="2" y="14" width="20" height="8" rx="2" />
-                            <line x1="6" y1="6" x2="6.01" y2="6" stroke-width="3" />
-                            <line x1="6" y1="18" x2="6.01" y2="18" stroke-width="3" />
+                            <line x1="6" y1="6" x2="6.01" y2="6" stroke-width="3.5" />
+                            <line x1="6" y1="18" x2="6.01" y2="18" stroke-width="3.5" />
                         </svg>
                         สื่อการสอนโรงไฟฟ้า
                     </button>
-                    <button id="nav-affiliate-btn" class="nav-link-btn">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
+                    <button id="nav-affiliate-btn" class="nav-link-btn" data-theme="affiliate">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                             <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                         </svg>
                         จัดการ Affiliate
                     </button>
-                    <button id="nav-cashflow-btn" class="nav-link-btn">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
+                    <button id="nav-cashflow-btn" class="nav-link-btn" data-theme="cashflow">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <line x1="12" y1="1" x2="12" y2="23"/>
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                         </svg>
                         เกมกระแสเงินสด
+                    </button>
+                    <button id="nav-egat-btn" class="nav-link-btn" data-theme="egat">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg>
+                        วิเคราะห์กองทุน กฟผ.
                     </button>
                 </nav>
                 <!-- Tab Switcher -->
@@ -107,6 +115,20 @@
                     <h3>เกมกระแสเงินสดจำลอง (Cashflow Game) 💰</h3>
                     <p>เรียนรู้ทักษะการเงินส่วนบุคคล! ฝึกฝนทักษะการบริหารงบดุล การสร้าง Passive Income และการประเมินดีลการลงทุนเพื่อออกจาก "วงจรหนูถีบจักร" (Rat Race) สู่ความมั่งคั่งทางการเงิน</p>
                     <button class="mode-btn btn-green">เริ่มเล่นเกมกระแสเงินสด →</button>
+                </div>
+
+                <div class="mode-card" id="mode-egat">
+                    <div class="mode-icon-box bg-purple-glow">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                            <path d="M3 20h18"/>
+                        </svg>
+                    </div>
+                    <h3>วิเคราะห์กองทุน กฟผ. (EGAT PVD) 📈</h3>
+                    <p>จำลองผลตอบแทนกองทุนสำรองเลี้ยงชีพพนักงาน กฟผ. ทั้ง 4 นโยบาย (EGAT1-5) พร้อมเครื่องมือวางแผนเกษียณแบบถัวเฉลี่ยรายเดือน (DCA) พลัสยอดสมทบจาก กฟผ. จริง และจำลองเหตุการณ์ข่าวกระทบพอร์ตลงทุน</p>
+                    <button class="mode-btn btn-purple">วิเคราะห์พอร์ตกองทุน →</button>
                 </div>
             </div>
         </div>
@@ -1111,6 +1133,166 @@
             <div id="cf-event-modal" class="cf-modal hidden" style="z-index: 1080;">
                 <div class="cf-modal-content" style="max-width: 500px; padding: 1.5rem; text-align: left;" id="event-card-display">
                     <!-- Active card injected here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View 5: EGAT Funds View -->
+        <div id="egat-funds-view" class="view-section hidden">
+            <div class="egat-dashboard">
+                <!-- Left Panel: Policy Allocator & Info -->
+                <div class="egat-left-panel">
+                    <div class="egat-card welcome-card">
+                        <div class="card-glow-bg bg-purple-glow"></div>
+                        <h3>วิเคราะห์ทางเลือกกองทุน กฟผ. (EGAT PVD) 📈</h3>
+                        <p>เปรียบเทียบสัดส่วนและประเมินผลตอบแทนทางเลือกกองทุนสำรองเลี้ยงชีพของพนักงาน กฟผ. วิเคราะห์สถิติจำลองเชิงลึกรายนโยบาย</p>
+                    </div>
+
+                    <!-- Policy selector cards -->
+                    <div class="policy-selector-grid">
+                        <div class="policy-select-card active" data-policy="egat1">
+                            <div class="policy-badge bg-green">EGAT1</div>
+                            <h5>นโยบายตราสารหนี้มั่นคง</h5>
+                            <p>ความเสี่ยงต่ำมาก มุ่งรักษาเงินต้นให้ปลอดภัยเป็นหลัก</p>
+                            <span class="policy-yield">ผลตอบแทนเฉลี่ย: ~2.8% ต่อปี</span>
+                        </div>
+                        <div class="policy-select-card" data-policy="egat2">
+                            <div class="policy-badge bg-blue">EGAT2</div>
+                            <h5>นโยบายผสมทางเลือก</h5>
+                            <p>ความเสี่ยงปานกลาง เติบโตอย่างมั่นคงชนะสภาวะเงินเฟ้อ</p>
+                            <span class="policy-yield">ผลตอบแทนเฉลี่ย: ~5.4% ต่อปี</span>
+                        </div>
+                        <div class="policy-select-card" data-policy="egat4">
+                            <div class="policy-badge bg-orange">EGAT4</div>
+                            <h5>นโยบายหุ้นต่างประเทศเติบโต</h5>
+                            <p>ความเสี่ยงสูง มุ่งเน้นการเติบโตแบบก้าวกระโดดจากตลาดโลก</p>
+                            <span class="policy-yield">ผลตอบแทนเฉลี่ย: ~8.6% ต่อปี</span>
+                        </div>
+                        <div class="policy-select-card" data-policy="egat5">
+                            <div class="policy-badge bg-purple">EGAT5</div>
+                            <h5>นโยบายเมกะเทรนด์ & ESG</h5>
+                            <p>ความเสี่ยงสูง ผสมผสานนวัตกรรม เทคโนโลยี และความยั่งยืน</p>
+                            <span class="policy-yield">ผลตอบแทนเฉลี่ย: ~9.8% ต่อปี</span>
+                        </div>
+                    </div>
+
+                    <!-- Selected policy allocations & sub-funds -->
+                    <div class="egat-card allocation-card">
+                        <div class="card-header-with-badge">
+                            <h4>สัดส่วนการลงทุนตามแผนนโยบาย PVD</h4>
+                            <span class="active-policy-title-badge" id="allocation-policy-badge">EGAT1</span>
+                        </div>
+                        <div class="allocation-bars" id="policy-allocations-list">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                        <div class="sub-funds-section">
+                            <h5>บลจ. และ กองทุนย่อยที่ร่วมบริหารจัดการ:</h5>
+                            <ul class="sub-funds-list" id="policy-subfunds-list">
+                                <!-- Injected dynamically by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: DCA Planner & Simulator -->
+                <div class="egat-right-panel">
+                    <div class="egat-card dca-calculator-card">
+                        <h4>เครื่องมือวางแผนการออมสะสมรายเดือน (DCA & Matching Calculator) 💰</h4>
+                        <div class="calculator-inputs-grid">
+                            <div class="form-group-egat">
+                                <label for="egat-salary">ฐานเงินเดือนพนักงาน (฿)</label>
+                                <input type="number" id="egat-salary" value="45000" step="5000">
+                            </div>
+                            <div class="form-group-egat">
+                                <label for="egat-contrib-rate">อัตราสะสมพนักงาน (%)</label>
+                                <select id="egat-contrib-rate">
+                                    <option value="2">2%</option>
+                                    <option value="3">3%</option>
+                                    <option value="5">5%</option>
+                                    <option value="7">7%</option>
+                                    <option value="9">9%</option>
+                                    <option value="11" selected>11%</option>
+                                    <option value="13">13%</option>
+                                    <option value="15">15%</option>
+                                </select>
+                            </div>
+                            <div class="form-group-egat">
+                                <label for="egat-service-years">อายุงาน กฟผ. (อัตราสมทบนายจ้าง)</label>
+                                <select id="egat-service-years">
+                                    <option value="2">ไม่เกิน 5 ปี (กฟผ. สมทบ 9%)</option>
+                                    <option value="7" selected>5 - 10 ปี (กฟผ. สมทบ 11%)</option>
+                                    <option value="15">10 - 20 ปี (กฟผ. สมทบ 13%)</option>
+                                    <option value="25">มากกว่า 20 ปี (กฟผ. สมทบ 15%)</option>
+                                </select>
+                            </div>
+                            <div class="form-group-egat">
+                                <label for="egat-dca-years">ระยะเวลารอเกษียณสะสม (ปี)</label>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <input type="range" id="egat-dca-years" min="1" max="30" value="15" style="flex: 1; accent-color: #a855f7;">
+                                    <span class="range-display-text" id="egat-dca-years-val" style="min-width: 48px; font-weight: 700; color: #a855f7; text-align: right;">15 ปี</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Summary Metrics -->
+                        <div class="dca-results-summary">
+                            <div class="metric-egat">
+                                <span class="lbl">เงินกองทุนสะสมรวมเกษียณ</span>
+                                <span class="val text-purple" id="res-total-sum">฿0</span>
+                            </div>
+                            <div class="metric-egat">
+                                <span class="lbl">เงินสะสมส่วนพนักงาน</span>
+                                <span class="val" id="res-employee-contrib">฿0</span>
+                            </div>
+                            <div class="metric-egat">
+                                <span class="lbl">เงินสะสมสมทบ กฟผ.</span>
+                                <span class="val text-blue" id="res-employer-match">฿0</span>
+                            </div>
+                            <div class="metric-egat">
+                                <span class="lbl">ดอกเบี้ยและผลปันผลสะสม</span>
+                                <span class="val text-green" id="res-compound-yield">฿0</span>
+                            </div>
+                        </div>
+
+                        <!-- Growth Chart SVG -->
+                        <div class="chart-wrapper-egat">
+                            <div class="chart-tooltip-egat hidden" id="egat-chart-tooltip"></div>
+                            <svg id="egat-growth-chart" viewBox="0 0 500 240" style="width: 100%; height: auto; display: block;">
+                                <!-- Dynamic SVG lines & axes injected here -->
+                            </svg>
+                            <div class="chart-legend-egat">
+                                <span><span class="legend-dot" style="background: #3b82f6;"></span>สะสมพนักงาน</span>
+                                <span><span class="legend-dot" style="background: #a855f7;"></span>สมทบจาก กฟผ.</span>
+                                <span><span class="legend-dot" style="background: #10b981;"></span>มูลค่าพอร์ตรวม</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Macro economic simulator -->
+                    <div class="egat-card macro-events-card">
+                        <h4>จำลองสถานการณ์ความผันผวนข่าวโลก (Macro Economic Simulator) 📰</h4>
+                        <p class="section-desc">คลิกเลือกเหตุการณ์ด้านการเงินโลกเพื่อวิเคราะห์ผลกระทบ และคาดการณ์ผลตอบแทนปรับเปลี่ยนแบบเรียลไทม์:</p>
+                        
+                        <div class="macro-events-grid" id="macro-events-list">
+                            <!-- News cards injected by JS -->
+                        </div>
+
+                        <!-- Current active news impact analysis card -->
+                        <div class="event-impact-panel hidden" id="event-impact-detail">
+                            <div class="impact-panel-header">
+                                <h5 id="impact-event-title">วิเคราะห์ผลกระทบข่าว</h5>
+                                <button class="close-impact-btn" onclick="closeEgatEventImpact()">&times;</button>
+                            </div>
+                            <div class="impact-ratings" id="impact-ratings-display">
+                                <!-- Ratings showing up dynamically -->
+                            </div>
+                            <p class="impact-explanation" id="impact-explanation-text">คำอธิบายรายละเอียดผลกระทบวิเคราะห์...</p>
+                            <div class="impact-action-buttons">
+                                <button class="btn btn-purple" id="btn-apply-yield-mod">ทดลองปรับสัดส่วนกองทุนตามคาดการณ์นี้ ⚡</button>
+                                <button class="btn btn-card-pass" onclick="resetEgatYieldMod()">คืนค่าผลตอบแทนพื้นฐาน 🔄</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

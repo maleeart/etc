@@ -776,49 +776,78 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 /* Navigation Buttons */
 .header-nav {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
     align-items: center;
     margin-right: 1rem;
 }
 
 .nav-link-btn {
-    background: transparent;
-    border: none;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     color: var(--text-secondary);
-    padding: 0.5rem 0.95rem;
-    font-size: 0.82rem;
-    font-weight: 700;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.8rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    border-radius: 9px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
 }
 
 .nav-link-btn svg {
-    opacity: 0.7;
-    transition: opacity 0.3s;
+    opacity: 0.65;
+    transition: all 0.25s ease;
 }
 
 .nav-link-btn:hover {
     color: var(--text-primary);
     background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
 }
 
 .nav-link-btn:hover svg {
-    opacity: 1;
+    opacity: 0.95;
+    transform: scale(1.1);
 }
 
+/* Specific Active Themes */
 .nav-link-btn.active {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.02) inset;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .nav-link-btn.active svg {
     opacity: 1;
-    color: #ee4d2d;
+    transform: scale(1.1);
+}
+
+.nav-link-btn.active[data-theme="home"] svg {
+    color: #06b6d4 !important;
+    filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.7));
+}
+
+.nav-link-btn.active[data-theme="powerplant"] svg {
+    color: #3b82f6 !important;
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.7));
+}
+
+.nav-link-btn.active[data-theme="affiliate"] svg {
+    color: #ee4d2d !important;
+    filter: drop-shadow(0 0 5px rgba(238, 77, 45, 0.7));
+}
+
+.nav-link-btn.active[data-theme="cashflow"] svg {
+    color: #10b981 !important;
+    filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.7));
+}
+
+.nav-link-btn.active[data-theme="egat"] svg {
+    color: #a855f7 !important;
+    filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.7));
 }
 
 /* ================= VIEW 1: HOME VIEW (LANDING PAGE) ================= */
@@ -856,10 +885,10 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 
 .mode-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(280px, 380px));
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(280px, 450px));
+    gap: 1.5rem;
     width: 100%;
-    max-width: 1200px;
+    max-width: 960px;
     justify-content: center;
 }
 
@@ -2629,4 +2658,542 @@ svg.has-highlight .interactive-component:not(.highlighted) {
         max-height: 380px !important;
     }
 }
+
+/* ================= VIEW 5: EGAT FUNDS VIEW ================= */
+#egat-funds-view {
+    overflow-y: auto;
+    padding: 1.5rem;
+    height: calc(100vh - 70px);
+}
+
+.egat-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1.20fr;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.egat-left-panel, .egat-right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.egat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.welcome-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #a855f7, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Policy cards grid */
+.policy-selector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.policy-select-card {
+    background: rgba(17, 24, 39, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    position: relative;
+}
+
+.policy-select-card:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.policy-select-card.active {
+    background: rgba(168, 85, 247, 0.05);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.15);
+}
+
+.policy-badge {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.bg-green { background: #10b981; }
+.bg-blue { background: #3b82f6; }
+.bg-orange { background: #f97316; }
+.bg-purple { background: #a855f7; }
+
+.policy-select-card h5 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.policy-select-card p {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+    flex-grow: 1;
+}
+
+.policy-yield {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fbbf24;
+    margin-top: 0.25rem;
+}
+
+/* Allocation Bars */
+.card-header-with-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.75rem;
+}
+
+.card-header-with-badge h4 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.active-policy-title-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    color: #a855f7;
+    border-radius: 8px;
+}
+
+.allocation-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.allocation-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.alloc-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.alloc-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.alloc-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bg-alloc-bond { background: linear-gradient(90deg, #10b981, #059669); }
+.bg-alloc-eq { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.bg-alloc-globeq { background: linear-gradient(90deg, #a855f7, #7c3aed); }
+.bg-alloc-alt { background: linear-gradient(90deg, #fbbf24, #d97706); }
+
+/* Sub funds list */
+.sub-funds-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1rem;
+}
+
+.sub-funds-section h5 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+}
+
+.sub-funds-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sub-funds-list li {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-fund-mgr {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.06);
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    color: var(--text-secondary);
+}
+
+/* DCA Calculator */
+.calculator-inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.form-group-egat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-group-egat label {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.form-group-egat input, .form-group-egat select {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.form-group-egat input:focus, .form-group-egat select:focus {
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.15);
+}
+
+/* DCA Metrics */
+.dca-results-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 0.85rem;
+}
+
+.metric-egat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.metric-egat .lbl {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+}
+
+.metric-egat .val {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.text-purple { color: #c084fc; }
+.text-blue { color: #60a5fa; }
+.text-green { color: #34d399; }
+
+/* Chart SVG */
+.chart-wrapper-egat {
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0.75rem;
+    overflow: visible; /* Show labels */
+}
+
+.chart-tooltip-egat {
+    position: absolute;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    color: #fff;
+    transform: translate(-50%, -100%);
+    margin-top: -10px;
+}
+
+.chart-legend-egat {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+}
+
+/* SVG Chart Elements */
+.chart-grid-line {
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 1px;
+}
+
+.chart-axis {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 1px;
+}
+
+.chart-label {
+    fill: var(--text-secondary);
+    font-size: 7.5px;
+    font-family: inherit;
+}
+
+.chart-path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: d 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chart-area {
+    opacity: 0.08;
+    transition: d 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Macro economic simulator */
+.macro-events-card {
+    background: linear-gradient(180deg, var(--bg-card) 0%, rgba(15, 23, 42, 0.4) 100%);
+}
+
+.section-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
+}
+
+.macro-events-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.65rem;
+}
+
+.macro-event-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.macro-event-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.macro-event-card.active {
+    background: rgba(168, 85, 247, 0.08);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.05);
+}
+
+.macro-event-emoji {
+    font-size: 1.25rem;
+}
+
+.macro-event-card h6 {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Event impact panel */
+.event-impact-panel {
+    margin-top: 1rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(168, 85, 247, 0.15);
+    border-radius: 12px;
+    padding: 1.1rem;
+    animation: slideDownFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.impact-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.4rem;
+}
+
+.impact-panel-header h5 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #c084fc;
+}
+
+.close-impact-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.impact-ratings {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.rating-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+}
+
+.badge-pos { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); }
+.badge-neg { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); }
+.badge-neu { background: rgba(156, 163, 175, 0.15); color: #9ca3af; border: 1px solid rgba(156, 163, 175, 0.25); }
+
+.impact-explanation {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    margin-bottom: 1rem;
+}
+
+.impact-action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.impact-action-buttons .btn {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.75rem !important;
+}
+
+/* ================= EGAT FUNDS MOBILE OVERRIDES ================= */
+@media (max-width: 768px) {
+    #egat-funds-view {
+        padding: 0.75rem;
+    }
+    
+    .egat-dashboard {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .policy-selector-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .calculator-inputs-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .dca-results-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .macro-events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .impact-action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .impact-action-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 
