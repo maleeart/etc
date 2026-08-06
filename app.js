@@ -2250,6 +2250,7 @@ const egatMacroEvents = [
 let activeEgatPolicy = "egat1";
 let activeEgatEvent = null;
 let egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
+let activeEgatChartTab = "projection";
 
 function initEgatFundsPage() {
     // Duplicate ticker tape items for seamless continuous looping marquee
@@ -2357,6 +2358,48 @@ function initEgatFundsPage() {
 
     // Render Macro events selection grid
     renderEgatMacroEvents();
+
+    // Bind chart tab clicks
+    const btnProj = document.getElementById("btn-chart-proj");
+    const btnActual = document.getElementById("btn-chart-actual");
+    const compareToggleContainer = document.querySelector(".egat-toggle-switch-container");
+
+    if (btnProj && btnActual) {
+        btnProj.addEventListener("click", () => {
+            activeEgatChartTab = "projection";
+            btnProj.classList.add("active");
+            btnActual.classList.remove("active");
+            if (compareToggleContainer) compareToggleContainer.style.display = "flex";
+            
+            // Show default projection legends
+            const legendBox = document.querySelector(".chart-legend-egat");
+            if (legendBox) {
+                legendBox.innerHTML = `
+                    <span><span class="legend-dot" style="background: #3b82f6;"></span>สะสมพนักงาน</span>
+                    <span><span class="legend-dot" style="background: #a855f7;"></span>สมทบจาก กฟผ.</span>
+                    <span><span class="legend-dot" style="background: #10b981;"></span>มูลค่าพอร์ตรวม</span>
+                `;
+            }
+            calculateEgatDca();
+        });
+
+        btnActual.addEventListener("click", () => {
+            activeEgatChartTab = "actual";
+            btnActual.classList.add("active");
+            btnProj.classList.remove("active");
+            if (compareToggleContainer) compareToggleContainer.style.display = "none";
+            
+            // Show actual returns legends
+            const legendBox = document.querySelector(".chart-legend-egat");
+            if (legendBox) {
+                legendBox.innerHTML = `
+                    <span><span class="legend-dot" style="background: #3b82f6;"></span>ปี 2567</span>
+                    <span><span class="legend-dot" style="background: #a855f7;"></span>ปี 2568</span>
+                `;
+            }
+            drawEgatActualReturnsChart();
+        });
+    }
 
     // Set initial view
     selectEgatPolicy(activeEgatPolicy);
@@ -2595,8 +2638,12 @@ function calculateEgatDca() {
     // Update advice panel with timeline steps
     document.getElementById("egat-pvd-advisory-text").innerHTML = generateEgatAdvisoryText(salary, employeeContribRate, actualMatchingRate, employerMaxRate, dcaYears);
 
-    // Render Growth SVG Line Chart
-    plotEgatGrowthChart(yearlyData);
+    // Render Growth SVG Line Chart or Actual Returns
+    if (activeEgatChartTab === "projection") {
+        plotEgatGrowthChart(yearlyData);
+    } else {
+        drawEgatActualReturnsChart();
+    }
 }
 
 // Check wealth milestones unlocked states
@@ -3143,6 +3190,197 @@ function closeEgatEventImpact() {
     document.querySelectorAll(".macro-event-card").forEach(c => c.classList.remove("active"));
     activeEgatEvent = null;
     resetEgatYieldMod();
+}
+
+function drawEgatActualReturnsChart() {
+    const svg = document.getElementById("egat-growth-chart");
+    if (!svg) return;
+
+    const w = 500;
+    const h = 240;
+    const paddingLeft = 50;
+    const paddingRight = 20;
+    const paddingTop = 30;
+    const paddingBottom = 40;
+
+    const graphWidth = w - paddingLeft - paddingRight;
+    const graphHeight = h - paddingTop - paddingBottom;
+
+    svg.innerHTML = "";
+
+    // Actual returns data: Year 2567 & 2568
+    const actualData = [
+        { label: "EGAT1", y2567: 3.71, y2568: 4.18 },
+        { label: "EGAT2", y2567: 1.42, y2568: -7.67 },
+        { label: "EGAT4", y2567: 13.79, y2568: 9.02 },
+        { label: "EGAT5", y2567: 14.47, y2568: 13.89 }
+    ];
+
+    const yMin = -10;
+    const yMax = 16;
+
+    // Coordinate converters
+    const getX = (index) => paddingLeft + (index + 0.5) * (graphWidth / 4);
+    const getY = (val) => paddingTop + graphHeight - ((val - yMin) / (yMax - yMin)) * graphHeight;
+
+    const yZero = getY(0);
+
+    // Draw Y axis ticks, labels, and horizontal gridlines
+    const yTicks = [-10, -5, 0, 5, 10, 15];
+    yTicks.forEach(tick => {
+        const y = getY(tick);
+
+        // Gridline
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", paddingLeft);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", w - paddingRight);
+        line.setAttribute("y2", y);
+        
+        if (tick === 0) {
+            line.setAttribute("style", "stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.5;");
+        } else {
+            line.setAttribute("class", "chart-grid-line");
+        }
+        svg.appendChild(line);
+
+        // Y label
+        const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txt.setAttribute("x", paddingLeft - 10);
+        txt.setAttribute("y", y + 4);
+        txt.setAttribute("text-anchor", "end");
+        txt.setAttribute("class", "chart-label");
+        txt.textContent = `${tick}%`;
+        svg.appendChild(txt);
+    });
+
+    const barWidth = 22;
+    const barSpacing = 4;
+
+    // Draw columns
+    actualData.forEach((d, idx) => {
+        const xCenter = getX(idx);
+
+        // 1. Year 2567 Bar (Left)
+        const x67 = xCenter - barWidth - barSpacing / 2;
+        const y67 = getY(d.y2567);
+        const h67 = Math.abs(yZero - y67);
+        
+        const rect67 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect67.setAttribute("x", x67);
+        rect67.setAttribute("y", d.y2567 >= 0 ? y67 : yZero);
+        rect67.setAttribute("width", barWidth);
+        rect67.setAttribute("height", h67);
+        rect67.setAttribute("rx", 3);
+        rect67.setAttribute("fill", "url(#grad-actual-2567)");
+        rect67.setAttribute("style", "cursor: pointer;");
+
+        // Tooltip listeners
+        rect67.addEventListener("mouseenter", (e) => showActualTooltip(e, `${d.label} ผลตอบแทนปี 2567: +${d.y2567}%`));
+        rect67.addEventListener("mousemove", (e) => showActualTooltip(e, `${d.label} ผลตอบแทนปี 2567: +${d.y2567}%`));
+        rect67.addEventListener("mouseleave", hideActualTooltip);
+        svg.appendChild(rect67);
+
+        // Label above/below the bar
+        const txt67 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txt67.setAttribute("x", x67 + barWidth / 2);
+        txt67.setAttribute("y", d.y2567 >= 0 ? y67 - 5 : yZero + h67 + 12);
+        txt67.setAttribute("text-anchor", "middle");
+        txt67.setAttribute("style", "font-size: 8px; fill: #60a5fa; font-weight: bold; pointer-events: none;");
+        txt67.textContent = `+${d.y2567}%`;
+        svg.appendChild(txt67);
+
+        // 2. Year 2568 Bar (Right)
+        const x68 = xCenter + barSpacing / 2;
+        const y68 = getY(d.y2568);
+        const h68 = Math.abs(yZero - y68);
+
+        const rect68 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect68.setAttribute("x", x68);
+        rect68.setAttribute("y", d.y2568 >= 0 ? y68 : yZero);
+        rect68.setAttribute("width", barWidth);
+        rect68.setAttribute("height", h68);
+        rect68.setAttribute("rx", 3);
+        rect68.setAttribute("fill", "url(#grad-actual-2568)");
+        rect68.setAttribute("style", "cursor: pointer;");
+
+        // Tooltip listeners
+        rect68.addEventListener("mouseenter", (e) => showActualTooltip(e, `${d.label} ผลตอบแทนปี 2568: ${d.y2568 >= 0 ? '+' : ''}${d.y2568}%`));
+        rect68.addEventListener("mousemove", (e) => showActualTooltip(e, `${d.label} ผลตอบแทนปี 2568: ${d.y2568 >= 0 ? '+' : ''}${d.y2568}%`));
+        rect68.addEventListener("mouseleave", hideActualTooltip);
+        svg.appendChild(rect68);
+
+        // Label above/below the bar
+        const txt68 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        txt68.setAttribute("x", x68 + barWidth / 2);
+        txt68.setAttribute("y", d.y2568 >= 0 ? y68 - 5 : yZero + h68 + 12);
+        txt68.setAttribute("text-anchor", "middle");
+        txt68.setAttribute("style", "font-size: 8px; fill: #c084fc; font-weight: bold; pointer-events: none;");
+        txt68.textContent = `${d.y2568 >= 0 ? '+' : ''}${d.y2568}%`;
+        svg.appendChild(txt68);
+
+        // X Axis Label
+        const lbl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        lbl.setAttribute("x", xCenter);
+        lbl.setAttribute("y", h - paddingBottom + 20);
+        lbl.setAttribute("text-anchor", "middle");
+        lbl.setAttribute("class", "chart-label");
+        lbl.setAttribute("style", "font-weight: bold; fill: var(--text-primary);");
+        lbl.textContent = d.label;
+        svg.appendChild(lbl);
+    });
+
+    // Create Defs & Gradients if not present
+    let defs = svg.querySelector("defs");
+    if (!defs) {
+        defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+        svg.appendChild(defs);
+    }
+
+    // Gradient 2567
+    const grad67 = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+    grad67.setAttribute("id", "grad-actual-2567");
+    grad67.setAttribute("x1", "0%");
+    grad67.setAttribute("y1", "0%");
+    grad67.setAttribute("x2", "0%");
+    grad67.setAttribute("y2", "100%");
+    grad67.innerHTML = `
+        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.25"/>
+    `;
+    defs.appendChild(grad67);
+
+    // Gradient 2568
+    const grad68 = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+    grad68.setAttribute("id", "grad-actual-2568");
+    grad68.setAttribute("x1", "0%");
+    grad68.setAttribute("y1", "0%");
+    grad68.setAttribute("x2", "0%");
+    grad68.setAttribute("y2", "100%");
+    grad68.innerHTML = `
+        <stop offset="0%" stop-color="#a855f7" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#c084fc" stop-opacity="0.25"/>
+    `;
+    defs.appendChild(grad68);
+}
+
+function showActualTooltip(e, text) {
+    const tooltip = document.getElementById("egat-chart-tooltip");
+    if (!tooltip) return;
+    tooltip.innerHTML = text;
+    tooltip.classList.remove("hidden");
+
+    const cardRect = tooltip.parentElement.getBoundingClientRect();
+    const x = e.clientX - cardRect.left + 15;
+    const y = e.clientY - cardRect.top - 35;
+
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+}
+
+function hideActualTooltip() {
+    const tooltip = document.getElementById("egat-chart-tooltip");
+    if (tooltip) tooltip.classList.add("hidden");
 }
 
 

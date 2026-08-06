@@ -2758,6 +2758,19 @@ svg.has-highlight .interactive-component:not(.highlighted) {
 .advisory-card { border-top-color: #fbbf24; }
 .macro-events-card { border-top-color: #c084fc; }
 
+.chart-tab-btn {
+    transition: all 0.2s ease;
+}
+.chart-tab-btn.active {
+    background: rgba(168, 85, 247, 0.15) !important;
+    border: 1px solid rgba(168, 85, 247, 0.3) !important;
+    color: #a855f7 !important;
+}
+.chart-tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
 .welcome-card h3 {
     font-size: 1.3rem;
     font-weight: 700;
