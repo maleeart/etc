@@ -2252,6 +2252,14 @@ let activeEgatEvent = null;
 let egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
 
 function initEgatFundsPage() {
+    // Duplicate ticker tape items for seamless continuous looping marquee
+    const tickerTrack = document.getElementById("egat-ticker-tape");
+    if (tickerTrack && !tickerTrack.dataset.duplicated) {
+        const content = tickerTrack.innerHTML;
+        tickerTrack.innerHTML = content + content + content; // Triple it to fill widescreen perfectly
+        tickerTrack.dataset.duplicated = "true";
+    }
+
     // Bind policy card selections
     document.querySelectorAll(".policy-select-card").forEach(card => {
         card.addEventListener("click", (e) => {
@@ -2283,6 +2291,20 @@ function initEgatFundsPage() {
     document.getElementById("egat-contrib-rate").addEventListener("change", calculateEgatDca);
     document.getElementById("egat-service-years").addEventListener("change", calculateEgatDca);
     document.getElementById("egat-chart-mode-checkbox").addEventListener("change", calculateEgatDca);
+
+    // Bind contribution percentage pills clicks
+    document.querySelectorAll(".pct-pill").forEach(pill => {
+        pill.addEventListener("click", (e) => {
+            const pct = e.currentTarget.getAttribute("data-pct");
+            const select = document.getElementById("egat-contrib-rate");
+            if (select) {
+                select.value = pct;
+                // Dispatch event to run calculateEgatDca
+                const event = new Event('change');
+                select.dispatchEvent(event);
+            }
+        });
+    });
     
     const dcaYearsSlider = document.getElementById("egat-dca-years");
     dcaYearsSlider.addEventListener("input", (e) => {
@@ -2461,6 +2483,14 @@ function calculateEgatDca() {
     
     const compoundYield = Math.max(0, currentBalance - (totalEmployeeContrib + totalEmployerMatch));
     document.getElementById("res-compound-yield").innerText = `฿${Math.round(compoundYield).toLocaleString()}`;
+
+    // Update active percentage pill highlight
+    document.querySelectorAll(".pct-pill").forEach(pill => {
+        pill.classList.remove("active");
+        if (pill.getAttribute("data-pct") === employeeContribRate.toString()) {
+            pill.classList.add("active");
+        }
+    });
 
     // Update advice panel
     document.getElementById("egat-pvd-advisory-text").innerHTML = generateEgatAdvisoryText(salary, employeeContribRate, actualMatchingRate, employerMaxRate, dcaYears);
@@ -2865,18 +2895,29 @@ function applyEgatEventModifiers() {
     // Apply modifiers to yield
     egatYieldModifier = { ...activeEgatEvent.yieldModifiers };
     
-    // Highlight affected policy yields visually
+    // Highlight affected policy yields visually and update ticker tape values
     for (const policyKey in egatPvdPolicies) {
         const policy = egatPvdPolicies[policyKey];
         const card = document.querySelector(`.policy-select-card[data-policy="${policyKey}"]`);
+        const modVal = egatYieldModifier[policyKey] || 0;
+        const modText = modVal > 0 ? `+${modVal}` : modVal;
+        
         if (card) {
-            const modVal = egatYieldModifier[policyKey];
-            const modText = modVal > 0 ? `+${modVal}` : modVal;
             const yieldSpan = card.querySelector(".policy-yield");
             if (yieldSpan) {
                 yieldSpan.innerHTML = `ผลตอบแทนปรับเปลี่ยน: <strong>฿${(policy.baseYield + modVal).toFixed(1)}%</strong> <span style="font-size:0.65rem; color:${modVal > 0 ? '#10b981' : '#ef4444'}">(${modText}%)</span>`;
             }
         }
+
+        // Update all instances of this ticker element (since it's duplicated for marquee scroll)
+        document.querySelectorAll(`#tick-val-${policyKey}`).forEach(priceEl => {
+            const finalRate = policy.baseYield + modVal;
+            priceEl.innerText = `฿${(10 + finalRate * 0.8).toFixed(2)}`;
+        });
+        document.querySelectorAll(`#tick-chg-${policyKey}`).forEach(chgEl => {
+            chgEl.className = modVal >= 0 ? "ticker-change text-green" : "ticker-change text-red";
+            chgEl.innerText = `${modVal >= 0 ? '▲' : '▼'} ${Math.abs(modVal).toFixed(1)}%`;
+        });
     }
 
     calculateEgatDca();
@@ -2886,7 +2927,7 @@ function applyEgatEventModifiers() {
 function resetEgatYieldMod() {
     egatYieldModifier = { egat1: 0, egat2: 0, egat4: 0, egat5: 0 };
     
-    // Restore policy card text
+    // Restore policy card text and reset ticker tape
     for (const policyKey in egatPvdPolicies) {
         const policy = egatPvdPolicies[policyKey];
         const card = document.querySelector(`.policy-select-card[data-policy="${policyKey}"]`);
@@ -2896,6 +2937,14 @@ function resetEgatYieldMod() {
                 yieldSpan.innerHTML = `ผลตอบแทนเฉลี่ย: ~${policy.baseYield}% ต่อปี`;
             }
         }
+
+        document.querySelectorAll(`#tick-val-${policyKey}`).forEach(priceEl => {
+            priceEl.innerText = `฿${(10 + policy.baseYield * 0.8).toFixed(2)}`;
+        });
+        document.querySelectorAll(`#tick-chg-${policyKey}`).forEach(chgEl => {
+            chgEl.className = "ticker-change text-green";
+            chgEl.innerText = `▲ ${policy.baseYield.toFixed(1)}%`;
+        });
     }
 
     calculateEgatDca();

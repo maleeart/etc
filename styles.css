@@ -3271,5 +3271,112 @@ svg.has-highlight .interactive-component:not(.highlighted) {
     border-color: rgba(251, 191, 36, 0.35) !important;
 }
 
+/* Ticker Tape Scrolling Component */
+.egat-ticker-tape-container {
+    overflow: hidden;
+    background: #080c14;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.65rem 0;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
 
+.egat-ticker-tape-track {
+    display: flex;
+    width: max-content;
+    gap: 3rem;
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+}
 
+@keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    font-family: var(--font-mono, monospace);
+}
+
+.ticker-symbol {
+    color: #6b7280;
+}
+
+.ticker-price {
+    color: #f3f4f6;
+}
+
+/* Leverage Pills */
+.pct-pill {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pct-pill:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.pct-pill.active {
+    background: rgba(168, 85, 247, 0.15) !important;
+    color: #c084fc !important;
+    border-color: rgba(168, 85, 247, 0.4) !important;
+}
+
+/* Trading Terminal Look & Colors */
+#egat-funds-view {
+    background: #06080c !important;
+}
+
+.egat-card {
+    background: #0d121f !important;
+    border: 1px solid #1f2937 !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.15) !important;
+}
+
+/* Trading watch list highlights */
+.egat-comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.egat-comparison-table tbody tr.active-row {
+    background: rgba(168, 85, 247, 0.06) !important;
+    border-left: 3px solid #a855f7 !important;
+}
+
+/* SVG Chart adjustments for dark theme */
+.chart-wrapper-egat {
+    background: #090d16 !important;
+    border-color: #1f2937 !important;
+}
+
+.chart-grid-line {
+    stroke: rgba(255, 255, 255, 0.03) !important;
+}
+
+.chart-axis {
+    stroke: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Responsive ticker strip */
+@media (max-width: 768px) {
+    .egat-ticker-tape-container {
+        padding: 0.45rem 0;
+        margin-bottom: 1rem;
+    }
+}

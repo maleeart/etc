@@ -1139,6 +1139,19 @@
 
         <!-- View 5: EGAT Funds View -->
         <div id="egat-funds-view" class="view-section hidden">
+            <!-- Live Ticker Tape Strip -->
+            <div class="egat-ticker-tape-container">
+                <div class="egat-ticker-tape-track" id="egat-ticker-tape">
+                    <span class="ticker-item"><span class="ticker-symbol">EGAT1:CONSERVATIVE</span><span class="ticker-price" id="tick-val-egat1">฿12.80</span><span class="ticker-change text-green" id="tick-chg-egat1">▲ 2.8%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">EGAT2:BALANCED</span><span class="ticker-price" id="tick-val-egat2">฿15.40</span><span class="ticker-change text-green" id="tick-chg-egat2">▲ 5.4%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">EGAT4:GLOBAL_GROWTH</span><span class="ticker-price" id="tick-val-egat4">฿18.60</span><span class="ticker-change text-green" id="tick-chg-egat4">▲ 8.6%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">EGAT5:MEGATREND_ESG</span><span class="ticker-price" id="tick-val-egat5">฿19.80</span><span class="ticker-change text-green" id="tick-chg-egat5">▲ 9.8%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">SET INDEX</span><span class="ticker-price">1,485.20</span><span class="ticker-change text-green">▲ 0.35%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">S&P 500</span><span class="ticker-price">5,240.50</span><span class="ticker-change text-green">▲ 1.10%</span></span>
+                    <span class="ticker-item"><span class="ticker-symbol">NASDAQ 100</span><span class="ticker-price">18,320.10</span><span class="ticker-change text-green">▲ 1.45%</span></span>
+                </div>
+            </div>
+
             <div class="egat-dashboard">
                 <!-- Left Panel: Policy Allocator & Info -->
                 <div class="egat-left-panel">
@@ -1258,6 +1271,9 @@
                                     </label>
                                 </div>
                             </div>
+                        <div class="trading-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.75rem;">
+                            <button type="button" class="trade-tab-btn active" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-weight: 700; font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer;">DCA BUY (ตั้งเป้าสะสมรายเดือน)</button>
+                            <button type="button" class="trade-tab-btn" style="background: none; border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer;" onclick="alert('คำแนะนำ: การสั่งถอน PVD (SELL ORDER) จะได้รับการประมวลผลอัตโนมัติเมื่อสิ้นสุดอายุงานหรือลาออกตามเงื่อนไขทางภาษีของกองทุน')">PVD SELL (เกษียณสั่งถอน)</button>
                         </div>
                         <div class="calculator-inputs-grid">
                             <div class="form-group-egat">
@@ -1276,6 +1292,13 @@
                                     <option value="13">13%</option>
                                     <option value="15">15%</option>
                                 </select>
+                                <div class="leverage-pct-pills" style="display: flex; gap: 0.35rem; margin-top: 0.45rem;">
+                                    <button type="button" class="pct-pill" data-pct="2" style="flex: 1; text-align: center; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s;">2%</button>
+                                    <button type="button" class="pct-pill" data-pct="5" style="flex: 1; text-align: center; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s;">5%</button>
+                                    <button type="button" class="pct-pill" data-pct="9" style="flex: 1; text-align: center; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s;">9%</button>
+                                    <button type="button" class="pct-pill" data-pct="11" style="flex: 1; text-align: center; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s;">11%</button>
+                                    <button type="button" class="pct-pill" data-pct="15" style="flex: 1; text-align: center; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s;">15%</button>
+                                </div>
                             </div>
                             <div class="form-group-egat">
                                 <label for="egat-service-years">อายุงาน กฟผ. (อัตราสมทบนายจ้าง)</label>
