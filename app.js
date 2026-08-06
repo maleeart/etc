@@ -2260,6 +2260,49 @@ function initEgatFundsPage() {
         tickerTrack.dataset.duplicated = "true";
     }
 
+    // Fetch real-time market data from Vercel serverless proxy endpoint
+    fetch('/api/prices')
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) return;
+            
+            // Update SET INDEX
+            if (data.set && data.set.price) {
+                document.querySelectorAll('#tick-val-set').forEach(el => el.innerText = data.set.price);
+                document.querySelectorAll('#tick-chg-set').forEach(el => {
+                    const val = parseFloat(data.set.change);
+                    el.className = val >= 0 ? "ticker-change text-green" : "ticker-change text-red";
+                    el.innerText = `${val >= 0 ? '▲' : '▼'} ${Math.abs(val).toFixed(2)}%`;
+                });
+            }
+
+            // Update S&P 500
+            if (data.sp500 && data.sp500.price) {
+                document.querySelectorAll('#tick-val-sp500').forEach(el => el.innerText = data.sp500.price);
+                document.querySelectorAll('#tick-chg-sp500').forEach(el => {
+                    const val = parseFloat(data.sp500.change);
+                    el.className = val >= 0 ? "ticker-change text-green" : "ticker-change text-red";
+                    el.innerText = `${val >= 0 ? '▲' : '▼'} ${Math.abs(val).toFixed(2)}%`;
+                });
+            }
+
+            // Update NASDAQ 100
+            if (data.nasdaq && data.nasdaq.price) {
+                document.querySelectorAll('#tick-val-nasdaq').forEach(el => el.innerText = data.nasdaq.price);
+                document.querySelectorAll('#tick-chg-nasdaq').forEach(el => {
+                    const val = parseFloat(data.nasdaq.change);
+                    el.className = val >= 0 ? "ticker-change text-green" : "ticker-change text-red";
+                    el.innerText = `${val >= 0 ? '▲' : '▼'} ${Math.abs(val).toFixed(2)}%`;
+                });
+            }
+
+            // Update USD/THB exchange rate
+            if (data.usdThb) {
+                document.querySelectorAll('#tick-val-usdthb').forEach(el => el.innerText = `฿${data.usdThb}`);
+            }
+        })
+        .catch(err => console.error("Failed to fetch live prices:", err));
+
     // Bind policy card selections
     document.querySelectorAll(".policy-select-card").forEach(card => {
         card.addEventListener("click", (e) => {
