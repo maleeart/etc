@@ -1192,12 +1192,73 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- Comparison Table Card -->
+                    <div class="egat-card table-card">
+                        <h4>ตารางเปรียบเทียบผลตอบแทนจำลอง กฟผ. PVD ทุกแผน 📊</h4>
+                        <div style="overflow-x: auto; margin-top: 0.75rem;">
+                            <table class="egat-comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>นโยบาย PVD</th>
+                                        <th>ระดับความเสี่ยง</th>
+                                        <th>ผลตอบแทนคาดหวัง</th>
+                                        <th>สัดส่วนสินทรัพย์หลัก</th>
+                                        <th>มูลค่าเกษียณรวมสะสม (DCA)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-row-policy="egat1">
+                                        <td style="font-weight: 700; color: #10b981;">EGAT1</td>
+                                        <td>ต่ำมาก (ระดับ 1-2)</td>
+                                        <td id="table-yield-egat1" style="color: #fbbf24; font-weight: 600;">~2.8%</td>
+                                        <td>ตราสารหนี้ไทย 70%, หุ้นไทย 15%</td>
+                                        <td id="table-proj-egat1" style="font-weight: 700;">฿0</td>
+                                    </tr>
+                                    <tr data-row-policy="egat2">
+                                        <td style="font-weight: 700; color: #3b82f6;">EGAT2</td>
+                                        <td>ปานกลาง (ระดับ 4-5)</td>
+                                        <td id="table-yield-egat2" style="color: #fbbf24; font-weight: 600;">~5.4%</td>
+                                        <td>ตราสารหนี้ 40%, หุ้นไทย 35%, หุ้นนอก 15%</td>
+                                        <td id="table-proj-egat2" style="font-weight: 700;">฿0</td>
+                                    </tr>
+                                    <tr data-row-policy="egat4">
+                                        <td style="font-weight: 700; color: #f97316;">EGAT4</td>
+                                        <td>สูง (ระดับ 6)</td>
+                                        <td id="table-yield-egat4" style="color: #fbbf24; font-weight: 600;">~8.6%</td>
+                                        <td>หุ้นต่างประเทศ 60%, หุ้นไทย 20%, ตราสารหนี้ 10%</td>
+                                        <td id="table-proj-egat4" style="font-weight: 700;">฿0</td>
+                                    </tr>
+                                    <tr data-row-policy="egat5">
+                                        <td style="font-weight: 700; color: #a855f7;">EGAT5</td>
+                                        <td>สูงมาก (ระดับ 7)</td>
+                                        <td id="table-yield-egat5" style="color: #fbbf24; font-weight: 600;">~9.8%</td>
+                                        <td>หุ้นเทค & ESG 70%, พันธบัตรโลก 15%</td>
+                                        <td id="table-proj-egat5" style="font-weight: 700;">฿0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Panel: DCA Planner & Simulator -->
                 <div class="egat-right-panel">
                     <div class="egat-card dca-calculator-card">
-                        <h4>เครื่องมือวางแผนการออมสะสมรายเดือน (DCA & Matching Calculator) 💰</h4>
+                        <div class="chart-header-row" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                            <h4 style="margin: 0; font-size: 1rem; font-weight: 700;">เครื่องมือวางแผนการออมสะสมรายเดือน (DCA & Matching) 💰</h4>
+                            <div class="egat-toggle-switch-container" style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0, 0, 0, 0.2); padding: 0.25rem 0.5rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                <span style="font-size: 0.72rem; color: var(--text-secondary); font-weight: bold;">โหมดเปรียบเทียบ:</span>
+                                <div class="egat-toggle-switch" style="position: relative; width: 68px; height: 24px; user-select: none;">
+                                    <input type="checkbox" id="egat-chart-mode-checkbox" style="display: none;">
+                                    <label for="egat-chart-mode-checkbox" style="display: block; overflow: hidden; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; height: 24px; margin: 0; background: rgba(255, 255, 255, 0.02); transition: background-color 0.2s;">
+                                        <span class="toggle-text-left" style="position: absolute; left: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: #10b981; transition: opacity 0.2s;">ปิด</span>
+                                        <span class="toggle-text-right" style="position: absolute; right: 6px; top: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); opacity: 0.5; transition: opacity 0.2s;">เปิด</span>
+                                        <span class="toggle-handle" style="display: block; width: 14px; height: 14px; margin: 4px; background: #9ca3af; position: absolute; top: 0; bottom: 0; right: 40px; border-radius: 50%; transition: all 0.2s ease-in-out;"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="calculator-inputs-grid">
                             <div class="form-group-egat">
                                 <label for="egat-salary">ฐานเงินเดือนพนักงาน (฿)</label>
@@ -1265,6 +1326,17 @@
                                 <span><span class="legend-dot" style="background: #a855f7;"></span>สมทบจาก กฟผ.</span>
                                 <span><span class="legend-dot" style="background: #10b981;"></span>มูลค่าพอร์ตรวม</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- PVD Lifecycle Advisory Card -->
+                    <div class="egat-card advisory-card" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(17, 24, 39, 0.7) 100%); border-color: rgba(251, 191, 36, 0.15);">
+                        <div class="advisory-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                            <span style="font-size: 1.25rem;">💡</span>
+                            <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #fbbf24;">คำแนะนำและกลยุทธ์วางแผน PVD รายบุคคล (Thai Lifecycle Advice)</h4>
+                        </div>
+                        <div class="advisory-content" id="egat-pvd-advisory-text" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                            <!-- Injected dynamically by JS based on user inputs -->
                         </div>
                     </div>
 

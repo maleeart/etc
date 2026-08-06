@@ -3194,6 +3194,82 @@ svg.has-highlight .interactive-component:not(.highlighted) {
         width: 100%;
         justify-content: center;
     }
+    
+    .egat-comparison-table {
+        font-size: 0.7rem !important;
+    }
+    
+    .egat-comparison-table th, .egat-comparison-table td {
+        padding: 0.5rem 0.4rem !important;
+    }
 }
+
+/* ================= COMPARTIVE PVD LAYOUT ADDONS ================= */
+.egat-comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.76rem;
+    text-align: left;
+    margin-top: 0.5rem;
+}
+
+.egat-comparison-table th {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+    font-weight: 700;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.egat-comparison-table td {
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+.egat-comparison-table tbody tr {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.egat-comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.egat-comparison-table tbody tr.active-row {
+    background: rgba(168, 85, 247, 0.08);
+    border-left: 3px solid #a855f7;
+}
+
+/* Toggle custom check actions */
+#egat-chart-mode-checkbox:checked + label {
+    background: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+#egat-chart-mode-checkbox:checked + label .toggle-handle {
+    left: 48px !important;
+    background: #10b981 !important;
+}
+
+#egat-chart-mode-checkbox:checked + label .toggle-text-left {
+    opacity: 0.5 !important;
+    color: var(--text-secondary) !important;
+}
+
+#egat-chart-mode-checkbox:checked + label .toggle-text-right {
+    opacity: 1 !important;
+    color: #10b981 !important;
+}
+
+.advisory-card {
+    transition: all 0.3s ease;
+}
+
+.advisory-card:hover {
+    border-color: rgba(251, 191, 36, 0.35) !important;
+}
+
 
 
